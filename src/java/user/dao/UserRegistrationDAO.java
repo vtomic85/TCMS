@@ -29,6 +29,12 @@ public class UserRegistrationDAO {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("email"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("address"),
+                        rs.getString("city"),
+                        rs.getString("phone"),
+                        rs.getDate("date_of_birth"),
                         rs.getBoolean("approved")));
             }
             rs.close();
@@ -48,6 +54,12 @@ public class UserRegistrationDAO {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("email"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("address"),
+                        rs.getString("city"),
+                        rs.getString("phone"),
+                        rs.getDate("date_of_birth"),
                         rs.getBoolean("approved")));
             }
             rs.close();
@@ -67,6 +79,12 @@ public class UserRegistrationDAO {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("email"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("address"),
+                        rs.getString("city"),
+                        rs.getString("phone"),
+                        rs.getDate("date_of_birth"),
                         rs.getBoolean("approved"));
             }
             rs.close();
@@ -88,6 +106,12 @@ public class UserRegistrationDAO {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("email"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("address"),
+                        rs.getString("city"),
+                        rs.getString("phone"),
+                        rs.getDate("date_of_birth"),
                         rs.getBoolean("approved"));
             } else {
                 userRegistration = null;
@@ -109,6 +133,12 @@ public class UserRegistrationDAO {
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("email"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("address"),
+                        rs.getString("city"),
+                        rs.getString("phone"),
+                        rs.getDate("date_of_birth"),
                         rs.getBoolean("approved")));
             }
             rs.close();
@@ -133,7 +163,13 @@ public class UserRegistrationDAO {
                 String query2 = "INSERT INTO user_registration VALUES(" + ++last + ", '"
                         + userRegistration.getUsername() + "',MD5('"
                         + userRegistration.getPassword() + "'),'"
-                        + userRegistration.getEmail() + "',"
+                        + userRegistration.getEmail() + "','"
+                        + userRegistration.getFirstName() + "','"
+                        + userRegistration.getLastName() + "','"
+                        + userRegistration.getAddress() + "','"
+                        + userRegistration.getCity() + "','"
+                        + userRegistration.getPhone() + "','"
+                        + userRegistration.getSqlDateOfBirth() + "',"
                         + userRegistration.isApproved() + ")";
                 DBConnection.getInstance().executeUpdate(query2);
                 userRegistration.setId(last);
@@ -152,6 +188,12 @@ public class UserRegistrationDAO {
         String query = "update user_registration set"
                 + " username='" + userRegistration.getUsername() + "',"
                 + " email='" + userRegistration.getEmail() + "',"
+                + " first_name='" + userRegistration.getFirstName() + "',"
+                + " last_name='" + userRegistration.getLastName() + "',"
+                + " address='" + userRegistration.getAddress() + "',"
+                + " city='" + userRegistration.getCity() + "',"
+                + " phone='" + userRegistration.getPhone() + "',"
+                + " date_of_birth='" + userRegistration.getSqlDateOfBirth() + "',"
                 + " approved=" + userRegistration.isApproved()
                 + " where id=" + userRegistration.getId();
         DBConnection.getInstance().executeUpdate(query);
@@ -162,6 +204,12 @@ public class UserRegistrationDAO {
                 + " username='" + userRegistration.getUsername() + "',"
                 + " password=MD5('" + userRegistration.getPassword() + "'),"
                 + " email='" + userRegistration.getEmail() + "',"
+                + " first_name='" + userRegistration.getFirstName() + "',"
+                + " last_name='" + userRegistration.getLastName() + "',"
+                + " address='" + userRegistration.getAddress() + "',"
+                + " city='" + userRegistration.getCity() + "',"
+                + " phone='" + userRegistration.getPhone() + "',"
+                + " date_of_birth='" + userRegistration.getSqlDateOfBirth() + "',"
                 + " approved=" + userRegistration.isApproved()
                 + " where id=" + userRegistration.getId();
         DBConnection.getInstance().executeUpdate(query);

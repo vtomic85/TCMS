@@ -207,6 +207,11 @@
             <redirect/>
         </navigation-case> 
         <navigation-case>
+            <from-outcome>adminRegistrationList</from-outcome>
+            <to-view-id>/admin/register/requestList.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case> 
+        <navigation-case>
             <from-outcome>adminUserList</from-outcome>
             <to-view-id>/admin/user/userList.xhtml</to-view-id>
             <redirect/>

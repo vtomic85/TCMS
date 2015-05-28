@@ -30,19 +30,21 @@
                         </h:form>
                     </div>
                     <h:form id="userProfileDataForm">
-                        <div class="userProfileDataLabel"><h:outputLabel value="#{msgs.first_name}"/></div>
-                        <div class="userProfileDataInput"><h:inputText value="#{userProfileBean.user.firstName}"/></div>
-                        <div class="userProfileDataLabel"><h:outputLabel value="#{msgs.last_name}"/></div>
-                        <div class="userProfileDataInput"><h:inputText value="#{userProfileBean.user.lastName}"/></div>
-                        <div class="userProfileDataLabel"><h:outputLabel value="#{msgs.address}"/></div>
-                        <div class="userProfileDataInput"><h:inputText value="#{userProfileBean.user.address}"/></div>
-                        <div class="userProfileDataLabel"><h:outputLabel value="#{msgs.city}"/></div>
-                        <div class="userProfileDataInput"><h:inputText value="#{userProfileBean.user.city}"/></div>
-                        <div class="userProfileDataLabel"><h:outputLabel value="#{msgs.phone}"/></div>
-                        <div class="userProfileDataInput"><h:inputText value="#{userProfileBean.user.phone}"/></div>
-                        <div class="userProfileDataInput"><h:outputLabel value="#{msgs.date_of_birth}"/></div>
-                        <div class="userProfileDataInput"><p:calendar value="#{userProfileBean.user.dateOfBirth}"/></div>      
-                        <h:commandLink value="#{msgs.save}" action="#{userProfileBean.save()}" styleClass="commandLink"/>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="#{msgs.first_name}"/>
+                            <h:inputText value="#{userProfileBean.user.firstName}"/>
+                            <h:outputLabel value="#{msgs.last_name}"/>
+                            <h:inputText value="#{userProfileBean.user.lastName}"/>
+                            <h:outputLabel value="#{msgs.address}"/>
+                            <h:inputText value="#{userProfileBean.user.address}"/>
+                            <h:outputLabel value="#{msgs.city}"/>
+                            <h:inputText value="#{userProfileBean.user.city}"/>
+                            <h:outputLabel value="#{msgs.phone}"/>
+                            <h:inputText value="#{userProfileBean.user.phone}"/>
+                            <h:outputLabel value="#{msgs.date_of_birth}"/>
+                            <p:calendar value="#{userProfileBean.user.dateOfBirth}"/>
+                            <h:commandLink value="#{msgs.save}" action="#{userProfileBean.save()}" styleClass="commandLink"/>
+                        </h:panelGrid>
                     </h:form>
                 </f:view>
             </ui:define>

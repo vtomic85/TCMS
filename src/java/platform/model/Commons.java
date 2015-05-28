@@ -53,4 +53,9 @@ public class Commons {
     public static final String FILE_UPLOAD_IMG_FOLDER = "/resources/img/crop";
     public static final String FILE_UPLOAD_IMG_FILENAME = "tempimg";
     public static final String FILE_UPLOAD_IMG_EXTENSION = ".jpg";
+
+    /* USER TYPES */
+    public static final int USERTYPE_ADMINISTRATOR = 1;
+    public static final int USERTYPE_MODERATOR = 2;
+    public static final int USERTYPE_USER = 3;
 }

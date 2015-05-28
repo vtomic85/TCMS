@@ -202,6 +202,45 @@ public class UserDAO {
         }
     }
 
+    public static long addNoPassEncryption(User user) {
+        long last = 0;
+        try {
+            String query1 = "SELECT MAX(id) AS last FROM user";
+            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
+
+            try {
+                if (rs1.next()) {
+                    last = rs1.getLong("last");
+                } else {
+                    last = 0;
+                }
+                String query2 = "INSERT INTO user VALUES(" + ++last + ", '"
+                        + user.getUsername() + "','"
+                        + user.getPassword() + "',"
+                        + user.getTypeId() + ", '"
+                        + user.getFirstName() + "', '"
+                        + user.getLastName() + "', '"
+                        + user.getEmail() + "', '"
+                        + user.getAddress() + "', '"
+                        + user.getCity() + "', "
+                        + user.getCountryId() + ", '"
+                        + user.getSqlDateOfBirth() + "', '"
+                        + user.getPhone() + "',"
+                        + user.isActive() + ",'"
+                        + user.getImgPath() + "')";
+                DBConnection.getInstance().executeUpdate(query2);
+                user.setId(last);
+                rs1.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return last;
+        }
+    }
+
     public static void updateNoPass(User user) {
         String query = "update user set"
                 + " type_id=" + user.getTypeId() + ","

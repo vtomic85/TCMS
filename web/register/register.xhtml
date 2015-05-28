@@ -14,14 +14,28 @@
                 <f:view>
                     <h:form id="userRegistrationForm" class="formFullWidth">
                         <h:panelGrid columns="2">
-                            <h:outputLabel value="#{msgs.username}"/>
-                            <h:inputText id="userRegistrationUsername" value="#{userRegistrationBean.userRegistration.username}" onblur="#{userRegistrationBean.checkUsername}"/>
-                            <h:outputLabel value="#{msgs.password}"/>
-                            <h:inputSecret id="userRegistrationPassword" value="#{userRegistrationBean.userRegistration.password}" />
-                            <h:outputLabel value="#{msgs.email}"/>
-                            <h:inputText id="userRegistrationEmail" value="#{userRegistrationBean.userRegistration.email}" onblur="#{userRegistrationBean.checkEmail}"/>
+                            <h:outputLabel value="#{msgs.username}*"/>
+                            <h:inputText value="#{userRegistrationBean.username}"/>
+                            <h:outputLabel value="#{msgs.password}*"/>
+                            <h:inputSecret value="#{userRegistrationBean.password}" />
+                            <h:outputLabel value="#{msgs.email}*"/>
+                            <h:inputText value="#{userRegistrationBean.email}"/>
+                            <h:outputLabel value="#{msgs.first_name}"/>
+                            <h:inputText value="#{userRegistrationBean.firstName}"/>
+                            <h:outputLabel value="#{msgs.last_name}"/>
+                            <h:inputText value="#{userRegistrationBean.lastName}"/>
+                            <h:outputLabel value="#{msgs.address}"/>
+                            <h:inputText value="#{userRegistrationBean.address}"/>
+                            <h:outputLabel value="#{msgs.city}"/>
+                            <h:inputText value="#{userRegistrationBean.city}"/>
+                            <h:outputLabel value="#{msgs.phone}"/>
+                            <h:inputText value="#{userRegistrationBean.phone}"/>
+                            <h:outputLabel value="#{msgs.date_of_birth}"/>
+                            <p:calendar value="#{userRegistrationBean.dateOfBirth}"/>
                             <h:commandLink action="#{userRegistrationBean.save}" value="#{msgs.save}" styleClass="commandLink"/>
                         </h:panelGrid>
+                        <h:outputText value="#{userRegistrationBean.message}" rendered="#{userRegistrationBean.registrationAttempted}"/>
+                        <br/>
                         <h:link styleClass="commandLink" value="#{msgs.home}" outcome="home"/>
                     </h:form>
                 </f:view>

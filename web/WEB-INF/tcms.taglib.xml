@@ -19,6 +19,11 @@
         <tag-name>adminListAllGalleries</tag-name>
         <source>tags/admin/gallery/listAllGalleries.xhtml</source>
     </tag>
+    <!-- Registration requests -->
+    <tag>
+        <tag-name>adminListAllRequests</tag-name>
+        <source>tags/admin/register/listAllRequests.xhtml</source>
+    </tag>
     <!-- User parts -->
     <tag>
         <tag-name>adminListAllUserParts</tag-name>
