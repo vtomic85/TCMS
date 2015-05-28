@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="contactForm">
+                <h:panelGrid columns="2" columnClasses="panelLeftCol,panelRightCol" styleClass="contactPanel">
+                    <h:outputLabel value="#{msgs.address}"/>
+                    <h:outputLabel value="#{contactBean.contact.address1} "/>
+                    <h:outputLabel value="" rendered="#{contactBean.contact.address2 != ''}"/>
+                    <h:outputLabel value="#{contactBean.contact.address2} " rendered="#{contactBean.contact.address2 != ''}"/>
+                    <h:outputLabel value="" rendered="#{contactBean.contact.address3 != ''}"/>
+                    <h:outputLabel value="#{contactBean.contact.address3} " rendered="#{contactBean.contact.address3 != ''}"/>
+                    <h:outputLabel value="#{msgs.phone}"/>
+                    <h:outputLabel value="#{contactBean.contact.phone1} "/>
+                    <h:outputLabel value="" rendered="#{contactBean.contact.phone2 != ''}"/>
+                    <h:outputLabel value="#{contactBean.contact.phone2} " rendered="#{contactBean.contact.phone2 != ''}"/>
+                    <h:outputLabel value="" rendered="#{contactBean.contact.phone3 != ''}"/>
+                    <h:outputLabel value="#{contactBean.contact.phone3} " rendered="#{contactBean.contact.phone3 != ''}"/>
+                    <h:outputLabel value="#{msgs.email}" rendered="#{contactBean.contact.email!=''}"/>
+                    <h:outputLabel value="#{contactBean.contact.email}" rendered="#{contactBean.contact.email!=''}"/>
+                    <h:outputLabel value="#{msgs.website}" rendered="#{contactBean.contact.website!=''}"/>
+                    <h:outputLabel value="#{contactBean.contact.website}" rendered="#{contactBean.contact.website!=''}"/>
+                    <h:outputLabel value="#{msgs.twitter}" rendered="#{contactBean.contact.twitter!=''}"/>
+                    <h:outputLabel value="#{contactBean.contact.twitter}" rendered="#{contactBean.contact.twitter!=''}"/>
+                    <h:outputLabel value="#{msgs.facebook}" rendered="#{contactBean.contact.facebook!=''}"/>
+                    <h:outputLabel value="#{contactBean.contact.facebook}" rendered="#{contactBean.contact.facebook!=''}"/>
+                    <h:outputLabel value="#{msgs.linkedin}" rendered="#{contactBean.contact.linkedin!=''}"/>  
+                    <h:outputLabel value="#{contactBean.contact.linkedin}" rendered="#{contactBean.contact.linkedin!=''}"/>
+                    <h:outputLabel value="#{msgs.foursquare}" rendered="#{contactBean.contact.foursquare!=''}"/>
+                    <h:outputLabel value="#{contactBean.contact.foursquare}" rendered="#{contactBean.contact.foursquare!=''}"/>
+                    <h:outputLabel value="#{msgs.gmap}" rendered="#{contactBean.contact.gmap!=''}"/>
+                    <h:outputLabel value="#{contactBean.contact.gmap}" rendered="#{contactBean.contact.gmap!=''}"/>
+                </h:panelGrid>
+            </h:form>            
+        </ui:composition>
+    </h:body>
+</html>

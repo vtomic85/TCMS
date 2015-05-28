@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="eventId" value="#{eventFormBean.eventId}" />
+            <f:viewAction action="#{eventFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminEventFormForm" class="formFullWidth" enctype="multipart/form-data">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID" rendered="#{eventFormBean.event.id>0}"/>
+                        <h:outputText value="#{eventFormBean.event.id}" rendered="#{eventFormBean.event.id>0}"/>
+                        <h:outputLabel value="#{msgs.title}"/>
+                        <h:inputText value="#{eventFormBean.event.title}"/>
+                        <h:outputLabel value="#{msgs.lead}"/>
+                        <h:inputText value="#{eventFormBean.event.lead}"/>
+                        <h:outputLabel value="#{msgs.body}"/>
+                        <p:editor value="#{eventFormBean.event.body}"/>
+                        <h:outputLabel value="#{msgs.author}"/>
+                        <h:inputText value="#{eventFormBean.event.author}"/>
+                        <h:outputLabel value="#{msgs.category}"/>
+                        <h:selectOneMenu id="eventCategoryId" value="#{eventFormBean.event.categoryId}">                            
+                            <f:selectItems value="#{eventFormBean.categoryList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>                        
+                        <h:outputLabel value="#{msgs.event_date}"/>
+                        <p:calendar value="#{eventFormBean.event.eventDate}"/>
+                        <h:outputLabel value="#{msgs.holder}" rendered="#{eventFormBean.event.id>0}"/>
+                        <h:selectOneMenu id="holderId" value="#{eventFormBean.event.itemId}" rendered="#{eventFormBean.event.id>0}">
+                            <f:selectItems value="#{eventFormBean.holderList}" var="row1" itemLabel="#{row1.name}" itemValue="#{row1.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msgs.gallery}"/>                        
+                        <h:selectOneMenu id="eventGalleryId" value="#{eventFormBean.event.galleryId}">
+                            <f:selectItem itemLabel="---" itemValue="0"/>
+                            <f:selectItems value="#{eventFormBean.galleryList}" var="row2" itemLabel="#{row2.title}" itemValue="#{row2.id}"/>
+                        </h:selectOneMenu>  
+                        <h:outputLabel value="#{msgs.published}"/>
+                        <h:selectOneMenu id="eventPublished" value="#{eventFormBean.event.published}">
+                            <f:selectItem itemLabel="TRUE" itemValue="true"/>
+                            <f:selectItem itemLabel="FALSE" itemValue="false"/>
+                        </h:selectOneMenu>
+                        <h:panelGroup id="imageControlButtons">
+                            <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
+                                <f:param name="objectType" value="event"/>
+                                <f:param name="objectId" value="#{eventFormBean.eventId}"/>
+                                <f:param name="backUrl" value="adminEditEvent"/>
+                            </h:link>
+                        </h:panelGroup>                        
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{eventFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.back}" action="adminEventList" styleClass="commandLink"/>
+                </h:form>                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

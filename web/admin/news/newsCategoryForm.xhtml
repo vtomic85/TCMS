@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="ecId" value="#{newsCategoryFormBean.ncId}" />
+            <f:viewAction action="#{newsCategoryFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminNewsCategoryFormForm" class="formFullWidth" enctype="multipart/form-data">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID" rendered="#{newsCategoryFormBean.ncId>0}"/>
+                        <h:outputLabel value="#{newsCategoryFormBean.nc.id}" rendered="#{newsCategoryFormBean.ncId>0}"/>
+                        <h:outputLabel value="#{msgs.parent}"/>
+                        <h:selectOneMenu value="#{newsCategoryFormBean.nc.parentId}">
+                            <f:selectItem itemLabel="#{msgs.select_one}" itemValue="0"/>
+                            <f:selectItems value="#{newsCategoryFormBean.parents}" var="items" itemValue="#{items.id}" itemLabel="#{items.name}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msgs.name}"/>
+                        <h:inputText value="#{newsCategoryFormBean.nc.name}"/>
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{newsCategoryFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.back}" action="adminNewsCategoryList" styleClass="commandLink"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

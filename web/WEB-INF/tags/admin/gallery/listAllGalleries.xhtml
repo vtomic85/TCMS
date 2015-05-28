@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminGalleryListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                <p:dataTable value="#{galleryListBean.galleries}" var="row" rendered="#{!galleryListBean.listEmpty}" class="tableFullWidth">
+                    <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
+                        <h:outputLabel value="#{row.id}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.title}" sortBy="#{row.title}" filterBy="#{row.title}">
+                        <h:outputText value="#{row.title}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.num_of_pics}" sortBy="#{row.numOfPics}" filterBy="#{row.numOfPics}">
+                        <h:outputText value="#{row.numOfPics}"/>
+                    </p:column>                    
+                    <p:column headerText="#{msgs.action}">
+                        <h:link value="#{msgs.edit}" outcome="adminEditGallery" styleClass="commandLink">
+                            <f:param name="galleryId" value="#{row.id}"/>
+                        </h:link>
+                        <h:commandLink value="#{msgs.delete}" action="#{galleryListBean.deleteGallery}" styleClass="commandLink">
+                            <f:param name="galleryId" value="#{row.id}"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+                <h:commandLink value="#{msgs.add}" action="#{galleryListBean.newGallery}" styleClass="commandLink"/>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

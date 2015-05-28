@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form class="formFullWidth">
+                <h:panelGrid columns="3">
+                    <ui:repeat value="#{eventHolderListBean.holderList}" var="row" rendered="#{!eventHolderListBean.holderListEmpty}" >
+                        <div class="eventHoldersHolder">
+                            <h:outputLink value="event/list.xhtml?itemId=#{row.id}" title="#{row.name}">
+                                <h:outputText value="#{row.name}" class="itemTitle"/>
+                            </h:outputLink>                            
+                        </div>
+                    </ui:repeat>
+                </h:panelGrid>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

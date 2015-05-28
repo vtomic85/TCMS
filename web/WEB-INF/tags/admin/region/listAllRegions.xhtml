@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminRegionListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                <p:dataTable value="#{regionListBean.regions}" var="row" rendered="#{!regionListBean.listEmpty}" class="tableFullWidth">
+                    <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
+                        <h:outputText value="#{row.id}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.name}" sortBy="#{row.name}" filterBy="#{row.name}">
+                        <h:outputText value="#{row.name}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.ord}" sortBy="#{row.ord}" filterBy="#{row.ord}">
+                        <h:outputText value="#{row.ord}"/>
+                    </p:column>                    
+                    <p:column headerText="#{msgs.width}" sortBy="#{row.widthName}" filterBy="#{row.widthName}">
+                        <h:outputText value="#{row.widthName}"/>
+                    </p:column> 
+                    <p:column headerText="#{msgs.position}" sortBy="#{row.positionName}" filterBy="#{row.positionName}">
+                        <h:outputText value="#{row.positionName}"/>
+                    </p:column>                    
+                    <p:column headerText="#{msgs.action}">
+                        <h:commandLink value="#{msgs.move_up}" action="#{regionListBean.moveUp}" styleClass="commandLink"
+                                       rendered="#{row.ord>1}">
+                            <f:param name="ord" value="#{row.ord}"/>
+                            <f:ajax render="@form"/>
+                        </h:commandLink>
+                        <h:commandLink value="#{msgs.move_down}" action="#{regionListBean.moveDown}" styleClass="commandLink"
+                                       rendered="#{regionListBean.lastOrd>row.ord}">
+                            <f:param name="ord" value="#{row.ord}"/>
+                            <f:ajax render="@form"/>
+                        </h:commandLink>
+                        <h:link value="#{msgs.edit}" outcome="adminEditRegion" styleClass="commandLink">
+                            <f:param name="regionId" value="#{row.id}"/>
+                        </h:link>
+                        <h:commandLink value="#{msgs.delete}" action="#{regionListBean.deleteRegion}" styleClass="commandLink">
+                            <f:param name="regionId" value="#{row.id}"/>
+                            <f:ajax render="@form"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+                <h:link value="#{msgs.add}" outcome="adminEditRegion" styleClass="commandLink"/>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

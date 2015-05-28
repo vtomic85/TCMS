@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:tcms="http://tcms.com">
+    <h:body>        
+        <f:metadata>
+            <f:viewParam name="regionId" value="#{regionPartsListBean.regionId}" />
+            <f:viewAction action="#{regionPartsListBean.init}" />
+        </f:metadata>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="mainStripe">
+                <f:view>
+                    <h:form id="regionListForm" class="regionListForm">
+                        <ui:repeat value="#{regionPartsListBean.regions}" var="row">
+                            <h:commandLink value="#{row.name}" action="#{regionPartsListBean.changeRegion(row.id)}" styleClass="commandLink">
+                                <f:ajax render=":regionPartsListForm"/>
+                            </h:commandLink>
+                        </ui:repeat>
+                    </h:form>
+                    <h:form id="regionPartsListForm" class="regionPartsListForm">
+                        <h:outputLabel value="Region: #{regionPartsListBean.regionName}" styleClass="regionTitle"/>
+                        <h:dataTable value="#{regionPartsListBean.regionParts}" var="row" rendered="#{!regionPartsListBean.regionPartListEmpty}" class="tableFullWidth">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs.ord}"/>
+                                </f:facet>
+                                <h:outputLabel value="#{row.ord}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs.name}"/>
+                                </f:facet>
+                                <h:outputLabel value="#{row.partName}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs.title}"/>
+                                </f:facet>
+                                <h:outputLabel value="#{row.title}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msgs.action}"/>
+                                </f:facet>
+                                <h:commandLink value="#{msgs.move_up}" action="#{regionPartsListBean.moveUp}" styleClass="commandLink"
+                                               rendered="#{row.ord>1}">
+                                    <f:param name="regId" value="#{row.regionId}"/>
+                                    <f:param name="ord" value="#{row.ord}"/>
+                                    <f:ajax render="@form"/>
+                                </h:commandLink>
+                                <h:commandLink value="#{msgs.move_down}" action="#{regionPartsListBean.moveDown}" styleClass="commandLink"
+                                               rendered="#{regionPartsListBean.lastOrd>row.ord}">
+                                    <f:param name="regId" value="#{row.regionId}"/>
+                                    <f:param name="ord" value="#{row.ord}"/>
+                                    <f:ajax render="@form"/>
+                                </h:commandLink>    
+                                <h:link value="#{msgs.edit}" outcome="adminEditRegionPart" styleClass="commandLink">
+                                    <f:param name="regionId" value="#{row.regionId}"/>
+                                    <f:param name="regionPartId" value="#{row.id}"/>
+                                </h:link>
+                                <h:commandLink value="#{msgs.delete}" action="#{regionPartsListBean.deleteRegionPart}" styleClass="commandLink">
+                                    <f:param name="regId" value="#{row.regionId}"/>
+                                    <f:param name="ord" value="#{row.ord}"/>
+                                    <f:ajax render="@form"/>
+                                </h:commandLink>
+                            </h:column>
+                        </h:dataTable>
+                        <h:form id="regionPartsActionsForm" class="regionPartsActionsForm">
+                            <h:link value="#{msgs.add_part}" outcome="adminEditRegionPart" styleClass="commandLink">
+                                <f:param name="regionId" value="#{regionPartsListBean.regionId}"/>
+                                <f:param name="regionPartId" value="0"/>
+                            </h:link>
+                        </h:form>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

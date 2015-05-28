@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminEventListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                <p:dataTable value="#{eventListBean.events}" var="row" class="tableFullWidth"
+                             paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
+                        <h:outputText value="#{row.id}" />
+                    </p:column>
+                    <p:column headerText="#{msgs.holder_name}" sortBy="#{row.holderName}" filterBy="#{row.holderName}">
+                        <h:outputText value="#{row.holderName}" />
+                    </p:column>
+                    <p:column headerText="#{msgs.title}" sortBy="#{row.title}" filterBy="#{row.title}">
+                        <h:outputText value="#{row.title}" />
+                    </p:column>
+                    <p:column headerText="#{msgs.author}" sortBy="#{row.author}" filterBy="#{row.author}">
+                        <h:outputText value="#{row.author}" />
+                    </p:column>
+                    <p:column headerText="#{msgs.event_date}" sortBy="#{row.eventDate}" filterBy="#{row.eventDate}">
+                        <h:outputText value="#{row.eventDate}" />
+                    </p:column>
+                    <p:column headerText="#{msgs.date_created}" sortBy="#{row.dateCreated}" filterBy="#{row.dateCreated}">
+                        <h:outputText value="#{row.dateCreated}" />
+                    </p:column>
+                    <p:column headerText="#{msgs.category_name}" sortBy="#{row.categoryName}" filterBy="#{row.categoryName}">
+                        <h:outputText value="#{row.categoryName}" />
+                    </p:column>
+                    <p:column headerText="#{msgs.published}" sortBy="#{row.published}" filterBy="#{row.published}">
+                        <h:outputText value="#{row.published}" />
+                    </p:column>
+                    <p:column headerText="#{msgs.action}">
+                        <h:link value="#{msgs.edit}" outcome="adminEditEvent" styleClass="commandLink">
+                            <f:param name="eventId" value="#{row.id}"/>
+                        </h:link>
+                        <h:commandLink value="#{msgs.delete}" action="#{eventListBean.deleteEvent}" styleClass="commandLink">
+                            <f:param name="eventId" value="#{row.id}"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>                
+                <h:commandLink value="#{msgs.add}" action="#{eventListBean.newEvent}" styleClass="commandLink"/>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

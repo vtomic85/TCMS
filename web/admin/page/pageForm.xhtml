@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="pageId" value="#{pageFormBean.pageId}" />
+            <f:viewAction action="#{pageFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminPageFormForm" class="formFullWidth" enctype="multipart/form-data">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID" rendered="#{pageFormBean.page.id>0}"/>
+                        <h:outputText value="#{pageFormBean.page.id}" rendered="#{pageFormBean.page.id>0}"/>
+                        <h:outputLabel value="#{msgs.title}"/>
+                        <h:inputText value="#{pageFormBean.page.title}"/>
+                        <h:outputLabel value="#{msgs.subtitle}"/>
+                        <h:inputText value="#{pageFormBean.page.subtitle}"/>
+                        <h:outputLabel value="#{msgs.body}"/>
+                        <p:editor value="#{pageFormBean.page.body}"/>
+                        <h:outputLabel value="#{msgs.author}"/>
+                        <h:inputText value="#{pageFormBean.page.author}"/>
+                        <h:outputLabel value="#{msgs.date_created}"/>
+                        <p:calendar value="#{pageFormBean.page.dateCreated}"/>
+                        <h:outputLabel value="#{msgs.holder}" rendered="#{pageFormBean.page.id>0}"/>
+                        <h:selectOneMenu id="holderId" value="#{pageFormBean.page.itemId}" rendered="#{pageFormBean.page.id>0}">
+                            <f:selectItems value="#{pageFormBean.holderList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msgs.published}"/>
+                        <h:selectOneMenu id="pagePublished" value="#{pageFormBean.page.published}">
+                            <f:selectItem itemLabel="TRUE" itemValue="true"/>
+                            <f:selectItem itemLabel="FALSE" itemValue="false"/>
+                        </h:selectOneMenu>       
+                        <h:panelGroup id="imageControlButtons">
+                            <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
+                                <f:param name="objectType" value="page"/>
+                                <f:param name="objectId" value="#{pageFormBean.pageId}"/>
+                                <f:param name="backUrl" value="adminEditPage"/>
+                            </h:link>
+                        </h:panelGroup>  
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{pageFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.back}" action="adminPageList" styleClass="commandLink"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

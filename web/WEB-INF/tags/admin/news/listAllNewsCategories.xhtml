@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminNewsCategoryListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                <p:dataTable value="#{newsCategoryListBean.ncList}" var="row">
+                    <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
+                        <h:outputLabel value="#{row.id}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.parent}" sortBy="#{row.parentName}" filterBy="#{row.parentName}">
+                        <h:outputLabel value="#{row.parentName}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.name}" sortBy="#{row.name}" filterBy="#{row.name}">
+                        <h:outputLabel value="#{row.name}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.action}">
+                        <h:link value="#{msgs.edit}" outcome="adminEditNewsCategory" styleClass="commandLink">
+                            <f:param name="ncId" value="#{row.id}"/>
+                        </h:link>
+                        <h:commandLink value="#{msgs.delete}" action="#{newsCategoryListBean.deleteNewsCategory}" styleClass="commandLink">
+                            <f:param name="ncId" value="#{row.id}"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>                   
+                <h:link value="#{msgs.add}" outcome="adminEditNewsCategory" styleClass="commandLink">
+                    <f:param name="ncId" value="0"/>
+                </h:link>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

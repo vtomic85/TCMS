@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="regionId" value="#{regionPartFormBean.regionId}" />
+            <f:viewParam name="regionPartId" value="#{regionPartFormBean.regionPartId}" />
+            <f:viewAction action="#{regionPartFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminRegionPartFormForm" class="formFullWidth" enctype="multipart/form-data">
+                    <h:outputLabel value="#{regionPartFormBean.regionName}"/>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{msgs.part}"/>
+                        <h:selectOneMenu id="regionPartList" value="#{regionPartFormBean.partId}" onchange="submit()">
+                            <f:selectItem itemLabel="---" itemValue="0"/>
+                            <f:selectItems value="#{regionPartFormBean.parts}" var="row" itemLabel="#{row.fullPath}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msgs.toplist}" rendered="#{regionPartFormBean.topListNeeded}"/>
+                        <h:selectOneMenu id="regionPartTopLists" value="#{regionPartFormBean.topListId}" onchange="submit()" rendered="#{regionPartFormBean.topListNeeded}">
+                            <f:selectItems value="#{regionPartFormBean.topLists}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msgs.title}"/>
+                        <h:inputText value="#{regionPartFormBean.regionPart.title}"/>
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{regionPartFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.back}" action="adminRegionPartList" styleClass="commandLink"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

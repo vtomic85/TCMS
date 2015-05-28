@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="galleryId" value="#{galleryFormBean.galleryId}" />
+            <f:viewAction action="#{galleryFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminGalleryFormForm" class="formFullWidth" enctype="multipart/form-data">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID" rendered="#{galleryFormBean.gallery.id>0}"/>
+                        <h:outputText value="#{galleryFormBean.gallery.id}" rendered="#{galleryFormBean.gallery.id>0}"/>
+                        <h:outputLabel value="#{msgs.title}"/>
+                        <h:inputText value="#{galleryFormBean.gallery.title}"/>
+                        <h:panelGroup id="galleryImageList">
+                            <ui:repeat value="#{galleryFormBean.imageList}" var="row">
+                                <h:graphicImage value="#{row.imgPath}" height="50"/>
+                                <h:commandLink value="#{msgs.delete}" action="#{galleryFormBean.deleteImage()}" styleClass="commandLink">
+                                    <f:param name="imageId" value="#{row.id}"/>
+                                </h:commandLink>
+                            </ui:repeat>
+                        </h:panelGroup>
+                        <h:panelGroup id="imageControlButtons" rendered="#{galleryFormBean.gallery.id>0}">
+                            <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
+                                <f:param name="objectType" value="gallery"/>
+                                <f:param name="objectId" value="#{galleryFormBean.gallery.id}"/>
+                                <f:param name="backUrl" value="adminEditGallery"/>
+                            </h:link>
+                        </h:panelGroup>                        
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{galleryFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.back}" action="adminGalleryList" styleClass="commandLink"/>
+                </h:form>                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

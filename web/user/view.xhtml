@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:tcms="http://tcms.com">
+    <h:body>
+        <f:metadata>
+            <f:viewAction action="#{userProfileBean.init}"/>
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="mainStripe">
+                <f:view>                    
+                    <div class="userProfileUsername"><h:outputLabel value="#{userProfileBean.user.username}"/></div>
+                    <div class="userProfilePictureDiv">
+                        <h:form id="userProfilePictureForm">
+                            <h:graphicImage value="#{userProfileBean.user.imgPath}" height="128" rendered="#{userProfileBean.user.imgPath!=null}"/>
+                            <h:graphicImage value="../resources/img/cms/user.png" height="128" rendered="#{userProfileBean.user.imgPath==null}"/>
+                            <br/>
+                            <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
+                                <f:param name="objectType" value="user"/>
+                                <f:param name="objectId" value="#{userProfileBean.userId}"/>
+                                <f:param name="backUrl" value="userProfilePage"/>
+                            </h:link>
+                        </h:form>
+                    </div>
+                    <h:form id="userProfileDataForm">
+                        <div class="userProfileDataLabel"><h:outputLabel value="#{msgs.first_name}"/></div>
+                        <div class="userProfileDataInput"><h:inputText value="#{userProfileBean.user.firstName}"/></div>
+                        <div class="userProfileDataLabel"><h:outputLabel value="#{msgs.last_name}"/></div>
+                        <div class="userProfileDataInput"><h:inputText value="#{userProfileBean.user.lastName}"/></div>
+                        <div class="userProfileDataLabel"><h:outputLabel value="#{msgs.address}"/></div>
+                        <div class="userProfileDataInput"><h:inputText value="#{userProfileBean.user.address}"/></div>
+                        <div class="userProfileDataLabel"><h:outputLabel value="#{msgs.city}"/></div>
+                        <div class="userProfileDataInput"><h:inputText value="#{userProfileBean.user.city}"/></div>
+                        <div class="userProfileDataLabel"><h:outputLabel value="#{msgs.phone}"/></div>
+                        <div class="userProfileDataInput"><h:inputText value="#{userProfileBean.user.phone}"/></div>
+                        <div class="userProfileDataInput"><h:outputLabel value="#{msgs.date_of_birth}"/></div>
+                        <div class="userProfileDataInput"><p:calendar value="#{userProfileBean.user.dateOfBirth}"/></div>      
+                        <h:commandLink value="#{msgs.save}" action="#{userProfileBean.save()}" styleClass="commandLink"/>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

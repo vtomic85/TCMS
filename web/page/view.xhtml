@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:tcms="http://tcms.com">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="itemId" value="#{pageViewBean.itemId}" />
+            <f:viewParam name="itemId" value="#{pageMenuBean.itemId}"/>
+            <f:viewParam name="holderId" value="#{pageMenuBean.holderId}"/>
+            <f:viewAction action="#{pageViewBean.init}" />
+            <f:viewAction action="#{pageMenuBean.init}"/>
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="leftStripe">
+                <tcms:leftSidePageMenu/>
+            </ui:define>
+            <ui:define name="mainStripe">
+                <f:view>
+                    <tcms:topPageMenu/>  
+                    <div class="itemTitle">
+                        <h:outputLabel value="${pageViewBean.item.title}"/>
+                    </div>
+                    <div class="itemSubtitle">
+                        <h:outputLabel value="${pageViewBean.item.subtitle}"/>
+                    </div>
+                    <div class="itemDateCreated">
+                        <h:outputLabel value="${pageViewBean.item.dateCreated}"/>
+                    </div>
+                    <div class="itemAuthor">
+                        <h:outputLabel value="${pageViewBean.item.author}"/>
+                    </div>
+                    <div class="itemPicture">
+                        <h:graphicImage value="#{pageViewBean.item.imgPath}" rendered="#{pageViewBean.item.imgPath!=null}" height="300"/>
+                    </div>
+                    <div class="itemBody">
+                        <h:outputText value="${pageViewBean.item.body}" escape="false"/>
+                    </div>
+                    <h:form>
+                        <h:commandLink styleClass="commandLink" value="#{msgs.leave_comment}" action="#{pageViewBean.leaveComment}" >
+                            <f:param name="componentTypeId" value="#{pageViewBean.typeId}"/>
+                            <f:param name="componentId" value="#{pageViewBean.itemId}"/>
+                            <f:param name="holderId" value="#{pageMenuBean.holderId}"/>
+                            <f:param name="isLoginOk" value="#{loginBean.isLoginOk}"/>
+                        </h:commandLink>
+                    </h:form>
+                    <div class="commentsHolder">
+                        <h:outputText value="#{msgs.comments}: #{pageViewBean.publishedCommentsCount}"/>
+                        <hr/>
+                        <h:outputText value="#{msgs.no_comments}" rendered="#{pageViewBean.commentListEmpty}"/>
+                        <h:form id="pageCommentsListForm" rendered="#{!pageViewBean.commentListEmpty}">
+                            <ui:repeat value="#{pageViewBean.comments}" var="row" rendered="#{!pageViewBean.commentListEmpty}">
+                                <h:panelGroup rendered="#{row.published}" styleClass="commentHolder">
+                                    <h:outputText value="#{row.userName}"/>
+                                    <h:outputText value="#{row.dateCreated}"/>
+                                    <h:outputText value="#{row.positiveVotes}"/>
+                                    <h:commandLink value="+" action="#{pageViewBean.upvote}">
+                                        <f:param name="commentId" value="#{row.id}"/>
+                                        <f:ajax render="@form"/>
+                                    </h:commandLink>
+                                    <h:outputText value="#{row.negativeVotes}"/>
+                                    <h:commandLink value="-" action="#{pageViewBean.downvote}">
+                                        <f:param name="commentId" value="#{row.id}"/>
+                                        <f:ajax render="@form"/>
+                                    </h:commandLink>
+                                    <h:outputText value="#{row.body}"/>
+                                </h:panelGroup>
+                            </ui:repeat>
+                        </h:form>
+                    </div>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

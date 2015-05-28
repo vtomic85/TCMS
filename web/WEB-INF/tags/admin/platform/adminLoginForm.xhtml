@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminLoginForm" rendered="#{!loginBean.isAdmin and !loginBean.isModerator}">
+                <h:panelGrid columns="2" columnClasses="noBorder noBorder" styleClass="roundBorder backgroundBlue">
+                    <h:outputLabel value="#{msgs.username}" styleClass="formOutputLabel"/>
+                    <p:inputText value="#{loginBean.username}" styleClass="formInputText"/>
+                    <h:outputLabel value="#{msgs.password}" styleClass="formOutputLabel"/>
+                    <p:password value="#{loginBean.password}" styleClass="formInputText"/>
+                </h:panelGrid>
+                <p:commandLink value="#{msgs.login}" action="#{loginBean.login}" styleClass="commandLink" update="@all"/>
+            </h:form>            
+        </ui:composition>
+    </h:body>
+</html>

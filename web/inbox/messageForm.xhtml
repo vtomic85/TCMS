@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="messageId" value="#{messageFormBean.messageId}" />
+            <f:viewAction action="#{messageFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="mainStripe">
+                <h:form id="messageFormForm" class="formFullWidth">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{msgs.to}"/>
+                        <h:selectOneMenu value="#{messageFormBean.message.toId}" onchange="submit()">
+                            <f:selectItems value="#{messageFormBean.users}" var="row" itemLabel="#{row.username}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msgs.subject}"/>
+                        <h:inputText value="#{messageFormBean.message.subject}"/>
+                        <h:outputLabel value="#{msgs.body}"/>
+                        <p:editor value="#{messageFormBean.message.body}"/>
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{messageFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.send}" action="#{messageFormBean.send()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.cancel}" action="#{messageFormBean.cancel()}" styleClass="commandLink"/>
+                </h:form>                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

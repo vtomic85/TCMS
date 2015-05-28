@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="componentTypeId" value="#{commentFormBean.componentTypeId}"/>
+            <f:viewParam name="componentId" value="#{commentFormBean.componentId}"/>
+            <f:viewParam name="isLoginOk" value="#{commentFormBean.isLoginOk}"/>
+            <f:viewAction action="#{commentFormBean.init}"/>
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="mainStripe">
+                <f:view>
+                    <h:form id="leaveCommentForm" class="formFullWidth">
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="#{msgs.your_name}"/>
+                            <h:inputText value="#{commentFormBean.comment.userName}" rendered="#{!commentFormBean.isLoginOk}"/>
+                            <h:outputText value="#{commentFormBean.comment.userName}" rendered="#{commentFormBean.isLoginOk}"/>
+                            <h:outputLabel value="#{msgs.comment}"/>
+                            <h:inputTextarea value="#{commentFormBean.comment.body}"/>
+                            <h:commandLink action="#{commentFormBean.save}" value="#{msgs.save}" styleClass="commandLink"/>
+                        </h:panelGrid>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

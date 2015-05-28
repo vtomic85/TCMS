@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form style="border:1px solid black; float:left; width:100%;">
+                <ul class="indexPartList">
+                    <ui:repeat value="#{topViewedUserParts.list}" var="row" rendered="#{!topViewedUserParts.listEmpty}" size="10">
+                        <li>
+                            <h:outputLink value="userPart/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexPartTitleHolder">
+                                <h:outputText value="#{row.title}" styleClass="indexPartTitleText"/>
+                                <h:outputText value="#{row.views}" styleClass="indexPartDateText"/>
+                            </h:outputLink> 
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

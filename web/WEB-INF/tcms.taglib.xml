@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC
+  "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+  "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+<facelet-taglib>
+    <namespace>http://tcms.com</namespace> 
+    <!-- Inbox -->
+    <tag>
+        <tag-name>listAllMessages</tag-name>
+        <source>tags/message/listAllMessages.xhtml</source>
+    </tag>
+    <!-- Top lists -->
+    <tag>
+        <tag-name>adminListAllTopLists</tag-name>
+        <source>tags/admin/toplist/listAllTopLists.xhtml</source>
+    </tag>
+    <!-- Galleries -->
+    <tag>
+        <tag-name>adminListAllGalleries</tag-name>
+        <source>tags/admin/gallery/listAllGalleries.xhtml</source>
+    </tag>
+    <!-- User parts -->
+    <tag>
+        <tag-name>adminListAllUserParts</tag-name>
+        <source>tags/admin/userPart/listAllUserParts.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>adminListAllUserPartConfigs</tag-name>
+        <source>tags/admin/userPart/listAllUserPartConfigs.xhtml</source>
+    </tag>
+    <!-- Pages -->
+    <tag>
+        <tag-name>adminListAllPages</tag-name>
+        <source>tags/admin/page/listAllPages.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>listAllPages</tag-name>
+        <source>tags/page/listAllPages.xhtml</source>
+    </tag>
+    <!-- Regions -->
+    <tag>
+        <tag-name>adminListAllRegions</tag-name>
+        <source>tags/admin/region/listAllRegions.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>listAllRegions</tag-name>
+        <source>tags/region/listAllRegions.xhtml</source>
+    </tag>
+    <!-- Parts -->
+    <tag>
+        <tag-name>adminListAllParts</tag-name>
+        <source>tags/admin/part/listAllParts.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>listAllParts</tag-name>
+        <source>tags/part/listAllParts.xhtml</source>
+    </tag>
+    <!-- Events and event categories -->
+    <tag>
+        <tag-name>adminListAllEvents</tag-name>
+        <source>tags/admin/event/listAllEvents.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>listAllEvents</tag-name>
+        <source>tags/event/listAllEvents.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>adminListAllEventCategories</tag-name>
+        <source>tags/admin/event/listAllEventCategories.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>listAllEventHolders</tag-name>
+        <source>tags/event/listAllEventHolders.xhtml</source>
+    </tag>
+    <!-- News and news categories -->
+    <tag>
+        <tag-name>adminListAllNews</tag-name>
+        <source>tags/admin/news/listAllNews.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>adminListAllNewsCategories</tag-name>
+        <source>tags/admin/news/listAllNewsCategories.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>listAllNews</tag-name>
+        <source>tags/news/listAllNews.xhtml</source>
+    </tag>
+    <!-- Comments and component types -->
+    <tag>
+        <tag-name>adminListAllComments</tag-name>
+        <source>tags/admin/comment/listAllComments.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>adminListAllComponentTypes</tag-name>
+        <source>tags/admin/comment/listAllComponentTypes.xhtml</source>
+    </tag>
+    <!-- Users and user types -->
+    <tag>
+        <tag-name>adminListAllUsers</tag-name>
+        <source>tags/admin/user/listAllUsers.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>adminListAllUserTypes</tag-name>
+        <source>tags/admin/user/listAllUserTypes.xhtml</source>
+    </tag>
+    <!-- Contact -->
+    <tag>
+        <tag-name>contact</tag-name>
+        <source>tags/contact/contactTag.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>adminContactForm</tag-name>
+        <source>tags/admin/contact/adminContactForm.xhtml</source>
+    </tag>
+    <!-- Tree -->
+    <tag>
+        <tag-name>tree</tag-name>
+        <source>tags/admin/platform/treeTag.xhtml</source>
+    </tag>
+    <!-- Countries -->
+    <tag>
+        <tag-name>adminListAllCountries</tag-name>
+        <source>tags/admin/platform/listAllCountries.xhtml</source>
+    </tag>
+    <!-- Login Form -->
+    <tag>
+        <tag-name>adminLoginForm</tag-name>
+        <source>tags/admin/platform/adminLoginForm.xhtml</source>
+    </tag>
+    <!-- Menus -->
+    <tag>
+        <tag-name>leftSideUserPartMenu</tag-name>
+        <source>tags/menus/leftSideUserPartMenu.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>leftSideEventMenu</tag-name>
+        <source>tags/menus/leftSideEventMenu.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>leftSidePageMenu</tag-name>
+        <source>tags/menus/leftSidePageMenu.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>leftSideNewsMenu</tag-name>
+        <source>tags/menus/leftSideNewsMenu.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>topIndexMenu</tag-name>
+        <source>tags/menus/topIndexMenu.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>topUserPartMenu</tag-name>
+        <source>tags/menus/topUserPartMenu.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>topEventMenu</tag-name>
+        <source>tags/menus/topEventMenu.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>topPageMenu</tag-name>
+        <source>tags/menus/topPageMenu.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>topNewsMenu</tag-name>
+        <source>tags/menus/topNewsMenu.xhtml</source>
+    </tag>
+</facelet-taglib>

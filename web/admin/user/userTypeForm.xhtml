@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="utId" value="#{userTypeFormBean.utId}" />
+            <f:viewAction action="#{userTypeFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminUserTypeFormForm" class="formFullWidth" enctype="multipart/form-data">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID: "/>
+                        <h:outputLabel value="#{userTypeFormBean.ut.id}"/>
+                        <h:outputLabel value="Name: "/>
+                        <h:inputText value="#{userTypeFormBean.ut.name}"/>
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{userTypeFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.back}" action="adminUserTypeList" styleClass="commandLink"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

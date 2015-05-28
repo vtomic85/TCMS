@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html lang="#{localeBean.language}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:tcms="http://tcms.com/">
+    <f:view locale="#{localeBean.locale}">
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <h:outputStylesheet library="css" name="style.css"/>
+        </h:head>
+        <h:body>
+            <div id="page">
+                <div id="header">
+                    <ui:insert name="header">
+                        <ui:include src="/resources/templates/header.xhtml"/>
+                    </ui:insert>
+                </div>    
+                <div id="adminHeader">
+                    <ui:insert name="adminHeader">
+                        <ui:include src="/resources/menus/adminMenu.xhtml"/>
+                    </ui:insert>
+                </div>
+                <div id="adminContent">
+                    <ui:insert name="adminContent" rendered="#{loginBean.isAdmin or loginBean.isModerator}">
+                        <ui:include src="/resources/templates/adminContent.xhtml"/>
+                    </ui:insert>
+                </div>
+                <div id="footer">
+                    <ui:insert name="footer">
+                        <ui:include src="/resources/templates/footer.xhtml"/>
+                    </ui:insert>
+                </div>
+            </div>
+        </h:body>
+    </f:view>
+</html>

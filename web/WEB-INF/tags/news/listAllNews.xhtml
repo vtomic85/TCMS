@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form class="formFullWidth">
+                <h:panelGrid columns="3">
+                    <ui:repeat value="#{newsListBean.news}" var="row" rendered="#{!newsListBean.listEmpty}" >
+                        <div class="newsItemHolder">
+                            <h:outputText value="#{row.categoryName}" class="itemCategory"/>
+                            <h:outputLink value="news/view.xhtml?itemId=#{row.id}" title="#{row.title}">
+                                <h:outputText value="#{row.title}" class="itemTitle"/>
+                            </h:outputLink>                  
+                            <h:outputText value="#{row.lead}" class="itemLead"/>
+                            <h:outputText value="#{row.author}" class="itemAuthor"/>
+                            <h:outputText value="#{row.dateCreated}" class="itemDate"/>
+                            <h:outputText value=" > " class="itemDateModified" rendered="#{row.dateModified!=null}"/>
+                            <h:outputText value="#{row.dateModified}" class="itemDateModified" rendered="#{row.dateModified!=null}"/>
+                        </div>
+                    </ui:repeat>
+                </h:panelGrid>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

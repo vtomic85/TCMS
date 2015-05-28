@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:tcms="http://tcms.com">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="itemId" value="#{treeBean.itemId}" />
+            <f:viewAction action="#{treeBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <f:view>
+                    <div class="adminItemFormContainer">
+                        <h:form id="treeForm" rendered="#{loginBean.isAdmin}">
+                            <p:growl id="treeMsgs" showDetail="true" escape="false"/>
+                            <p:tree value="#{treeBean.root}" var="node" dynamic="false" cache="false" animate="false"
+                                    selectionMode="single" selection="#{treeBean.nodeSelected}">
+                                <p:ajax event="select" listener="#{treeBean.nodeClicked}"
+                                        process="@form" update="@all">
+                                    <f:param name="itemId" value="#{treeBean.itemId}"/>
+                                </p:ajax>
+                                <p:treeNode>
+                                    <h:outputLabel value="#{node}"/>
+                                </p:treeNode>
+                            </p:tree>   
+                        </h:form>
+                        <h:form id="adminItemFormForm" enctype="multipart/form-data" rendered="#{loginBean.isAdmin}">
+                            <h:outputLabel value="#{msgs.item_info}" styleClass="adminItemChildrenLabel"/>
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="ID" rendered="#{treeBean.item.id>0}"/>
+                                <h:outputText value="#{treeBean.item.id}" rendered="#{treeBean.item.id>0}"/>
+                                <h:outputLabel value="#{msgs.name}"/>
+                                <h:inputText value="#{treeBean.item.name}"/>
+                                <h:outputLabel value="#{msgs.level}"/>
+                                <h:outputLabel value="#{treeBean.item.level}"/>
+                                <h:outputLabel value="#{msgs.parent}"/>
+                                <h:selectOneMenu id="itemParentId" value="#{treeBean.item.parentId}">
+                                    <f:selectItems value="#{treeBean.parentList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                                </h:selectOneMenu>
+                                <h:outputLabel value="#{msgs.type}"/>
+                                <h:selectOneMenu id="itemTypeId" value="#{treeBean.item.typeId}">
+                                    <f:selectItems value="#{treeBean.typeList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                                </h:selectOneMenu>
+                                <h:outputLabel value="#{msgs.published}"/>
+                                <p:selectBooleanCheckbox label="#{msgs.published}" value="#{treeBean.item.published}"/>
+                                <h:outputLabel value="#{msgs.primary_navigation}"/>
+                                <p:selectBooleanCheckbox label="#{msgs.primary_navigation}" value="#{treeBean.item.primaryNavigation}"/>
+                                <h:outputLabel value="#{msgs.secondary_navigation}"/>
+                                <p:selectBooleanCheckbox label="#{msgs.secondary_navigation}" value="#{treeBean.item.secondaryNavigation}"/>
+                            </h:panelGrid>
+                            <h:commandLink value="#{msgs.save}" action="#{treeBean.save()}" styleClass="commandLink"/>
+                            <h:commandLink value="#{msgs.back}" action="adminItemList" styleClass="commandLink"/>
+                        </h:form>
+                        <h:form id="adminItemChildrenForm" rendered="#{!treeBean.item.childrenEmpty}">
+                            <h:outputLabel value="#{msgs.item_children}" styleClass="adminItemChildrenLabel" rendered="#{!treeBean.item.childrenEmpty}"/>
+                                <ui:repeat value="#{treeBean.item.children}" var="row" rendered="#{!treeBean.item.childrenEmpty}">
+                                    <br/>
+                                    <h:outputLink value="#{row.adminUrl}" title="#{row.name}" styleClass="commandLink">
+                                        <h:outputText value="#{row.name}" styleClass="adminItemChildrenText"/>
+                                    </h:outputLink> 
+                                </ui:repeat>
+                        </h:form>
+                    </div>
+                    <h:form id="adminItemFormButtons" class="adminItemFormButtonHolder">
+                        <h:commandLink value="#{msgs.add_node}" action="#{treeBean.addNode}" styleClass="commandLink"/>
+                        <h:commandLink value="#{msgs.remove_node}" action="#{treeBean.removeNode}" styleClass="commandLink"/>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

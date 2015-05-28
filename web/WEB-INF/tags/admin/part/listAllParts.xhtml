@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminPartListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                <p:dataTable value="#{partListBean.parts}" var="row" rendered="#{!partListBean.listEmpty}" class="tableFullWidth">
+                    <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
+                        <h:outputLabel value="#{row.id}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.folder}" sortBy="#{row.folder}" filterBy="#{row.folder}">
+                        <h:outputLabel value="#{row.folder}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.name}" sortBy="#{row.name}" filterBy="#{row.name}">
+                        <h:outputLabel value="#{row.name}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.item_type}" sortBy="#{row.itemTypeName}" filterBy="#{row.itemTypeName}">
+                        <h:outputLabel value="#{row.itemTypeName}"/>
+                    </p:column>                               
+                    <p:column headerText="#{msgs.action}">
+                        <h:link value="#{msgs.edit}" outcome="adminEditPart" styleClass="commandLink">
+                            <f:param name="partId" value="#{row.id}"/>
+                        </h:link>
+                        <h:commandLink value="#{msgs.delete}" action="#{partListBean.deletePart}" styleClass="commandLink">
+                            <f:param name="partId" value="#{row.id}"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+                <h:commandLink value="#{msgs.add}" action="#{partListBean.newPart}" styleClass="commandLink"/>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

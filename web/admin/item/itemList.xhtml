@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminItemListForm" class="formFullWidth">
+                    <h:dataTable value="#{itemListBean.items}" var="row" rendered="#{!itemListBean.listEmpty}" class="tableFullWidth">
+                        <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                            <h:outputLabel value="#{row.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="#{msgs.name}"/>
+                        </f:facet>
+                            <h:outputText value="#{row.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="#{msgs.level}"/>
+                        </f:facet>
+                            <h:outputText value="#{row.level}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="#{msgs.parent}"/>
+                        </f:facet>
+                            <h:outputText value="#{row.parentName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="#{msgs.type}"/>
+                        </f:facet>
+                            <h:outputText value="#{row.typeName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="#{msgs.published}"/>
+                        </f:facet>
+                            <h:outputText value="#{row.published}"/>
+                        </h:column>                       
+                        <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="#{msgs.action}"/>
+                        </f:facet>
+                            <h:link value="#{msgs.edit}" outcome="adminEditItem" styleClass="commandLink">
+                                <f:param name="itemId" value="#{row.id}"/>
+                            </h:link>
+                            <h:commandLink value="#{msgs.delete}" action="#{itemListBean.deleteItem}" styleClass="commandLink">
+                                <f:param name="itemId" value="#{row.id}"/>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                    <h:commandLink value="#{msgs.add}" action="#{itemListBean.newItem}" styleClass="commandLink"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <f:metadata>
+            <f:viewParam name="folderId" value="#{messageListBean.folderId}" />
+            <f:viewAction action="#{messageListBean.init}" />
+        </f:metadata>
+        <ui:composition>
+            <h:form id="messageFolderListForm" class="messageFolderListForm">
+                <h:commandLink value="Inbox" action="#{messageListBean.changeFolder(1)}" styleClass="commandLink"/>
+                <h:commandLink value="Drafts" action="#{messageListBean.changeFolder(2)}" styleClass="commandLink"/>
+                <h:commandLink value="Sent" action="#{messageListBean.changeFolder(3)}" styleClass="commandLink"/>
+                <h:commandLink value="Deleted" action="#{messageListBean.changeFolder(4)}" styleClass="commandLink">
+                    <f:ajax render="@all"/>
+                </h:commandLink>
+            </h:form>
+
+            <h:form id="messageListForm" class="messageListForm">
+                <h:outputLabel value="#{messageListBean.folderName}" styleClass="msgFolderTitle"/>
+                <h:dataTable value="#{messageListBean.messages}" var="row" rendered="#{!messageListBean.listEmpty}" class="tableFullWidth">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.status}"/>
+                        </f:facet>
+                        <h:outputLabel value="READ" rendered="#{row.read}"/>
+                        <h:outputLabel value="UNREAD" rendered="#{!row.read}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputLabel value="#{row.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.subject}"/>
+                        </f:facet>
+                        <h:outputText value="#{row.subject}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.from}" rendered="#{messageListBean.folderId!=2 and messageListBean.folderId!=3}"/>
+                        </f:facet>
+                        <h:outputText value="#{row.fromUsername}" rendered="#{messageListBean.folderId!=2 and messageListBean.folderId!=3}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.to}" rendered="#{messageListBean.folderId==2 or messageListBean.folderId==3}"/>
+                        </f:facet>
+                        <h:outputText value="#{row.toUsername}" rendered="#{messageListBean.folderId==2 or messageListBean.folderId==3}"/>
+                    </h:column>                                       
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.action}"/>
+                        </f:facet>
+                        <h:commandLink value="#{msgs.mark_as_read}" action="#{messageListBean.markAsReadOrUnread}" styleClass="commandLink"
+                                       rendered="#{messageListBean.folderId==1}">
+                            <f:param name="messageId" value="#{row.id}"/>
+                            <f:param name="ownerId" value="#{row.ownerId}"/>
+                            <f:param name="isRead" value="TRUE"/>
+                        </h:commandLink>
+                        <h:commandLink value="#{msgs.mark_as_unread}" action="#{messageListBean.markAsReadOrUnread}" styleClass="commandLink"
+                                       rendered="#{messageListBean.folderId==1}">
+                            <f:param name="messageId" value="#{row.id}"/>
+                            <f:param name="ownerId" value="#{row.ownerId}"/>
+                            <f:param name="isRead" value="FALSE"/>
+                        </h:commandLink>
+                        <h:link value="#{msgs.reply}" outcome="editMessage" styleClass="commandLink"
+                                rendered="#{messageListBean.folderId==1 or messageListBean.folderId==4}">
+                            <f:param name="messageId" value="#{row.id}"/>
+                        </h:link>
+                        <h:commandLink value="#{msgs.delete}" action="#{messageListBean.deleteMessage}" styleClass="commandLink"
+                                       rendered="#{messageListBean.folderId!=4}">
+                            <f:param name="messageId" value="#{row.id}"/>
+                        </h:commandLink>
+                        <h:commandLink value="#{msgs.permanently_delete}" action="#{messageListBean.permanentlyDeleteMessage}" styleClass="commandLink"
+                                       rendered="#{messageListBean.folderId==4}">
+                            <f:param name="messageId" value="#{row.id}"/>
+                        </h:commandLink>
+                    </h:column>
+                </h:dataTable>
+
+                <h:form id="messageActionsForm" class="messageActionsForm">
+                    <h:link value="#{msgs.new_message}" outcome="editMessage" styleClass="commandLink">
+                        <f:param name="messageId" value="0"/>
+                    </h:link>
+                </h:form>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

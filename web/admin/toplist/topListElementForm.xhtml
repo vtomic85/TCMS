@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="topListId" value="#{topListElementFormBean.topListId}" />
+            <f:viewParam name="typeId" value="#{topListElementFormBean.typeId}" />
+            <f:viewAction action="#{topListElementFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <div class="addNewTopListElement">
+                    <h:form id="newTopListElementForm">
+                        <h:selectOneMenu id="toplistNewElement" value="#{topListElementFormBean.newElementId}">
+                            <f:selectItems value="#{topListElementFormBean.itemsList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}" />
+                        </h:selectOneMenu>
+                        <h:commandLink value="#{msgs.add}" action="#{topListElementFormBean.saveNewElement}" styleClass="commandLink"/>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

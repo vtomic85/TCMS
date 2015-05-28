@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:tcms="http://tcms.com">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="itemId" value="#{newsViewBean.itemId}" />
+            <f:viewParam name="itemId" value="#{newsMenuBean.itemId}"/>
+            <f:viewParam name="holderId" value="#{newsMenuBean.holderId}"/>
+            <f:viewAction action="#{newsViewBean.init}" />
+            <f:viewAction action="#{newsMenuBean.init}"/>
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="leftStripe">
+                <tcms:leftSideNewsMenu/>
+            </ui:define>
+            <ui:define name="mainStripe">
+                <f:view>
+                    <tcms:topNewsMenu/>  
+                    <div class="itemCategory">
+                        <h:outputLabel value="${newsViewBean.item.categoryName}"/>
+                    </div>
+                    <div class="itemTitle">
+                        <h:outputLabel value="${newsViewBean.item.title}"/>
+                    </div>
+                    <div class="itemSubtitle">
+                        <h:outputLabel value="${newsViewBean.item.lead}"/>
+                    </div>                
+                    <div class="itemDateCreated">
+                        <h:outputLabel value="${newsViewBean.item.dateCreated}"/>
+                        <h:outputLabel value="${newsViewBean.item.dateModified}"/>
+                    </div>
+                    <div class="itemAuthor">
+                        <h:outputLabel value="${newsViewBean.item.author}"/>
+                    </div>
+                    <div class="itemPicture">
+                        <h:graphicImage value="#{newsViewBean.item.imgPath}" rendered="#{newsViewBean.item.imgPath!=null}" height="300"/>
+                    </div>
+                    <div class="itemBody">
+                        <h:outputText value="${newsViewBean.item.body}" escape="false"/>
+                    </div>
+                    <hr/>
+                    <div class="itemGallery">
+                        <p:lightBox styleClass="imagebox" id="galleryLightBox">
+                            <ui:repeat value="#{newsViewBean.galleryImages}" var="row" varStatus="status">
+                                <h:outputLink value="..#{row.imgPath}" title="#{row.title}">  
+                                    <h:graphicImage url="..#{row.imgPath}" style="height: 77px; width: 100px; padding:1px;" />                                    
+                                </h:outputLink>
+                            </ui:repeat>
+                        </p:lightBox>
+                    </div>
+                    <hr/>  
+                    <h:form>
+                        <h:commandLink styleClass="commandLink" value="#{msgs.leave_comment}" action="#{newsViewBean.leaveComment}" >
+                            <f:param name="componentTypeId" value="#{newsViewBean.typeId}"/>
+                            <f:param name="componentId" value="#{newsViewBean.itemId}"/>
+                            <f:param name="holderId" value="#{newsMenuBean.holderId}"/>
+                            <f:param name="isLoginOk" value="#{loginBean.isLoginOk}"/>
+                        </h:commandLink>
+                    </h:form>
+                    <div class="commentsHolder">
+                        <h:outputText value="#{msgs.comments}: #{newsViewBean.publishedCommentsCount}"/>
+                        <hr/>
+                        <h:outputText value="#{msgs.no_comments}" rendered="#{newsViewBean.commentListEmpty}"/>
+                        <h:form id="newsCommentsListForm" rendered="#{!newsViewBean.commentListEmpty}">
+                            <ui:repeat value="#{newsViewBean.comments}" var="row" rendered="#{!newsViewBean.commentListEmpty}">
+                                <h:panelGroup rendered="#{row.published}" styleClass="commentHolder">
+                                    <h:outputText value="#{row.userName}"/>
+                                    <h:outputText value="#{row.dateCreated}"/>
+                                    <h:outputText value="#{row.positiveVotes}"/>
+                                    <h:commandLink value="+" action="#{newsViewBean.upvote}">
+                                        <f:param name="commentId" value="#{row.id}"/>
+                                        <f:ajax render="@form"/>
+                                    </h:commandLink>
+                                    <h:outputText value="#{row.negativeVotes}"/>
+                                    <h:commandLink value="-" action="#{newsViewBean.downvote}">
+                                        <f:param name="commentId" value="#{row.id}"/>
+                                        <f:ajax render="@form"/>
+                                    </h:commandLink>
+                                    <h:outputText value="#{row.body}"/>
+                                </h:panelGroup>
+                            </ui:repeat>
+                        </h:form>
+                    </div>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

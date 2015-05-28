@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="upId" value="#{userPartFormBean.upId}" />
+            <f:viewAction action="#{userPartFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminUserPartFormForm" class="formFullWidth">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID" rendered="#{userPartFormBean.up.id>0}"/>
+                        <h:outputText value="#{userPartFormBean.up.id}" rendered="#{userPartFormBean.up.id>0}"/>
+                        <h:outputLabel value="#{msgs.name}"/>
+                        <h:inputText value="#{userPartFormBean.up.name}"/>
+                        <h:outputLabel value="#{msgs.user_part_config}"/>
+                        <h:selectOneMenu id="userPartConfigId" value="#{userPartFormBean.up.configId}" onchange="submit()">
+                            <f:selectItems value="#{userPartFormBean.configList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msgs.title}" rendered="#{userPartFormBean.up.myConfig.hasTitle and userPartFormBean.up.id>0}"/>
+                        <h:inputText value="#{userPartFormBean.up.title}" rendered="#{userPartFormBean.up.myConfig.hasTitle and userPartFormBean.up.id>0}"/>
+                        <h:outputLabel value="#{msgs.subtitle}" rendered="#{userPartFormBean.up.myConfig.hasSubtitle and userPartFormBean.up.id>0}"/>
+                        <h:inputText value="#{userPartFormBean.up.subtitle}" rendered="#{userPartFormBean.up.myConfig.hasSubtitle and userPartFormBean.up.id>0}"/>
+                        <h:outputLabel value="#{msgs.lead}" rendered="#{userPartFormBean.up.myConfig.hasLead and userPartFormBean.up.id>0}"/>
+                        <h:inputText value="#{userPartFormBean.up.lead}" rendered="#{userPartFormBean.up.myConfig.hasLead and userPartFormBean.up.id>0}"/>
+                        <h:outputLabel value="#{msgs.body}" rendered="#{userPartFormBean.up.myConfig.hasBody and userPartFormBean.up.id>0}"/>
+                        <p:editor value="#{userPartFormBean.up.body}" rendered="#{userPartFormBean.up.myConfig.hasBody and userPartFormBean.up.id>0}"/>
+                        <h:outputLabel value="#{msgs.author}" rendered="#{userPartFormBean.up.myConfig.hasAuthor and userPartFormBean.up.id>0}"/>
+                        <h:inputText value="#{userPartFormBean.up.author}" rendered="#{userPartFormBean.up.myConfig.hasAuthor and userPartFormBean.up.id>0}"/>
+                        <h:outputLabel value="#{msgs.date_created}" rendered="#{userPartFormBean.up.myConfig.hasDateCreated and userPartFormBean.up.id>0}"/>
+                        <p:calendar value="#{userPartFormBean.up.dateCreated}" rendered="#{userPartFormBean.up.myConfig.hasDateCreated and userPartFormBean.up.id>0}"/>
+                        <h:outputLabel value="#{msgs.date_modified}" rendered="#{userPartFormBean.up.myConfig.hasDateModified and userPartFormBean.up.id>0}"/>
+                        <p:calendar value="#{userPartFormBean.up.dateModified}" rendered="#{userPartFormBean.up.myConfig.hasDateModified and userPartFormBean.up.id>0}"/> 
+                        <h:outputLabel value="#{msgs.gallery}" rendered="#{userPartFormBean.up.myConfig.hasGallery and userPartFormBean.up.id>0}"/>
+                        <h:selectOneMenu id="userPartGalleryId" value="#{userPartFormBean.up.galleryId}" rendered="#{userPartFormBean.up.myConfig.hasGallery and userPartFormBean.up.id>0}">
+                            <f:selectItems value="#{userPartFormBean.galleryList}" var="row" itemLabel="#{row.title}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>
+                        <h:panelGroup id="imageControlButtons" rendered="#{userPartFormBean.up.myConfig.hasImage and userPartFormBean.up.id>0}">
+                            <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
+                                <f:param name="objectType" value="userPart"/>
+                                <f:param name="objectId" value="#{userPartFormBean.upId}"/>
+                                <f:param name="backUrl" value="adminEditUserPart"/>
+                            </h:link>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{userPartFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.back}" action="adminUserPartList" styleClass="commandLink"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

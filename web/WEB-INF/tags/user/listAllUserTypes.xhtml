@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminUserTypeListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                    <h:dataTable value="#{userTypeListBean.utList}" var="row">
+                        <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="#{msgs.id}"/>
+                        </f:facet>
+                            <h:outputText value="#{row.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="#{msgs.name}"/>
+                        </f:facet>
+                            <h:outputText value="#{row.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                            <h:outputText value="#{msgs.action}"/>
+                        </f:facet>
+                            <h:link value="#{msgs.edit}" outcome="adminEditUserType" styleClass="commandLink">
+                                <f:param name="utId" value="#{row.id}"/>
+                            </h:link>
+                            <h:commandLink value="#{msgs.delete}" action="#{userTypeListBean.deleteUserType}" styleClass="commandLink">
+                                <f:param name="utId" value="#{row.id}"/>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>                   
+                    <h:link value="#{msgs.add}" outcome="adminEditUserType" styleClass="commandLink">
+                        <f:param name="utId" value="0"/>
+                    </h:link>
+                </h:form>
+        </ui:composition>
+    </h:body>
+</html>

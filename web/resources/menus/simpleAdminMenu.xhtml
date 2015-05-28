@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:body>
+        <ui:composition>
+            <h:form id="simpleAdminMenuForm">
+                <h:commandLink styleClass="simpleLink" value="#{msgs.admin_home}" action="adminHome" /><h:outputText value=" | "/>
+                <h:commandLink styleClass="simpleLink" value="#{msgs.locations}" action="adminLocations" rendered="#{loginBean.isModerator}" /><h:outputText value=" | " rendered="#{loginBean.isModerator}"/>
+                <h:commandLink styleClass="simpleLink" value="#{msgs.events}" action="adminEvents" rendered="#{loginBean.isModerator}" /><h:outputText value=" | " rendered="#{loginBean.isModerator}"/>
+                <h:commandLink styleClass="simpleLink" value="#{msgs.users}" action="adminUser" rendered="#{loginBean.isModerator}" /><h:outputText value=" | " rendered="#{loginBean.isModerator}"/><h:outputText value=" | " rendered="#{loginBean.isModerator}"/>
+                <h:commandLink styleClass="simpleLink" value="#{msgs.categories}" action="adminCategory" rendered="#{loginBean.isModerator}" /><h:outputText value=" | " rendered="#{loginBean.isModerator}"/>
+                <h:commandLink styleClass="simpleLink" value="#{msgs.registrations}" action="adminRegistration" rendered="#{loginBean.isModerator}" /><h:outputText value=" | " rendered="#{loginBean.isModerator}"/>
+                <h:commandLink styleClass="simpleLink" value="#{msgs.reservations}" action="adminReservation" rendered="#{loginBean.isModerator}" /><h:outputText value=" | " rendered="#{loginBeaisModeratorer}"/>
+                <h:commandLink styleClass="simpleLink" value="#{msgs.sell_tickets}" action="adminSellTickets" rendered="#{loginBisModeratorhier}" /><h:outputText value=" | " rendered="#{logiisModeratorashier}"/>
+                <h:commandLink styleClass="simpleLink" value="#{msgs.logout}" action="#{loginBean.logout}"/>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="newsId" value="#{newsFormBean.newsId}" />
+            <f:viewAction action="#{newsFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminNewsFormForm" class="formFullWidth" enctype="multipart/form-data">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID" rendered="#{newsFormBean.news.id>0}"/>
+                        <h:outputText value="#{newsFormBean.news.id}" rendered="#{newsFormBean.news.id>0}"/>
+                        <h:outputLabel value="#{msgs.title}"/>
+                        <h:inputText value="#{newsFormBean.news.title}"/>
+                        <h:outputLabel value="#{msgs.lead}"/>
+                        <h:inputText value="#{newsFormBean.news.lead}"/>
+                        <h:outputLabel value="#{msgs.body}"/>
+                        <p:editor value="#{newsFormBean.news.body}"/>
+                        <h:outputLabel value="#{msgs.author}"/>
+                        <h:inputText value="#{newsFormBean.news.author}"/>
+                        <h:outputLabel value="#{msgs.category}"/>
+                        <h:selectOneMenu id="newsCategoryId" value="#{newsFormBean.news.categoryId}">
+                            <f:selectItems value="#{newsFormBean.categoryList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>                        
+                        <h:outputLabel value="#{msgs.date_created}"/>
+                        <p:calendar value="#{newsFormBean.news.dateCreated}"/>
+                        <h:outputLabel value="#{msgs.date_modified}"/>
+                        <p:calendar value="#{newsFormBean.news.dateModified}"/>
+                        <h:outputLabel value="#{msgs.holder}" rendered="#{newsFormBean.news.id>0}"/>
+                        <h:selectOneMenu id="holderId" value="#{newsFormBean.news.itemId}" rendered="#{newsFormBean.news.id>0}">
+                            <f:selectItems value="#{newsFormBean.holderList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msgs.gallery}"/>                        
+                        <h:selectOneMenu id="newsGalleryId" value="#{newsFormBean.news.galleryId}">
+                            <f:selectItem itemLabel="---" itemValue="0"/>
+                            <f:selectItems value="#{newsFormBean.galleryList}" var="row2" itemLabel="#{row2.title}" itemValue="#{row2.id}"/>
+                        </h:selectOneMenu>  
+                        <h:outputLabel value="#{msgs.published}"/>
+                        <h:selectOneMenu id="newsPublished" value="#{newsFormBean.news.published}">
+                            <f:selectItem itemLabel="TRUE" itemValue="true"/>
+                            <f:selectItem itemLabel="FALSE" itemValue="false"/>
+                        </h:selectOneMenu>        
+                        <h:panelGroup id="imageControlButtons">
+                            <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
+                                <f:param name="objectType" value="news"/>
+                                <f:param name="objectId" value="#{newsFormBean.newsId}"/>
+                                <f:param name="backUrl" value="adminEditPage"/>
+                            </h:link>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{newsFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.back}" action="adminNewsList" styleClass="commandLink"/>
+                </h:form>                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

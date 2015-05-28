@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: mpetrov
+Build-Jdk: 1.7.0_51
+Specification-Title: RichFaces Core API
+Specification-Version: 4.3.6.Final
+Specification-Vendor: JBoss by Red Hat
+Implementation-Title: RichFaces Core API
+Implementation-Version: 4.3.6.Final
+Implementation-Vendor-Id: org.richfaces.core
+Implementation-Vendor: JBoss by Red Hat
+Implementation-URL: http://richfaces.org/richfaces-root-parent/richfac
+ es-core-parent/richfaces-core-api
+Java-Vendor: Oracle Corporation
+Java-Version: 1.7.0_51
+Os-Arch: amd64
+Os-Name: Linux
+Os-Version: 3.13.7-100.fc19.x86_64
+Scm-Url: https://github.com/richfaces/core
+

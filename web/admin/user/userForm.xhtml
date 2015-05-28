@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="userId" value="#{userFormBean.userId}" />
+            <f:viewAction action="#{userFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminUserFormForm" class="formFullWidth" enctype="multipart/form-data">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID" rendered="#{userFormBean.user.id>0}"/>
+                        <h:outputText value="#{userFormBean.user.id}" rendered="#{userFormBean.user.id>0}"/>
+                        <h:outputLabel value="#{msgs.username}"/>
+                        <h:inputText value="#{userFormBean.user.username}"/>
+                        <h:outputLabel value="#{msgs.first_name}"/>
+                        <h:inputText value="#{userFormBean.user.firstName}"/>
+                        <h:outputLabel value="#{msgs.last_name}"/>
+                        <h:inputText value="#{userFormBean.user.lastName}"/>
+                        <h:outputLabel value="#{msgs.category}"/>
+                        <h:selectOneMenu id="userTypeId" value="#{userFormBean.user.typeId}">
+                            <f:selectItems value="#{userFormBean.typeList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msgs.email}"/>
+                        <h:inputText value="#{userFormBean.user.email}"/>
+                        <h:outputLabel value="#{msgs.address}"/>
+                        <h:inputText value="#{userFormBean.user.address}"/>
+                        <h:outputLabel value="#{msgs.city}"/>
+                        <h:inputText value="#{userFormBean.user.city}"/>
+                        <h:outputLabel value="#{msgs.phone}"/>
+                        <h:inputText value="#{userFormBean.user.phone}"/>
+                        <h:outputLabel value="#{msgs.country}"/>
+                        <h:selectOneMenu id="userCountryId" value="#{userFormBean.user.countryId}">
+                            <f:selectItems value="#{userFormBean.countryList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msgs.date_of_birth}"/>
+                        <p:calendar value="#{userFormBean.user.dateOfBirth}"/>
+                        <h:outputLabel value="#{msgs.active}"/>
+                        <h:selectOneMenu id="userActive" value="#{userFormBean.user.active}">
+                            <f:selectItem itemLabel="TRUE" itemValue="true"/>
+                            <f:selectItem itemLabel="FALSE" itemValue="false"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{userFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.back}" action="adminUserList" styleClass="commandLink"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

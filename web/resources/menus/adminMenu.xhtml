@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html lang="#{localeBean.language}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:body>
+        <ui:composition>
+            <h:form id="adminMenuForm" class="fullWidth" rendered="#{loginBean.isAdmin}">
+                <div class="adminHolder">
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.admin_home}" action="adminHome" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.items}" action="adminEditItem" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.pages}" action="adminPageList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.events}" action="adminEventList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.event_categories}" action="adminEventCategoryList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.news}" action="adminNewsList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.news_categories}" action="adminNewsCategoryList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.toplists}" action="adminTopListList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.users}" action="adminUserList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.user_types}" action="adminUserTypeList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.countries}" action="adminCountryList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.regions}" action="adminRegionList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.parts}" action="adminPartList" /></div>
+                    <div class="adminButtonHolderDiv">
+                        <h:commandLink styleClass="commandLink fullWidth" value="#{msgs.region_parts}" action="adminRegionPartList" >
+                            <f:param name="regionId" value="0"/>
+                        </h:commandLink>
+                    </div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.user_part_configs}" action="adminUserPartConfigList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.user_parts}" action="adminUserPartList" /></div>                    
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.comments}" action="adminCommentList" /></div>
+                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.galleries}" action="adminGalleryList" /></div>
+                </div>
+            </h:form>
+            <h:form>
+                <h:selectOneMenu value="#{localeBean.language}" onchange="submit()">
+                    <f:selectItem itemValue="en" itemLabel="English" />
+                    <f:selectItem itemValue="sr" itemLabel="Srpski" />
+                </h:selectOneMenu>
+            </h:form>
+            <hr/>
+        </ui:composition>
+    </h:body>
+</html>

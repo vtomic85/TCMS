@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminUserPartConfigListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                <p:dataTable value="#{userPartConfigListBean.list}" var="row">
+                    <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
+                        <h:outputText value="#{row.id}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.name}" sortBy="#{row.name}" filterBy="#{row.name}">
+                        <h:outputText value="#{row.name}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.title}" sortBy="#{row.hasTitle}" filterBy="#{row.hasTitle}">
+                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasTitle}"/>
+                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasTitle}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.subtitle}" sortBy="#{row.hasSubtitle}" filterBy="#{row.hasSubtitle}">
+                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasSubtitle}"/>
+                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasSubtitle}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.lead}" sortBy="#{row.hasLead}" filterBy="#{row.hasLead}">
+                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasLead}"/>
+                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasLead}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.body}" sortBy="#{row.hasBody}" filterBy="#{row.hasBody}">
+                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasLead}"/>
+                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasLead}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.date_created}" sortBy="#{row.hasDateCreated}" filterBy="#{row.hasDateCreated}">
+                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasDateCreated}"/>
+                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasDateCreated}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.date_modified}" sortBy="#{row.hasDateModified}" filterBy="#{row.hasDateModified}">
+                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasDateModified}"/>
+                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasDateModified}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.author}" sortBy="#{row.hasAuthor}" filterBy="#{row.hasAuthor}">
+                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasAuthor}"/>
+                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasAuthor}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.image}" sortBy="#{row.hasImage}" filterBy="#{row.hasImage}">
+                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasImage}"/>
+                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasImage}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.gallery}" sortBy="#{row.hasGallery}" filterBy="#{row.hasGallery}">
+                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasGallery}"/>
+                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasGallery}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.action}">
+                        <h:link value="#{msgs.edit}" outcome="adminEditUserPartConfig" styleClass="commandLink">
+                            <f:param name="upcId" value="#{row.id}"/>
+                        </h:link>
+                        <h:commandLink value="#{msgs.delete}" action="#{userPartConfigListBean.deleteUserPartConfig}" styleClass="commandLink">
+                            <f:param name="upcId" value="#{row.id}"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>                   
+                <h:link value="#{msgs.add}" outcome="adminEditUserPartConfig" styleClass="commandLink">
+                    <f:param name="upcId" value="0"/>
+                </h:link>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

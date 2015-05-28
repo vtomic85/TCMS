@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminUserPartListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                <p:dataTable value="#{userPartListBean.list}" var="row">
+                    <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
+                        <h:outputText value="#{row.id}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.config_name}" sortBy="#{row.myConfig.name}" filterBy="#{row.myConfig.name}">
+                        <h:outputText value="#{row.myConfig.name}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.name}" sortBy="#{row.name}" filterBy="#{row.name}">
+                        <h:outputText value="#{row.name}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.action}">
+                        <h:link value="#{msgs.edit}" outcome="adminEditUserPart" styleClass="commandLink">
+                            <f:param name="upId" value="#{row.id}"/>
+                        </h:link>
+                        <h:commandLink value="#{msgs.delete}" action="#{userPartListBean.deleteUserPart}" styleClass="commandLink">
+                            <f:param name="upId" value="#{row.id}"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>                   
+                <h:link value="#{msgs.add}" outcome="adminEditUserPart" styleClass="commandLink">
+                    <f:param name="upId" value="0"/>
+                </h:link>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

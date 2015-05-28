@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminCommentListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                <p:dataTable value="#{commentListBean.comments}" var="row" rendered="#{!commentListBean.listEmpty}" class="tableFullWidth">
+                    <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
+                        <h:outputLabel value="#{row.id}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.body}" sortBy="#{row.body}" filterBy="#{row.body}">
+                        <h:outputText value="#{row.body}"/>
+                    </p:column>                    
+                    <p:column headerText="#{msgs.action}">
+                        <h:commandLink value="#{msgs.delete}" action="#{commentListBean.deleteComment}" styleClass="commandLink">
+                            <f:param name="commentId" value="#{row.id}"/>
+                            <f:ajax render="@form"/>
+                        </h:commandLink>
+                        <h:commandLink value="#{msgs.publish}" action="#{commentListBean.publishComment}" styleClass="commandLink" rendered="#{!row.published}">
+                            <f:param name="commentId" value="#{row.id}"/>
+                            <f:ajax render="@form"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

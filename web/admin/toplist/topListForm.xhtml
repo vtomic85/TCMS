@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="topListId" value="#{topListFormBean.topListId}" />
+            <f:viewAction action="#{topListFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminTopListFormForm" class="formFullWidth" enctype="multipart/form-data">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID" rendered="#{topListFormBean.topList.id>0}"/>
+                        <h:outputText value="#{topListFormBean.topList.id}" rendered="#{topListFormBean.topList.id>0}"/>
+                        <h:outputLabel value="#{msgs.name}"/>
+                        <h:inputText value="#{topListFormBean.topList.name}"/>
+                        <h:outputLabel value="#{msgs.type}"/>
+                        <h:selectOneMenu id="toplistTypeId" value="#{topListFormBean.topList.typeId}" disabled="#{topListFormBean.topList.listSize>0}">
+                            <f:selectItems value="#{topListFormBean.typeList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <h:outputLabel value="#{msgs.elements}"/>
+                    <h:panelGrid columns="2">
+                        <ui:repeat value="#{topListFormBean.elementList}" var="row" rendered="#{topListFormBean.topList.id>0}">
+                            <h:outputLabel value="#{row.name}"/>
+                            <h:commandLink action="#{topListFormBean.removeElement}" value=" - " styleClass="commandLink">
+                                <f:param name="elementId" value="#{row.id}"/>
+                            </h:commandLink>
+                            <br/>
+                        </ui:repeat>
+                    </h:panelGrid>
+                    <h:link value="#{msgs.add_element}" outcome="addNewTopListElement" rendered="#{topListFormBean.topList.id>0}" styleClass="commandLink">
+                        <f:param name="topListId" value="#{topListFormBean.topList.id}"/>
+                        <f:param name="typeId" value="#{topListFormBean.topList.typeId}"/>
+                    </h:link>                    
+                    <div class="commandButtonsHolder">
+                        <h:commandLink value="#{msgs.save}" action="#{topListFormBean.save()}" styleClass="commandLink"/>
+                        <h:commandLink value="#{msgs.back}" action="adminTopListList" styleClass="commandLink"/>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminTopListListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                <p:dataTable value="#{topListListBean.topLists}" var="row" rendered="#{!topListListBean.listEmpty}" class="tableFullWidth">
+                    <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
+                        <h:outputLabel value="#{row.id}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.name}" sortBy="#{row.name}" filterBy="#{row.name}">
+                        <h:outputLabel value="#{row.name}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.size}" sortBy="#{row.listSize}" filterBy="#{row.listSize}">
+                        <h:outputLabel value="#{row.listSize}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs.action}">
+                        <h:link value="#{msgs.edit}" outcome="adminEditTopList" styleClass="commandLink">
+                            <f:param name="topListId" value="#{row.id}"/>
+                        </h:link>
+                        <h:commandLink value="#{msgs.delete}" action="#{topListListBean.deleteTopList}" styleClass="commandLink">
+                            <f:param name="topListId" value="#{row.id}"/>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+                <h:commandLink value="#{msgs.add}" action="#{topListListBean.newTopList}" styleClass="commandLink">
+                    <f:param name="topListId" value="0"/>
+                </h:commandLink>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

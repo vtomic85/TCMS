@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form id="adminUserListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
+                <h:dataTable value="#{userListBean.users}" var="row" rendered="#{!userListBean.listEmpty}" class="tableFullWidth">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ID"/>
+                        </f:facet>
+                        <h:outputLabel value="#{row.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.username}"/>
+                        </f:facet>
+                        <h:outputText value="#{row.username}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.user_type}"/>
+                        </f:facet>
+                        <h:outputText value="#{row.typeName}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.first_name}"/>
+                        </f:facet>
+                        <h:outputText value="#{row.firstName}"/>
+                    </h:column>                        
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.last_name}"/>
+                        </f:facet>
+                        <h:outputText value="#{row.lastName}"/>
+                    </h:column>                        
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.active}"/>
+                        </f:facet>
+                        <h:outputText value="#{row.active}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msgs.action}"/>
+                        </f:facet>
+                        <h:link value="#{msgs.edit}" outcome="adminEditUser" styleClass="commandLink">
+                            <f:param name="userId" value="#{row.id}"/>
+                        </h:link>
+                        <h:commandLink value="#{msgs.delete}" action="#{userListBean.deleteUser}" styleClass="commandLink">
+                            <f:param name="userId" value="#{row.id}"/>
+                        </h:commandLink>
+                    </h:column>
+                </h:dataTable>
+                <h:commandLink value="#{msgs.add}" action="#{userListBean.newUser}" styleClass="commandLink"/>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

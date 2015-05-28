@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:tcms="http://tcms.com">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="itemId" value="#{userPartViewBean.itemId}" />
+            <f:viewParam name="itemId" value="#{userPartMenuBean.itemId}"/>
+            <f:viewParam name="holderId" value="#{userPartMenuBean.holderId}"/>
+            <f:viewAction action="#{userPartViewBean.init}" />
+            <f:viewAction action="#{userPartMenuBean.init}"/>
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="leftStripe">
+                <tcms:leftSideUserPartMenu/>
+            </ui:define>
+            <ui:define name="mainStripe">
+                <f:view>
+                    <tcms:topUserPartMenu/>
+                    <div class="itemTitle">
+                        <h:outputLabel value="#{userPartViewBean.item.title}" rendered="#{userPartViewBean.item.myConfig.hasTitle}"/>
+                    </div>
+                    <div class="itemSubtitle">
+                        <h:outputLabel value="#{userPartViewBean.item.subtitle}" rendered="#{userPartViewBean.item.myConfig.hasSubtitle}"/>
+                    </div>  
+                    <div class="itemLead">
+                        <h:outputLabel value="#{userPartViewBean.item.lead}" rendered="#{userPartViewBean.item.myConfig.hasLead}"/>
+                    </div>   
+                    <div class="itemBody">
+                        <h:outputText value="#{userPartViewBean.item.body}" rendered="#{userPartViewBean.item.myConfig.hasBody}"/>
+                    </div>   
+                    <div class="itemDateCreated">
+                        <h:outputLabel value="#{userPartViewBean.item.dateCreated}" rendered="#{userPartViewBean.item.myConfig.hasDateCreated}"/>
+                    </div>
+                    <div class="itemDateModified">
+                        <h:outputLabel value="#{userPartViewBean.item.dateModified}" rendered="#{userPartViewBean.item.myConfig.hasDateModified}"/>
+                    </div>
+                    <div class="itemAuthor">
+                        <h:outputLabel value="#{userPartViewBean.item.author}" rendered="#{userPartViewBean.item.myConfig.hasAuthor}"/>
+                    </div>
+                    <div class="itemPicture">
+                        <h:graphicImage value="#{userPartViewBean.item.imgPath}" rendered="#{userPartViewBean.item.myConfig.hasImage and userPartViewBean.item.imgPath!=null}" height="300"/>
+                    </div>
+                    <hr/>
+                    <div class="itemGallery">
+                        <p:lightBox styleClass="imagebox" id="galleryLightBox" rendered="#{userPartViewBean.item.myConfig.hasGallery}">
+                            <ui:repeat value="#{userPartViewBean.galleryImages}" var="row" varStatus="status">
+                                <h:outputLink value="..#{row.imgPath}" title="#{row.title}">  
+                                    <h:graphicImage url="..#{row.imgPath}" style="height: 77px; width: 100px; padding:1px;" />                                    
+                                </h:outputLink>
+                            </ui:repeat>
+                        </p:lightBox>
+                    </div>
+                    <hr/>  
+                    <h:form>
+                        <h:commandLink styleClass="commandLink" value="#{msgs.leave_comment}" action="#{userPartViewBean.leaveComment}" >
+                            <f:param name="componentTypeId" value="#{userPartViewBean.typeId}"/>
+                            <f:param name="componentId" value="#{userPartViewBean.itemId}"/>
+                            <f:param name="holderId" value="#{userPartMenuBean.holderId}"/>
+                            <f:param name="isLoginOk" value="#{loginBean.isLoginOk}"/>
+                        </h:commandLink>
+                    </h:form>
+                    <div class="commentsHolder">
+                        <h:outputText value="#{msgs.comments}: #{userPartViewBean.publishedCommentsCount}"/>
+                        <hr/>
+                        <h:outputText value="#{msgs.no_comments}" rendered="#{userPartViewBean.commentListEmpty}"/>
+                        <h:form id="userPartCommentsListForm" rendered="#{!userPartViewBean.commentListEmpty}">
+                            <ui:repeat value="#{userPartViewBean.comments}" var="row" rendered="#{!userPartViewBean.commentListEmpty}">
+                                <h:panelGroup rendered="#{row.published}" styleClass="commentHolder">
+                                    <h:outputText value="#{row.userName}"/>
+                                    <h:outputText value="#{row.dateCreated}"/>
+                                    <h:outputText value="#{row.positiveVotes}"/>
+                                    <h:commandLink value="+" action="#{userPartViewBean.upvote}">
+                                        <f:param name="commentId" value="#{row.id}"/>
+                                        <f:ajax render="@form"/>
+                                    </h:commandLink>
+                                    <h:outputText value="#{row.negativeVotes}"/>
+                                    <h:commandLink value="-" action="#{userPartViewBean.downvote}">
+                                        <f:param name="commentId" value="#{row.id}"/>
+                                        <f:ajax render="@form"/>
+                                    </h:commandLink>
+                                    <h:outputText value="#{row.body}"/>
+                                </h:panelGroup>
+                            </ui:repeat>
+                        </h:form>
+                    </div>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title><h:outputText value="#{msgs.site_title}"/></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </h:head>
+    <h:body>
+        <f:facet name="last">
+            <h:outputStylesheet library="css" name="style.css" />
+        </f:facet>
+        <div class="container">
+            <div class="topHolder">
+                <h:form id="topHolderContactForm">
+                    <div class="adminHolder">                            
+                        <h:commandLink value="#{msgs.adminLink}" action="adminHome" styleClass="commandLink"/>
+                        <h:commandLink value="#{msgs.inbox}" action="inbox" styleClass="commandLink"/>
+                    </div>
+                </h:form>
+            </div>
+            <div class="header">
+                <ui:insert name="header"></ui:insert>
+            </div>
+            <div class="leftStripe">
+                <ui:insert name="leftStripe"></ui:insert>
+            </div>
+            <div class="mainStripe">
+                <ui:insert name="mainStripe">
+                    Welcome to TCMS!
+                </ui:insert>                
+            </div>
+            <div class="rightStripe">
+                <ui:insert name="rightStripe">
+                    YOUR AD HERE!
+                </ui:insert>
+            </div>
+            <div class="footer">
+                <ui:insert name="footer">
+                </ui:insert>
+            </div>
+        </div>
+    </h:body>
+</html>
