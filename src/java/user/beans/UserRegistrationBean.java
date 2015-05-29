@@ -8,9 +8,13 @@ package user.beans;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import platform.dao.SystemParametersDAO;
+import platform.model.Commons;
 import user.dao.UserDAO;
 import user.dao.UserRegistrationDAO;
+import user.model.User;
 import user.model.UserRegistration;
+import utils.Utils;
 
 /**
  *
@@ -66,13 +70,29 @@ public class UserRegistrationBean {
             message = "A registration request with that e-mail already exists!";
         } else {
             UserRegistration ur = new UserRegistration(0, username, password, email, firstName, lastName, address, city, phone, dateOfBirth, false);
-            long newId = UserRegistrationDAO.add(ur);
-            ur.setId(newId);
-            message = "Registration successfull!";
+            long requestId = UserRegistrationDAO.add(ur);
+            ur.setId(requestId);
+            // If automatic request processing is set to TRUE, new User will be created automatically
+            if (SystemParametersDAO.getById(1).isAutomaticRequestProcessing()) {
+                approveRequest(requestId);
+                message = "Registration successfull! You can now login!";
+            } else { // else, the administrator will have to approve the registration request manually
+                message = "Registration request successfully created! The administrator will process your request shortly.";
+            }
         }
         registrationAttempted = true;
         System.out.println("DEBUG ::: UserRegistrationBean:save:" + message);
         return null;
+    }
+
+    public void approveRequest(long requestId) {
+        UserRegistration ur = UserRegistrationDAO.getById(requestId);
+        User u = new User(0, ur.getUsername(), ur.getPassword(), Commons.USERTYPE_USER, ur.getFirstName(), ur.getLastName(),
+                ur.getEmail(), ur.getAddress(), ur.getCity(), 190, ur.getDateOfBirth() == null ? new Date() : ur.getDateOfBirth(),
+                ur.getPhone(), true, null);
+        UserDAO.addNoPassEncryption(u);
+        ur.setApproved(true);
+        UserRegistrationDAO.update(ur);
     }
 
     public String checkParameters() {
