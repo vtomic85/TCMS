@@ -66,30 +66,11 @@ public class ItemDAO {
         LinkedList<Item> items = new LinkedList<>();
         items = getAllOrdBy("level desc");
         return items;
-//        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item ORDER BY level desc");
-//        try {
-//            while (rs.next()) {
-//                items.add(new Item(
-//                        rs.getLong("id"),
-//                        rs.getLong("parent_id"),
-//                        rs.getInt("level"),
-//                        rs.getInt("type_id"),
-//                        rs.getString("name"),
-//                        rs.getBoolean("published"),
-//                        rs.getBoolean("primary_navigation"),
-//                        rs.getBoolean("secondary_navigation")));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return items;
     }
 
     public static Item getById(long id) {
-//        System.out.println("DEBUG ::: getById start, id=" + id);
         Item item = new Item();
         ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item WHERE id=" + id);
-//        System.out.println("DEBUG ::: ResultSet ok");
         try {
             if (rs.next()) {
                 item = new Item(
@@ -103,10 +84,8 @@ public class ItemDAO {
                         rs.getBoolean("secondary_navigation"));
             }
         } catch (SQLException ex) {
-//            System.out.println("DEBUG ::: EXCEPTION!!!");
             Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        System.out.println("DEBUG ::: Item:" + item.getId() + ", " + item.getName() + ", " + item.getLevel());
         return item;
     }
 

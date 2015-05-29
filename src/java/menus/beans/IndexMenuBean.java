@@ -31,11 +31,12 @@ public class IndexMenuBean {
     @PostConstruct
     public void init() {
         topMenuItems = new LinkedList<>();
-        String query = "level=1 and type_id in ("
+        String query="level=1 order by id";
+/*        String query = "level=1 and type_id in ("
                 + Commons.ITEMTYPE_EVENT_HOLDER + ","
                 + Commons.ITEMTYPE_NEWS_HOLDER + ","
                 + Commons.ITEMTYPE_PAGE_HOLDER
-                + ") order by id";
+                + ") order by id";*/
         topMenuItems.addAll(ItemDAO.getAllWhere(query)); // fetch the holders
         System.out.println("DEBUG ::: IndexMenuBean init query=" + query);
         System.out.println("DEBUG ::: IndexMenuBean init list size=" + topMenuItems.size());

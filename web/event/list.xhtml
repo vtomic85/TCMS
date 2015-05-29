@@ -19,16 +19,16 @@
                 <h:outputText value="#{eventHolderViewBean.itemName}" styleClass="holderTitle"/>
                 <br/><br/>
                 <ui:repeat value="#{eventHolderViewBean.list}" var="row">
-                    <div class="holderItem">
-                            <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">
-                                <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
-                            </h:outputLink>   
-                            <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
-                                <h:outputText value="#{row.title}"/>
-                            </h:outputLink>
-                            <br/>
-                            <h:outputText value="#{row.lead.length() gt 130 ? row.lead.substring(0,130).concat('...') : row.lead}" styleClass="holderItemLead"/>
-                    </div>
+                    <h:panelGroup styleClass="holderItem" rendered="#{row.published}">
+                        <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">
+                            <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
+                        </h:outputLink>   
+                        <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
+                            <h:outputText value="#{row.title}"/>
+                        </h:outputLink>
+                        <br/>
+                        <h:outputText value="#{row.lead.length() gt 130 ? row.lead.substring(0,130).concat('...') : row.lead}" styleClass="holderItemLead"/>
+                    </h:panelGroup>
                 </ui:repeat>
             </ui:define>
         </ui:composition>
