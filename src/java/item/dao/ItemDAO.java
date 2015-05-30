@@ -33,7 +33,8 @@ public class ItemDAO {
                         rs.getString("name"),
                         rs.getBoolean("published"),
                         rs.getBoolean("primary_navigation"),
-                        rs.getBoolean("secondary_navigation")));
+                        rs.getBoolean("secondary_navigation"),
+                        rs.getLong("content_id")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,7 +55,8 @@ public class ItemDAO {
                         rs.getString("name"),
                         rs.getBoolean("published"),
                         rs.getBoolean("primary_navigation"),
-                        rs.getBoolean("secondary_navigation")));
+                        rs.getBoolean("secondary_navigation"),
+                        rs.getLong("content_id")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
@@ -81,7 +83,8 @@ public class ItemDAO {
                         rs.getString("name"),
                         rs.getBoolean("published"),
                         rs.getBoolean("primary_navigation"),
-                        rs.getBoolean("secondary_navigation"));
+                        rs.getBoolean("secondary_navigation"),
+                        rs.getLong("content_id"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +105,8 @@ public class ItemDAO {
                         rs.getString("name"),
                         rs.getBoolean("published"),
                         rs.getBoolean("primary_navigation"),
-                        rs.getBoolean("secondary_navigation"));
+                        rs.getBoolean("secondary_navigation"),
+                        rs.getLong("content_id"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,6 +115,7 @@ public class ItemDAO {
     }
 
     public static synchronized LinkedList<Item> getAllWhere(String where) {
+        System.out.println("DEBUG ::: ItemDAO:getAllWhere:where=" + where);
         LinkedList<Item> list = new LinkedList<>();
         ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item WHERE " + where);
         try {
@@ -123,7 +128,8 @@ public class ItemDAO {
                         rs.getString("name"),
                         rs.getBoolean("published"),
                         rs.getBoolean("primary_navigation"),
-                        rs.getBoolean("secondary_navigation"));
+                        rs.getBoolean("secondary_navigation"),
+                        rs.getLong("content_id"));
                 list.add(item);
             }
         } catch (SQLException ex) {
@@ -136,66 +142,18 @@ public class ItemDAO {
         LinkedList<Item> holders = new LinkedList<>();
         holders = getAllWhere("type_id=" + Commons.ITEMTYPE_PAGE_HOLDER);
         return holders;
-//        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item WHERE type_id=" + Commons.ITEMTYPE_PAGE_HOLDER);
-//        try {
-//            while (rs.next()) {
-//                Item item = new Item(
-//                        rs.getLong("id"),
-//                        rs.getLong("parent_id"),
-//                        rs.getInt("level"),
-//                        rs.getInt("type_id"),
-//                        rs.getString("name"),
-//                        rs.getBoolean("published"));
-//                holders.add(item);
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return holders;
     }
 
     public static LinkedList<Item> getNewsHolders() {
         LinkedList<Item> holders = new LinkedList<>();
         holders = getAllWhere("type_id=" + Commons.ITEMTYPE_NEWS_HOLDER);
         return holders;
-//        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item WHERE type_id=" + Commons.ITEMTYPE_NEWS_HOLDER);
-//        try {
-//            while (rs.next()) {
-//                Item item = new Item(
-//                        rs.getLong("id"),
-//                        rs.getLong("parent_id"),
-//                        rs.getInt("level"),
-//                        rs.getInt("type_id"),
-//                        rs.getString("name"),
-//                        rs.getBoolean("published"));
-//                holders.add(item);
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return holders;
     }
 
     public static LinkedList<Item> getEventHolders() {
         LinkedList<Item> holders = new LinkedList<>();
         holders = getAllWhere("type_id=" + Commons.ITEMTYPE_EVENT_HOLDER);
         return holders;
-//        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item WHERE type_id=" + Commons.ITEMTYPE_EVENT_HOLDER);
-//        try {
-//            while (rs.next()) {
-//                Item item = new Item(
-//                        rs.getLong("id"),
-//                        rs.getLong("parent_id"),
-//                        rs.getInt("level"),
-//                        rs.getInt("type_id"),
-//                        rs.getString("name"),
-//                        rs.getBoolean("published"));
-//                holders.add(item);
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return holders;
     }
 
     public static LinkedList<Item> getAllHolders() {
@@ -236,7 +194,8 @@ public class ItemDAO {
                         + item.getName() + "',"
                         + item.isPublished() + ","
                         + item.isPrimaryNavigation() + ","
-                        + item.isSecondaryNavigation() + ")";
+                        + item.isSecondaryNavigation() + ","
+                        + item.getContentId() + ")";
                 DBConnection.getInstance().executeUpdate(query2);
 
             } catch (SQLException ex) {
@@ -257,7 +216,8 @@ public class ItemDAO {
                 + " name='" + item.getName() + "',"
                 + " published=" + item.isPublished() + ","
                 + " primary_navigation=" + item.isPrimaryNavigation() + ","
-                + " secondary_navigation=" + item.isSecondaryNavigation()
+                + " secondary_navigation=" + item.isSecondaryNavigation() + ","
+                + " content_id=" + item.getContentId()
                 + " where id=" + item.getId();
         DBConnection.getInstance().executeUpdate(query);
     }

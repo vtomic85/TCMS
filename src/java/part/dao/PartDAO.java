@@ -94,7 +94,6 @@ public class PartDAO {
                         rs.getBoolean("toplist_needed"),
                         rs.getInt("width"),
                         rs.getLong("toplist_id"));
-                System.out.println("DEBUG ::: PartDAO:getById:part " + part.getId() + " " + part.getName() + " " + part.getTopListId());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Part.class.getName()).log(Level.SEVERE, null, ex);

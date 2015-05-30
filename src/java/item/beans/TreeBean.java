@@ -5,6 +5,10 @@
  */
 package item.beans;
 
+import event.dao.EventDAO;
+import event.model.Event;
+import gallery.dao.GalleryDAO;
+import gallery.model.Gallery;
 import item.dao.ItemDAO;
 import item.dao.ItemTypeDAO;
 import item.model.Item;
@@ -15,8 +19,12 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.swing.text.DefaultEditorKit;
+import news.dao.NewsDAO;
+import news.model.News;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import page.dao.PageDAO;
+import page.model.Page;
 import platform.model.Commons;
 
 /**
@@ -33,6 +41,10 @@ public class TreeBean {
     private Item item;
     private List<ItemType> typeList;
     private List<Item> parentList;
+    private List<Page> pageList;
+    private List<Event> eventList;
+    private List<News> newsList;
+    private List<Gallery> galleryList;
 
     public TreeBean() {
 
@@ -40,6 +52,10 @@ public class TreeBean {
 
     @PostConstruct
     public void init() {
+        pageList = PageDAO.getAll();
+        eventList = EventDAO.getAll();
+        newsList = NewsDAO.getAll();
+        galleryList = GalleryDAO.getAll();
         root = new DefaultTreeNode();
         generateTree();
         if (nodeSelected == null) {
@@ -82,7 +98,7 @@ public class TreeBean {
 
     public String addNode() {
         int newLevel = item.getLevel() + 1;
-        Item newItem = new Item(0, itemId, newLevel, Commons.ITEMTYPE_NO_CONTENT, "New Item", false, false, false);
+        Item newItem = new Item(0, itemId, newLevel, Commons.ITEMTYPE_NO_CONTENT, "New Item", false, false, false, 0);
         long newItemId = ItemDAO.add(newItem);
         newItem.setId(newItemId);
         init();
@@ -162,5 +178,37 @@ public class TreeBean {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public List<Page> getPageList() {
+        return pageList;
+    }
+
+    public void setPageList(List<Page> pageList) {
+        this.pageList = pageList;
+    }
+
+    public List<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(List<Event> eventList) {
+        this.eventList = eventList;
+    }
+
+    public List<News> getNewsList() {
+        return newsList;
+    }
+
+    public void setNewsList(List<News> newsList) {
+        this.newsList = newsList;
+    }
+
+    public List<Gallery> getGalleryList() {
+        return galleryList;
+    }
+
+    public void setGalleryList(List<Gallery> galleryList) {
+        this.galleryList = galleryList;
     }
 }

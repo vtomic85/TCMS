@@ -9,27 +9,32 @@
     <h:body>
         <f:metadata>
             <f:viewParam name="itemId" value="#{eventHolderViewBean.itemId}" />
+            <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
             <f:viewAction action="#{eventHolderViewBean.init}" />
+            <f:viewAction action="#{indexMenuBean.init}" />
         </f:metadata>
         <h:head>
             <title><h:outputText value="#{msgs.site_title}"/></title>
         </h:head>
         <ui:composition template="/resources/templates/template.xhtml">
             <ui:define name="mainStripe">
-                <h:outputText value="#{eventHolderViewBean.itemName}" styleClass="holderTitle"/>
-                <br/><br/>
-                <ui:repeat value="#{eventHolderViewBean.list}" var="row">
-                    <h:panelGroup styleClass="holderItem" rendered="#{row.published}">
-                        <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">
-                            <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
-                        </h:outputLink>   
-                        <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
-                            <h:outputText value="#{row.title}"/>
-                        </h:outputLink>
-                        <br/>
-                        <h:outputText value="#{row.lead.length() gt 130 ? row.lead.substring(0,130).concat('...') : row.lead}" styleClass="holderItemLead"/>
-                    </h:panelGroup>
-                </ui:repeat>
+                <f:view>
+                    <tcms:topIndexMenu/>
+                    <h:outputText value="#{eventHolderViewBean.itemName}" styleClass="holderTitle"/>
+                    <br/><br/>
+                    <ui:repeat value="#{eventHolderViewBean.list}" var="row">
+                        <h:panelGroup styleClass="holderItem" rendered="#{row.published}">
+                            <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">
+                                <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
+                            </h:outputLink>   
+                            <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
+                                <h:outputText value="#{row.title}"/>
+                            </h:outputLink>
+                            <br/>
+                            <h:outputText value="#{row.lead.length() gt 130 ? row.lead.substring(0,130).concat('...') : row.lead}" styleClass="holderItemLead"/>
+                        </h:panelGroup>
+                    </ui:repeat>
+                </f:view>
             </ui:define>
         </ui:composition>
     </h:body>

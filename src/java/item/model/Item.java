@@ -31,8 +31,9 @@ public class Item {
     private LinkedList<CMSElement> children;
     private boolean childrenEmpty;
     private StringBuilder holderURL;
+    private long contentId;
 
-    public Item(long id, long parentId, int level, int typeId, String name, boolean published, boolean primaryNavigation, boolean secondaryNavigation) {
+    public Item(long id, long parentId, int level, int typeId, String name, boolean published, boolean primaryNavigation, boolean secondaryNavigation, long contentId) {
         this.id = id;
         this.parentId = parentId;
         this.level = level;
@@ -41,13 +42,11 @@ public class Item {
         this.published = published;
         this.primaryNavigation = primaryNavigation;
         this.secondaryNavigation = secondaryNavigation;
-//        if (id > 1) {
-//            refreshChildren();
-//        }
+        this.contentId = contentId;
     }
 
     public Item() {
-        this(0, 0, 0, 0, null, false, false, false);
+        this(0, 0, 0, 0, null, false, false, false, 0);
     }
 
     public void refreshChildren() {
@@ -55,7 +54,6 @@ public class Item {
             children = new LinkedList<>();
         }
         children.clear();
-//        System.out.println("DEBUG ::: Item: refreshing children for item " + id + ", " + name);
         children = CMSElementDAO.getAllWhere("object_holder_id=" + this.id);
         childrenEmpty = children.size() <= 0;
     }
@@ -140,7 +138,6 @@ public class Item {
     }
 
     public LinkedList<CMSElement> getChildren() {
-//        refreshChildren();
         return children;
     }
 
@@ -149,8 +146,6 @@ public class Item {
     }
 
     public boolean isChildrenEmpty() {
-//        refreshChildren();
-//        System.out.println("DEBUG ::: Item: isChildrenEmpty: item=" + this.name + ", empty=" + childrenEmpty);
         return childrenEmpty;
     }
 
@@ -159,16 +154,55 @@ public class Item {
     }
 
     public StringBuilder getHolderURL() {
-        holderURL = new StringBuilder("");
+        String folder = "";
         switch (typeId) {
             case Commons.ITEMTYPE_EVENT_HOLDER:
-                holderURL.append("event/list.xhtml?itemId=").append(id);
-                break;
-            case Commons.ITEMTYPE_PAGE_HOLDER:
-                holderURL.append("page/list.xhtml?itemId=").append(id);
+            case Commons.ITEMTYPE_EVENT:
+                folder = "event";
                 break;
             case Commons.ITEMTYPE_NEWS_HOLDER:
-                holderURL.append("news/list.xhtml?itemId=").append(id);
+            case Commons.ITEMTYPE_NEWS:
+                folder = "news";
+                break;
+            case Commons.ITEMTYPE_PAGE_HOLDER:
+            case Commons.ITEMTYPE_PAGE:
+                folder = "page";
+                break;
+            case Commons.ITEMTYPE_USER_PART_HOLDER:
+            case Commons.ITEMTYPE_USER_PART:
+                folder = "userPart";
+                break;
+        }
+        holderURL = new StringBuilder("");
+        switch (typeId) {
+            case Commons.ITEMTYPE_INDEX:
+                holderURL.append("/index.xhtml");
+                break;
+            case Commons.ITEMTYPE_GALLERY:
+                holderURL.append("/gallery.xhtml?itemId=").append(contentId);
+                break;
+            case Commons.ITEMTYPE_CONTACT:
+                holderURL.append("contact.xhtml");
+                break;
+            case Commons.ITEMTYPE_NO_CONTENT:
+                LinkedList<Item> myChildren = ItemDAO.getAllWhere("parent_id=" + id);
+                if (myChildren.isEmpty()) { // If the "NoContent" item has no children...
+                    holderURL.append("/nocontent.xhtml");
+                } else { // ...else, return the first child's URL
+                    holderURL = myChildren.getFirst().getHolderURL();
+                }
+                break;
+            case Commons.ITEMTYPE_EVENT_HOLDER:
+            case Commons.ITEMTYPE_PAGE_HOLDER:
+            case Commons.ITEMTYPE_NEWS_HOLDER:
+            case Commons.ITEMTYPE_USER_PART_HOLDER:
+                holderURL.append(folder).append("/list.xhtml?itemId=").append(id);
+                break;
+            case Commons.ITEMTYPE_EVENT:
+            case Commons.ITEMTYPE_PAGE:
+            case Commons.ITEMTYPE_NEWS:
+            case Commons.ITEMTYPE_USER_PART:
+                holderURL.append(folder).append("/view.xhtml?itemId=").append(contentId).append("&holderId=").append(parentId);
                 break;
             default:
                 break;
@@ -179,5 +213,13 @@ public class Item {
 
     public void setHolderURL(StringBuilder holderURL) {
         this.holderURL = holderURL;
+    }
+
+    public long getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(long contentId) {
+        this.contentId = contentId;
     }
 }

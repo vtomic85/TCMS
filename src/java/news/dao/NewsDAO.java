@@ -49,8 +49,9 @@ public class NewsDAO {
     }
 
     public static LinkedList<News> getAllWhere(String where) {
+        System.out.println("DEBUG ::: NewsDAO:getAllWhere:where=" + where);
         LinkedList<News> news = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM news WHERE" + where);
+        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM news WHERE " + where);
         try {
             while (rs.next()) {
                 news.add(new News(

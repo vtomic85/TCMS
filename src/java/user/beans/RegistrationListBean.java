@@ -36,7 +36,7 @@ public class RegistrationListBean {
         if (requests == null) {
             requests = new LinkedList<>();
         }
-        requests = UserRegistrationDAO.getAllWhere("approved=0");
+        requests = UserRegistrationDAO.getAllOrdByApproved();
     }
 
     public boolean isListEmpty() {

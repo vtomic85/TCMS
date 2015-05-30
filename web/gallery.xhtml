@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:tcms="http://tcms.com">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="itemId" value="#{galleryViewBean.itemId}"/>
+            <f:viewAction action="#{galleryViewBean.init}" />
+        </f:metadata>
+        <ui:composition template="resources/templates/template.xhtml">
+            <ui:define name="mainStripe">
+                <tcms:topIndexMenu/>
+                <h:outputLabel value="#{galleryViewBean.gallery.title}"/>
+                <div class="itemGallery">
+                    <p:lightBox styleClass="imagebox" id="galleryLightBox">
+                        <ui:repeat value="#{galleryViewBean.galleryImages}" var="row" varStatus="status">
+                            <h:outputLink value="..#{row.imgPath}" title="#{row.title}">  
+                                <h:graphicImage url="..#{row.imgPath}" style="height: 77px; width: 100px; padding:1px;" />                                    
+                            </h:outputLink>
+                        </ui:repeat>
+                    </p:lightBox>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

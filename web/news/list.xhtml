@@ -9,25 +9,30 @@
     <h:body>
         <f:metadata>
             <f:viewParam name="itemId" value="#{newsHolderViewBean.itemId}" />
+            <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
             <f:viewAction action="#{newsHolderViewBean.init}" />
+            <f:viewAction action="#{indexMenuBean.init}" />
         </f:metadata>
         <h:head>
             <title><h:outputText value="#{msgs.site_title}"/></title>
         </h:head>
         <ui:composition template="/resources/templates/template.xhtml">
             <ui:define name="mainStripe">
-                <ui:repeat value="#{newsHolderViewBean.list}" var="row">
-                    <div class="holderItem">
-                        <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">
-                            <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
-                        </h:outputLink>
-                        <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
-                            <h:outputText value="#{row.title}" class="itemTitle"/>
-                        </h:outputLink>
-                        <br/>
-                        <h:outputText value="#{row.lead}" styleClass="holderItemLead"/>
-                    </div>
-                </ui:repeat>
+                <f:view>
+                    <tcms:topIndexMenu/>
+                    <ui:repeat value="#{newsHolderViewBean.list}" var="row">
+                        <div class="holderItem">
+                            <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">
+                                <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
+                            </h:outputLink>
+                            <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
+                                <h:outputText value="#{row.title}" class="itemTitle"/>
+                            </h:outputLink>
+                            <br/>
+                            <h:outputText value="#{row.lead}" styleClass="holderItemLead"/>
+                        </div>
+                    </ui:repeat>
+                </f:view>
             </ui:define>
         </ui:composition>
     </h:body>

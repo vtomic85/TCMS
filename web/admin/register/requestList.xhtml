@@ -12,12 +12,14 @@
         </h:head>
         <ui:composition template="/resources/templates/adminTemplate.xhtml">
             <ui:define name="adminContent">
-                <h:panelGroup styleClass="adminRegistrationRequestIndicator">
-                    <h:outputText value="#{msgs.request_processing_text}"/>
-                    <h:outputText value="#{msgs.request_processing_status_automatic}" rendered="#{systemParametersBean.sysParam.automaticRequestProcessing}"/>
-                    <h:outputText value="#{msgs.request_processing_status_manual}" rendered="#{!systemParametersBean.sysParam.automaticRequestProcessing}"/>
-                    <h:commandLink styleClass="commandLink" value="#{msgs.click_to_change}" action="#{systemParametersBean.switchAutomaticRequestProcessing}"/>
-                </h:panelGroup>
+                <h:form id="adminRequestProcessingStatus">
+                    <h:panelGroup styleClass="adminRegistrationRequestIndicator">
+                        <h:outputText value="#{msgs.request_processing_text}"/>
+                        <h:outputText value="#{msgs.request_processing_status_automatic}" rendered="#{systemParametersBean.sysParam.automaticRequestProcessing}"/>
+                        <h:outputText value="#{msgs.request_processing_status_manual}" rendered="#{!systemParametersBean.sysParam.automaticRequestProcessing}"/>
+                        <h:commandLink styleClass="commandLink" value="#{msgs.click_to_change}" action="#{systemParametersBean.switchAutomaticRequestProcessing}"/>
+                    </h:panelGroup>
+                </h:form>
                 <tcms:adminListAllRequests/>
             </ui:define>
         </ui:composition>

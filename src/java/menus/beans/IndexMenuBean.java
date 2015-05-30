@@ -19,27 +19,24 @@ import platform.model.Commons;
  * @author Vladimir Tomic
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class IndexMenuBean {
 
     private LinkedList<Item> topMenuItems;
+    private long itemId;
 
     public IndexMenuBean() {
 
     }
 
-    @PostConstruct
     public void init() {
+        if (itemId == 0) { // Index
+            itemId = 1;
+        }
         topMenuItems = new LinkedList<>();
-        String query="level=1 order by id";
-/*        String query = "level=1 and type_id in ("
-                + Commons.ITEMTYPE_EVENT_HOLDER + ","
-                + Commons.ITEMTYPE_NEWS_HOLDER + ","
-                + Commons.ITEMTYPE_PAGE_HOLDER
-                + ") order by id";*/
-        topMenuItems.addAll(ItemDAO.getAllWhere(query)); // fetch the holders
-        System.out.println("DEBUG ::: IndexMenuBean init query=" + query);
-        System.out.println("DEBUG ::: IndexMenuBean init list size=" + topMenuItems.size());
+        String where = "parent_id=" + itemId + " order by id";
+        topMenuItems.addAll(ItemDAO.getAllWhere(where)); // fetch the children
+        System.out.println("DEBUG ::: IndexMenuBean:init:itemId=" + itemId + ", size=" + topMenuItems.size());
     }
 
     public LinkedList<Item> getTopMenuItems() {
@@ -48,6 +45,14 @@ public class IndexMenuBean {
 
     public void setTopMenuItems(LinkedList<Item> topMenuItems) {
         this.topMenuItems = topMenuItems;
+    }
+
+    public long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(long itemId) {
+        this.itemId = itemId;
     }
 
 }

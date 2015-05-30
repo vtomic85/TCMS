@@ -44,7 +44,6 @@ public class Part {
         this.topListNeeded = p.topListNeeded;
         this.width = p.width;
         this.topListId = p.topListId;
-        System.out.println("DEBUG ::: Part:constructor: " + id + " " + name + ", topListId=" + topListId);
     }
 
     public long getId() {
@@ -114,7 +113,6 @@ public class Part {
     }
 
     public long getTopListId() {
-        System.out.println("DEBUG ::: Part:getTopListId=" + topListId + " for part " + id + " " + name);
         return topListId;
     }
 

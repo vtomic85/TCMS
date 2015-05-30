@@ -129,7 +129,6 @@ public class Region {
         for (RegionPart rp : regParts) {
             Part p = PartDAO.getById(rp.getPartId());
             myParts.add(p);
-            System.out.println("DEBUG ::: Region: refresh: added part " + p.getId() + " " + p.getName() + ", topListId=" + p.getTopListId());
         }
     }
 

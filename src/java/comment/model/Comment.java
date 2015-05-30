@@ -34,11 +34,7 @@ public class Comment {
         this.componentTypeId = componentTypeId;
         this.componentId = componentId;
         this.userId = userId;
-        if (this.userId > 0) {
-            this.userName = UserDAO.getById(userId).getUsername();
-        } else {
-            this.userName = userName;
-        }
+        this.userName = userName;
         this.body = body;
         this.dateCreated = dateCreated;
         this.published = published;

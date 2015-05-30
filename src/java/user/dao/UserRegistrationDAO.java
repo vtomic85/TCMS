@@ -43,7 +43,30 @@ public class UserRegistrationDAO {
         }
         return userRegistrations;
     }
-
+public static LinkedList<UserRegistration> getAllOrdByApproved() {
+        LinkedList<UserRegistration> userRegistrations = new LinkedList<>();
+        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM user_registration ORDER BY approved ASC");
+        try {
+            while (rs.next()) {
+                userRegistrations.add(new UserRegistration(
+                        rs.getLong("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("address"),
+                        rs.getString("city"),
+                        rs.getString("phone"),
+                        rs.getDate("date_of_birth"),
+                        rs.getBoolean("approved")));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userRegistrations;
+    }
     public static LinkedList<UserRegistration> getAllWhere(String where) {
         LinkedList<UserRegistration> userRegistrations = new LinkedList<>();
         ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM user_registration WHERE " + where);

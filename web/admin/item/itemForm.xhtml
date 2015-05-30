@@ -48,6 +48,19 @@
                                 <h:selectOneMenu id="itemTypeId" value="#{treeBean.item.typeId}">
                                     <f:selectItems value="#{treeBean.typeList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
                                 </h:selectOneMenu>
+                                <h:outputLabel value="#{msgs.content}" rendered="#{treeBean.item.typeId==3 or treeBean.item.typeId==7 or treeBean.item.typeId==8 or treeBean.item.typeId==9}"/>
+                                <h:selectOneMenu id="itemContentGalleryId" value="#{treeBean.item.contentId}" rendered="#{treeBean.item.typeId==3}">
+                                    <f:selectItems value="#{treeBean.galleryList}" var="row" itemLabel="#{row.title}" itemValue="#{row.id}"/>
+                                </h:selectOneMenu>
+                                <h:selectOneMenu id="itemContentPageId" value="#{treeBean.item.contentId}" rendered="#{treeBean.item.typeId==7}">
+                                    <f:selectItems value="#{treeBean.pageList}" var="row" itemLabel="#{row.title}" itemValue="#{row.id}"/>
+                                </h:selectOneMenu>
+                                <h:selectOneMenu id="itemContentNewsId" value="#{treeBean.item.contentId}" rendered="#{treeBean.item.typeId==8}">
+                                    <f:selectItems value="#{treeBean.newsList}" var="row" itemLabel="#{row.title}" itemValue="#{row.id}"/>
+                                </h:selectOneMenu>
+                                <h:selectOneMenu id="itemContentEventId" value="#{treeBean.item.contentId}" rendered="#{treeBean.item.typeId==9}">
+                                    <f:selectItems value="#{treeBean.eventList}" var="row" itemLabel="#{row.title}" itemValue="#{row.id}"/>
+                                </h:selectOneMenu>
                                 <h:outputLabel value="#{msgs.published}"/>
                                 <p:selectBooleanCheckbox label="#{msgs.published}" value="#{treeBean.item.published}"/>
                                 <h:outputLabel value="#{msgs.primary_navigation}"/>
@@ -60,12 +73,12 @@
                         </h:form>
                         <h:form id="adminItemChildrenForm" rendered="#{!treeBean.item.childrenEmpty}">
                             <h:outputLabel value="#{msgs.item_children}" styleClass="adminItemChildrenLabel" rendered="#{!treeBean.item.childrenEmpty}"/>
-                                <ui:repeat value="#{treeBean.item.children}" var="row" rendered="#{!treeBean.item.childrenEmpty}">
-                                    <br/>
-                                    <h:outputLink value="#{row.adminUrl}" title="#{row.name}" styleClass="commandLink">
-                                        <h:outputText value="#{row.name}" styleClass="adminItemChildrenText"/>
-                                    </h:outputLink> 
-                                </ui:repeat>
+                            <ui:repeat value="#{treeBean.item.children}" var="row" rendered="#{!treeBean.item.childrenEmpty}">
+                                <br/>
+                                <h:outputLink value="#{row.adminUrl}" title="#{row.name}" styleClass="commandLink">
+                                    <h:outputText value="#{row.name}" styleClass="adminItemChildrenText"/>
+                                </h:outputLink> 
+                            </ui:repeat>
                         </h:form>
                     </div>
                     <h:form id="adminItemFormButtons" class="adminItemFormButtonHolder">

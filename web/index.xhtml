@@ -9,22 +9,28 @@
       xmlns:tcms="http://tcms.com"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite/composite">
     <h:body>        
+        <f:metadata>
+            <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
+            <f:viewAction action="#{indexMenuBean.init}" />
+        </f:metadata>
         <h:head>
             <title><h:outputText value="#{msgs.site_title}"/></title>
         </h:head>
         <ui:composition template="resources/templates/template.xhtml">
             <ui:define name="mainStripe">
-                <tcms:topIndexMenu/>                
-                <c:forEach items="#{indexRegions.regions}" var="region" rendered="#{!indexRegions.listEmpty}">
-                    <h:form style="min-height: 250px; float:#{region.positionName}; width:#{region.width}%;">
-                        <c:forEach items="#{region.myParts}" var="part" rendered="#{!region.myPartListEmpty}">
-                            <h:outputText value="#{region.getTitleForPart(part.id)}" styleClass="indexPartName"/>
-                            <ui:include src="#{part.fullPath}">
-                                <ui:param name="topListId" value="#{part.topListId}"/>
-                            </ui:include>
-                        </c:forEach>
-                    </h:form>
-                </c:forEach>
+                <f:view>
+                    <tcms:topIndexMenu/>                
+                    <c:forEach items="#{indexRegions.regions}" var="region" rendered="#{!indexRegions.listEmpty}">
+                        <h:form style="min-height: 250px; float:#{region.positionName}; width:#{region.width}%;">
+                            <c:forEach items="#{region.myParts}" var="part" rendered="#{!region.myPartListEmpty}">
+                                <h:outputText value="#{region.getTitleForPart(part.id)}" styleClass="indexPartName"/>
+                                <ui:include src="#{part.fullPath}">
+                                    <ui:param name="topListId" value="#{part.topListId}"/>
+                                </ui:include>
+                            </c:forEach>
+                        </h:form>
+                    </c:forEach>
+                </f:view>
             </ui:define>
         </ui:composition>
     </h:body>
