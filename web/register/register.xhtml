@@ -13,27 +13,62 @@
             <ui:define name="mainStripe">
                 <f:view>
                     <h:form id="userRegistrationForm" class="formFullWidth">
-                        <h:panelGrid columns="2">
-                            <h:outputLabel value="#{msgs.username}*"/>
-                            <h:inputText value="#{userRegistrationBean.username}"/>
-                            <h:outputLabel value="#{msgs.password}*"/>
-                            <h:inputSecret value="#{userRegistrationBean.password}" />
-                            <h:outputLabel value="#{msgs.email}*"/>
-                            <h:inputText value="#{userRegistrationBean.email}"/>
+                        <h:panelGrid columns="3">
+                            <h:outputLabel value="#{msgs.mandatory_fields}" style="font-weight: bold; text-decoration: underline;"/>
+                            <h:inputHidden class="placeHolder"/>
+                            <h:inputHidden class="placeHolder"/>
+                            
+                            <h:outputLabel value="#{msgs.username}*" style="font-weight: bold"/>
+                            <h:inputText id="username" value="#{userRegistrationBean.username}" required="true" requiredMessage="#{msgs.required_username}" validatorMessage="#{msgs.regex_username}">
+                                <f:validateRegex pattern="[a-zA-Z0-9_]{3,16}" />
+                            </h:inputText>
+                            <p:message for="username"/>
+                            
+                            <h:outputLabel value="#{msgs.password}*" style="font-weight: bold"/>
+                            <h:inputSecret id="password" value="#{userRegistrationBean.password}" required="true" requiredMessage="#{msgs.required_password}" validatorMessage="#{msgs.regex_password}">
+                                <f:validateRegex pattern=".{3,16}" />
+                            </h:inputSecret>
+                            <p:message for="password"/>
+                            
+                            <h:outputLabel value="#{msgs.email}*" style="font-weight: bold"/>
+                            <h:inputText id="email" value="#{userRegistrationBean.email}" required="true" requiredMessage="#{msgs.required_email}" validatorMessage="#{msgs.regex_email}">
+                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                            </h:inputText>
+                            <p:message for="email"/>
+                            
+                            <h:outputLabel value="#{msgs.optional_fields}" style="font-weight: bold; text-decoration: underline;"/>
+                            <h:inputHidden class="placeHolder"/>
+                            <h:inputHidden class="placeHolder"/>
+                            
                             <h:outputLabel value="#{msgs.first_name}"/>
                             <h:inputText value="#{userRegistrationBean.firstName}"/>
+                            <h:inputHidden class="placeHolder"/>
+                            
                             <h:outputLabel value="#{msgs.last_name}"/>
                             <h:inputText value="#{userRegistrationBean.lastName}"/>
+                            <h:inputHidden class="placeHolder"/>
+                            
                             <h:outputLabel value="#{msgs.address}"/>
                             <h:inputText value="#{userRegistrationBean.address}"/>
+                            <h:inputHidden class="placeHolder"/>
+                            
                             <h:outputLabel value="#{msgs.city}"/>
                             <h:inputText value="#{userRegistrationBean.city}"/>
+                            <h:inputHidden class="placeHolder"/>
+                            
                             <h:outputLabel value="#{msgs.phone}"/>
                             <h:inputText value="#{userRegistrationBean.phone}"/>
+                            <h:inputHidden class="placeHolder"/>
+                            
                             <h:outputLabel value="#{msgs.date_of_birth}"/>
                             <p:calendar value="#{userRegistrationBean.dateOfBirth}"/>
+                            <h:inputHidden class="placeHolder"/>
+                            
                             <h:commandLink action="#{userRegistrationBean.save}" value="#{msgs.save}" styleClass="commandLink"/>
                         </h:panelGrid>
+                        
+                        
+                        
                         <h:outputText value="#{userRegistrationBean.message}" rendered="#{userRegistrationBean.registrationAttempted}"/>
                         <br/>
                         <h:link styleClass="commandLink" value="#{msgs.home}" outcome="home"/>
