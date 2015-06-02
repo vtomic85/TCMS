@@ -30,7 +30,8 @@
                         <h:outputLabel value="#{msgs.date_created}"/>
                         <p:calendar value="#{pageFormBean.page.dateCreated}"/>
                         <h:outputLabel value="#{msgs.holder}" rendered="#{pageFormBean.page.id>0}"/>
-                        <h:selectOneMenu id="holderId" value="#{pageFormBean.page.itemId}" rendered="#{pageFormBean.page.id>0}">
+                        <h:selectOneMenu id="holderId" value="#{pageFormBean.page.itemId}">
+                            <f:selectItem itemValue="0" itemLabel="---"/>
                             <f:selectItems value="#{pageFormBean.holderList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="#{msgs.published}"/>
@@ -38,7 +39,7 @@
                             <f:selectItem itemLabel="TRUE" itemValue="true"/>
                             <f:selectItem itemLabel="FALSE" itemValue="false"/>
                         </h:selectOneMenu>       
-                        <h:panelGroup id="imageControlButtons">
+                        <h:panelGroup id="imageControlButtons" rendered="#{pageFormBean.page.id>0}">
                             <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
                                 <f:param name="objectType" value="page"/>
                                 <f:param name="objectId" value="#{pageFormBean.pageId}"/>

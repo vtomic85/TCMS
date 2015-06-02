@@ -28,13 +28,15 @@
                         <h:outputLabel value="#{msgs.author}"/>
                         <h:inputText value="#{eventFormBean.event.author}"/>
                         <h:outputLabel value="#{msgs.category}"/>
-                        <h:selectOneMenu id="eventCategoryId" value="#{eventFormBean.event.categoryId}">                            
+                        <h:selectOneMenu id="eventCategoryId" value="#{eventFormBean.event.categoryId}">
+                            <f:selectItem itemValue="0" itemLabel="---"/>
                             <f:selectItems value="#{eventFormBean.categoryList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
                         </h:selectOneMenu>                        
                         <h:outputLabel value="#{msgs.event_date}"/>
                         <p:calendar value="#{eventFormBean.event.eventDate}"/>
-                        <h:outputLabel value="#{msgs.holder}" rendered="#{eventFormBean.event.id>0}"/>
-                        <h:selectOneMenu id="holderId" value="#{eventFormBean.event.itemId}" rendered="#{eventFormBean.event.id>0}">
+                        <h:outputLabel value="#{msgs.holder}"/>
+                        <h:selectOneMenu id="holderId" value="#{eventFormBean.event.itemId}">
+                            <f:selectItem itemValue="0" itemLabel="---"/>
                             <f:selectItems value="#{eventFormBean.holderList}" var="row1" itemLabel="#{row1.name}" itemValue="#{row1.id}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="#{msgs.gallery}"/>                        
@@ -47,7 +49,7 @@
                             <f:selectItem itemLabel="TRUE" itemValue="true"/>
                             <f:selectItem itemLabel="FALSE" itemValue="false"/>
                         </h:selectOneMenu>
-                        <h:panelGroup id="imageControlButtons">
+                        <h:panelGroup id="imageControlButtons" rendered="#{eventFormBean.event.id>0}">
                             <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
                                 <f:param name="objectType" value="event"/>
                                 <f:param name="objectId" value="#{eventFormBean.eventId}"/>

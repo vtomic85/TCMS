@@ -210,6 +210,7 @@ public class NewsDAO {
                 } else {
                     last = 0;
                 }
+                
                 String query2 = "INSERT INTO news VALUES(" + ++last + ","
                         + news.getItemId() + ",'"
                         + news.getTitle() + "','"
@@ -223,8 +224,9 @@ public class NewsDAO {
                         + news.getCategoryId() + ","
                         + news.isPublished() + ","
                         + news.getComments() + ","
-                        + news.getViews() + ","
+                        + news.getViews() + ",'"
                         + news.getImgPath() + "')";
+                System.out.println("DEBUG ::: NewsDAO:add:query=" + query2);
                 DBConnection.getInstance().executeUpdate(query2);
 
             } catch (SQLException ex) {
@@ -257,6 +259,7 @@ public class NewsDAO {
                 + " views=" + news.getViews() + ","
                 + " img_path='" + news.getImgPath() + "'"
                 + " where id=" + news.getId();
+        System.out.println("DEBUG ::: NewsDAO:update:query=" + query);
         DBConnection.getInstance().executeUpdate(query);
     }
 

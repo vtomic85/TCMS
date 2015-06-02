@@ -1,3 +1,4 @@
+delete from cms_element;
 delete from comment;
 delete from contact;
 delete from event;

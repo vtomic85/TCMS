@@ -67,8 +67,8 @@ public class NewsFormBean {
             news.setDateCreated(new java.sql.Date(d.getTime()));
             news.setDateModified(new java.sql.Date(d.getTime()));
             news.calcUtilToSqlDates();
-            long newId = NewsDAO.add(news);
-            news.setId(newId);
+            newsId = NewsDAO.add(news);
+            news.setId(newsId);
             news.createCmsElement();
         } else {
             news.updateCmsElement();

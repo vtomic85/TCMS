@@ -7,9 +7,11 @@ package contact.beans;
 
 import contact.dao.ContactDAO;
 import contact.model.Contact;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -17,13 +19,18 @@ import javax.faces.context.FacesContext;
  * @author Vladimir Tomic
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ContactBean {
 
     private Contact contact;
-    
-    public ContactBean (){
-        this.contact=ContactDAO.getById(1L);
+
+    public ContactBean() {
+
+    }
+
+    @PostConstruct
+    public void init() {
+        this.contact = ContactDAO.getById(1L);
     }
 
     public Contact getContact() {
@@ -33,10 +40,15 @@ public class ContactBean {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
-    
-    public void update(){
+
+    public void update() {
         FacesContext context = FacesContext.getCurrentInstance();
-        ContactDAO.update(contact);
+        if (contact.getId() > 0) {
+            ContactDAO.update(contact);
+        } else {
+            int newId = ContactDAO.add(contact);
+            contact.setId(newId);
+        }
         FacesMessage message = new FacesMessage("Data successfully updated.");
         context.addMessage("adminContactForm:contactUpdate", message);
     }

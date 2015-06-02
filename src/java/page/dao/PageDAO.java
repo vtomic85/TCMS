@@ -175,10 +175,17 @@ public class PageDAO {
                 } else {
                     last = 0;
                 }
-                String query2 = "INSERT INTO page VALUES(" + ++last + ", " + page.getItemId() + ", '"
-                        + page.getTitle() + "', '" + page.getSubtitle() + "', '" + page.getBody() + "', '"
-                        + page.getAuthor() + "', '" + page.getSqlDateCreated() + "', " + page.isPublished() + ", "
-                        + page.getComments() + ", " + page.getViews() + ", '" + page.getImgPath() + "')";
+                String query2 = "INSERT INTO page VALUES(" + ++last + ", "
+                        + page.getItemId() + ", '"
+                        + page.getTitle() + "', '"
+                        + page.getSubtitle() + "', '"
+                        + page.getBody() + "', '"
+                        + page.getAuthor() + "', '"
+                        + page.getSqlDateCreated() + "', "
+                        + page.isPublished() + ", "
+                        + page.getComments() + ", "
+                        + page.getViews() + ", '"
+                        + page.getImgPath() + "')";
                 DBConnection.getInstance().executeUpdate(query2);
 
             } catch (SQLException ex) {

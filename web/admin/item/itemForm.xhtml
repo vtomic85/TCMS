@@ -42,23 +42,29 @@
                                 <h:outputLabel value="#{treeBean.item.level}"/>
                                 <h:outputLabel value="#{msgs.parent}"/>
                                 <h:selectOneMenu id="itemParentId" value="#{treeBean.item.parentId}">
+                                    <f:selectItem itemLabel="---" itemValue="0"/>
                                     <f:selectItems value="#{treeBean.parentList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
                                 </h:selectOneMenu>
                                 <h:outputLabel value="#{msgs.type}"/>
                                 <h:selectOneMenu id="itemTypeId" value="#{treeBean.item.typeId}">
+                                    <f:selectItem itemLabel="---" itemValue="0"/>
                                     <f:selectItems value="#{treeBean.typeList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
                                 </h:selectOneMenu>
                                 <h:outputLabel value="#{msgs.content}" rendered="#{treeBean.item.typeId==3 or treeBean.item.typeId==7 or treeBean.item.typeId==8 or treeBean.item.typeId==9}"/>
                                 <h:selectOneMenu id="itemContentGalleryId" value="#{treeBean.item.contentId}" rendered="#{treeBean.item.typeId==3}">
+                                    <f:selectItem itemLabel="---" itemValue="0"/>
                                     <f:selectItems value="#{treeBean.galleryList}" var="row" itemLabel="#{row.title}" itemValue="#{row.id}"/>
                                 </h:selectOneMenu>
                                 <h:selectOneMenu id="itemContentPageId" value="#{treeBean.item.contentId}" rendered="#{treeBean.item.typeId==7}">
+                                    <f:selectItem itemLabel="---" itemValue="0"/>
                                     <f:selectItems value="#{treeBean.pageList}" var="row" itemLabel="#{row.title}" itemValue="#{row.id}"/>
                                 </h:selectOneMenu>
                                 <h:selectOneMenu id="itemContentNewsId" value="#{treeBean.item.contentId}" rendered="#{treeBean.item.typeId==8}">
+                                    <f:selectItem itemLabel="---" itemValue="0"/>
                                     <f:selectItems value="#{treeBean.newsList}" var="row" itemLabel="#{row.title}" itemValue="#{row.id}"/>
                                 </h:selectOneMenu>
                                 <h:selectOneMenu id="itemContentEventId" value="#{treeBean.item.contentId}" rendered="#{treeBean.item.typeId==9}">
+                                    <f:selectItem itemLabel="---" itemValue="0"/>
                                     <f:selectItems value="#{treeBean.eventList}" var="row" itemLabel="#{row.title}" itemValue="#{row.id}"/>
                                 </h:selectOneMenu>
                                 <h:outputLabel value="#{msgs.published}"/>
@@ -83,7 +89,7 @@
                     </div>
                     <h:form id="adminItemFormButtons" class="adminItemFormButtonHolder">
                         <h:commandLink value="#{msgs.add_node}" action="#{treeBean.addNode}" styleClass="commandLink"/>
-                        <h:commandLink value="#{msgs.remove_node}" action="#{treeBean.removeNode}" styleClass="commandLink"/>
+                        <h:commandLink value="#{msgs.remove_node}" action="#{treeBean.removeNode}" styleClass="commandLink" rendered="#{treeBean.item.childrenEmpty}"/>
                     </h:form>
                 </f:view>
             </ui:define>

@@ -53,8 +53,8 @@ public class PageFormBean {
         if (page.getId() == 0) {
             page.setDateCreated(new java.sql.Date(d.getTime()));
             page.calcUtilToSqlDates();
-            long newId = PageDAO.add(page);
-            page.setId(newId);
+            pageId = PageDAO.add(page);
+            page.setId(pageId);
             page.createCmsElement();
         } else {
             page.updateCmsElement();

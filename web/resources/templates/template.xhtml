@@ -20,7 +20,7 @@
             </f:facet>
             <div class="container">
                 <div class="topHolder">
-                    <h:form id="topHolderForm">
+                    <h:form id="topHolderForm" onkeypress="if (event.keyCode == 13) { document.getElementById('topHolderForm:loginButton').click(); return false; }">
                         <div class="adminHolder">                            
                             <h:commandLink value="#{msgs.home}" action="home" styleClass="commandLink"/>
                             <h:commandLink value="#{msgs.adminLink}" action="adminHome" styleClass="commandLink" rendered="#{loginBean.isAdmin}"/>
@@ -34,7 +34,7 @@
                                 <p:inputText value="#{loginBean.username}" styleClass="formInputText" rendered="#{!loginBean.isLoginOk}"/>
                                 <h:outputLabel value="#{msgs.password}" styleClass="formOutputLabel" rendered="#{!loginBean.isLoginOk}"/>
                                 <p:password value="#{loginBean.password}" styleClass="formInputText" rendered="#{!loginBean.isLoginOk}"/>
-                                <p:commandLink value="#{msgs.login}" action="#{loginBean.login}" styleClass="commandLink" update="@form" rendered="#{!loginBean.isLoginOk}"/>                                                            
+                                <p:commandLink id="loginButton" value="#{msgs.login}" action="#{loginBean.login}" styleClass="commandLink" update="@form" rendered="#{!loginBean.isLoginOk}"/>                                                            
                                 <h:commandLink styleClass="commandLink" value="#{msgs.signup}" action="userRegistration" rendered="#{!loginBean.isLoginOk}"/>
                                 <h:graphicImage url="#{loginBean.user.imgPath}" rendered="#{loginBean.isLoginOk}" styleClass="loginImg"/>
                                 <h:commandLink styleClass="commandLink" value="#{msgs.my_profile}" action="userProfilePage" rendered="#{loginBean.isLoginOk}"/>
@@ -50,14 +50,10 @@
                     <ui:insert name="leftStripe"></ui:insert>
                 </div>
                 <div class="mainStripe">
-                    <ui:insert name="mainStripe">
-                        Welcome to TCMS!
-                    </ui:insert>                
+                    <ui:insert name="mainStripe"></ui:insert>                
                 </div>
                 <div class="rightStripe">
-                    <ui:insert name="rightStripe">
-                        YOUR AD HERE!
-                    </ui:insert>
+                    <ui:insert name="rightStripe"></ui:insert>
                 </div>
                 <div class="footer">
                     <ui:insert name="footer">

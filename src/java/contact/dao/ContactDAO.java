@@ -100,15 +100,15 @@ public class ContactDAO {
         return contact;
     }
 
-    public static long add(Contact contact) {
-        long last = -1L;
+    public static int add(Contact contact) {
+        int last = -1;
         try {
             String query1 = "SELECT MAX(id) AS last FROM contact";
             ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
 
             try {
                 if (rs1.next()) {
-                    last = rs1.getLong("last");
+                    last = rs1.getInt("last");
                 } else {
                     last = 0;
                 }
@@ -127,6 +127,7 @@ public class ContactDAO {
                         + ", '" + contact.getFoursquare() + "'"
                         + ", '" + contact.getGmap() + "'"
                         + ")";
+                System.out.println("DEBUG ::: ContactDAO:add:query=" + query2);
                 DBConnection.getInstance().executeUpdate(query2);
 
             } catch (SQLException ex) {
@@ -155,6 +156,7 @@ public class ContactDAO {
                 + " foursquare='" + contact.getFoursquare() + "',"
                 + " gmap='" + contact.getGmap() + "'"
                 + " where id=" + contact.getId();
+        System.out.println("DEBUG ::: ContactDAO:update:query=" + query);
         DBConnection.getInstance().executeUpdate(query);
     }
 

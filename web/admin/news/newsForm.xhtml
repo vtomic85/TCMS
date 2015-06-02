@@ -35,8 +35,9 @@
                         <p:calendar value="#{newsFormBean.news.dateCreated}"/>
                         <h:outputLabel value="#{msgs.date_modified}"/>
                         <p:calendar value="#{newsFormBean.news.dateModified}"/>
-                        <h:outputLabel value="#{msgs.holder}" rendered="#{newsFormBean.news.id>0}"/>
-                        <h:selectOneMenu id="holderId" value="#{newsFormBean.news.itemId}" rendered="#{newsFormBean.news.id>0}">
+                        <h:outputLabel value="#{msgs.holder}"/>
+                        <h:selectOneMenu id="holderId" value="#{newsFormBean.news.itemId}">
+                            <f:selectItem itemValue="0" itemLabel="---"/>
                             <f:selectItems value="#{newsFormBean.holderList}" var="row" itemLabel="#{row.name}" itemValue="#{row.id}"/>
                         </h:selectOneMenu>
                         <h:outputLabel value="#{msgs.gallery}"/>                        
@@ -49,11 +50,11 @@
                             <f:selectItem itemLabel="TRUE" itemValue="true"/>
                             <f:selectItem itemLabel="FALSE" itemValue="false"/>
                         </h:selectOneMenu>        
-                        <h:panelGroup id="imageControlButtons">
+                        <h:panelGroup id="imageControlButtons" rendered="#{newsFormBean.news.id>0}">
                             <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
                                 <f:param name="objectType" value="news"/>
                                 <f:param name="objectId" value="#{newsFormBean.newsId}"/>
-                                <f:param name="backUrl" value="adminEditPage"/>
+                                <f:param name="backUrl" value="adminEditNews"/>
                             </h:link>
                         </h:panelGroup>
                     </h:panelGrid>

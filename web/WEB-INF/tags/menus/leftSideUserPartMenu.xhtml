@@ -12,7 +12,7 @@
                 <h:outputLink value="../index.xhtml" title="Index" styleClass="commandLink">
                     <h:outputText value="Index"/>
                 </h:outputLink>
-                <ui:repeat value="#{newsMenuBean.leftSideMenuItems}" var="row">
+                <ui:repeat value="#{userPartMenuBean.leftSideMenuItems}" var="row">
                     <h:outputLink value="list.xhtml?itemId=#{row.id}" title="#{row.name}" rendered="#{row.id>2}" styleClass="commandLink">
                         <h:outputText value="#{row.name}"/>
                     </h:outputLink>

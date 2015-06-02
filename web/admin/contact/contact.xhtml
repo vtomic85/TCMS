@@ -12,42 +12,44 @@
         </h:head>
         <ui:composition template="/resources/templates/adminTemplate.xhtml">
             <ui:define name="mainStripe">
-                <h:form id="adminContactForm">
-                    <h:outputLabel value="#{msgs.address}:" style="font-size:11px"/>
-                    <h:inputText value="#{contactBean.contact.address1}" size="40" />
-                    <h:inputText value="#{contactBean.contact.address2}" size="40"/>
-                    <h:inputText value="#{contactBean.contact.address3}" size="40"/>
+                <f:view>
+                    <h:form id="adminContactForm">
+                        <h:outputLabel value="#{msgs.address}:" style="font-size:11px"/>
+                        <h:inputText value="#{contactBean.contact.address1}" size="40" />
+                        <h:inputText value="#{contactBean.contact.address2}" size="40"/>
+                        <h:inputText value="#{contactBean.contact.address3}" size="40"/>
 
-                    <h:outputLabel value="#{msgs.phone}:" style="font-size:11px"/>
-                    <h:inputText value="#{contactBean.contact.phone1}" size="40"/>
-                    <h:inputText value="#{contactBean.contact.phone2}" size="40"/>
-                    <h:inputText value="#{contactBean.contact.phone3}" size="40"/>
-                    
-                    <h:outputLabel value="#{msgs.email}:" style="font-size:11px"/>
-                    <h:inputText value="#{contactBean.contact.email}" size="40"/>
-                    
-                    <h:outputLabel value="#{msgs.website}:" style="font-size:11px"/>
-                    <h:inputText value="#{contactBean.contact.website}" size="40"/>
-                    
-                    <h:outputLabel value="#{msgs.twitter}:" style="font-size:11px"/>
-                    <h:inputText value="#{contactBean.contact.twitter}" size="40"/>
-                    
-                    <h:outputLabel value="#{msgs.facebook}:" style="font-size:11px"/>
-                    <h:inputText value="#{contactBean.contact.facebook}" size="40"/>
-                    
-                    <h:outputLabel value="#{msgs.linkedin}:" style="font-size:11px"/>  
-                    <h:inputText value="#{contactBean.contact.linkedin}" size="40"/>
-                    
-                    <h:outputLabel value="#{msgs.foursquare}:" style="font-size:11px"/>
-                    <h:inputText value="#{contactBean.contact.foursquare}" size="40"/>
-                    
-                    <h:outputLabel value="#{msgs.gmap}:" style="font-size:12px"/>
-                    <h:inputText value="#{contactBean.contact.gmap}" style="font-size:12px" size="40"/>
-                    <p:commandButton value="#{msgs.save}" actionListener="#{contactBean.update()}"/>
-                    <div class="rowDiv">
-                        <h:message id="contactUpdate" for="contactUpdate"/>
-                    </div>
-                </h:form>
+                        <h:outputLabel value="#{msgs.phone}:" style="font-size:11px"/>
+                        <h:inputText value="#{contactBean.contact.phone1}" size="40"/>
+                        <h:inputText value="#{contactBean.contact.phone2}" size="40"/>
+                        <h:inputText value="#{contactBean.contact.phone3}" size="40"/>
+
+                        <h:outputLabel value="#{msgs.email}:" style="font-size:11px"/>
+                        <h:inputText value="#{contactBean.contact.email}" size="40"/>
+
+                        <h:outputLabel value="#{msgs.website}:" style="font-size:11px"/>
+                        <h:inputText value="#{contactBean.contact.website}" size="40"/>
+
+                        <h:outputLabel value="#{msgs.twitter}:" style="font-size:11px"/>
+                        <h:inputText value="#{contactBean.contact.twitter}" size="40"/>
+
+                        <h:outputLabel value="#{msgs.facebook}:" style="font-size:11px"/>
+                        <h:inputText value="#{contactBean.contact.facebook}" size="40"/>
+
+                        <h:outputLabel value="#{msgs.linkedin}:" style="font-size:11px"/>  
+                        <h:inputText value="#{contactBean.contact.linkedin}" size="40"/>
+
+                        <h:outputLabel value="#{msgs.foursquare}:" style="font-size:11px"/>
+                        <h:inputText value="#{contactBean.contact.foursquare}" size="40"/>
+
+                        <h:outputLabel value="#{msgs.gmap}:" style="font-size:12px"/>
+                        <h:inputText value="#{contactBean.contact.gmap}" style="font-size:12px" size="40"/>
+                        <h:commandButton value="#{msgs.save}" action="#{contactBean.update}" styleClass="commandLink"/>
+                        <div class="rowDiv">
+                            <h:message id="contactUpdate" for="contactUpdate"/>
+                        </div>
+                    </h:form>
+                </f:view>
             </ui:define>
         </ui:composition>
     </h:body>

@@ -10,14 +10,14 @@
         <ui:composition>
             <h:form id="contactForm">
                 <h:panelGrid columns="2" columnClasses="panelLeftCol,panelRightCol" styleClass="contactPanel">
-                    <h:outputLabel value="#{msgs.address}"/>
+                    <h:outputLabel value="#{msgs.address}" rendered="#{contactBean.contact.address1 != '' or contactBean.contact.address2 != '' or contactBean.contact.address3 != ''}"/>
                     <h:outputLabel value="#{contactBean.contact.address1} "/>
                     <h:outputLabel value="" rendered="#{contactBean.contact.address2 != ''}"/>
                     <h:outputLabel value="#{contactBean.contact.address2} " rendered="#{contactBean.contact.address2 != ''}"/>
                     <h:outputLabel value="" rendered="#{contactBean.contact.address3 != ''}"/>
                     <h:outputLabel value="#{contactBean.contact.address3} " rendered="#{contactBean.contact.address3 != ''}"/>
-                    <h:outputLabel value="#{msgs.phone}"/>
-                    <h:outputLabel value="#{contactBean.contact.phone1} "/>
+                    <h:outputLabel value="#{msgs.phone}" rendered="#{contactBean.contact.phone1 != '' or contactBean.contact.phone2 != '' or contactBean.contact.phone3 != ''}"/>
+                    <h:outputLabel value="#{contactBean.contact.phone1}" rendered="#{contactBean.contact.phone1 != ''}"/>
                     <h:outputLabel value="" rendered="#{contactBean.contact.phone2 != ''}"/>
                     <h:outputLabel value="#{contactBean.contact.phone2} " rendered="#{contactBean.contact.phone2 != ''}"/>
                     <h:outputLabel value="" rendered="#{contactBean.contact.phone3 != ''}"/>

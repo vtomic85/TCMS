@@ -74,8 +74,8 @@ public class EventFormBean {
                 event.setEventDate(new java.sql.Date(d.getTime()));
             }
             event.calcUtilToSqlDates();
-            long newId = EventDAO.add(event);
-            event.setId(newId);
+            eventId = EventDAO.add(event);
+            event.setId(eventId);
             event.createCmsElement();
         } else {
             event.updateCmsElement();

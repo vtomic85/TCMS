@@ -8,42 +8,44 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>        
         <ui:composition>
-            <h:form id="adminContactForm" rendered="#{loginBean.isAdmin}">
-                <h:outputLabel value="#{msgs.address}" styleClass="contactFormOutputLabel"/><br/>
-                <h:inputText value="#{contactBean.contact.address1}"  styleClass="formInputText" /><br/>
-                <h:inputText value="#{contactBean.contact.address2}"  styleClass="formInputText"/><br/>
-                <h:inputText value="#{contactBean.contact.address3}"  styleClass="formInputText"/><br/>
+            <f:view>
+                <h:form id="adminContactForm" rendered="#{loginBean.isAdmin}">
+                    <h:outputLabel value="#{msgs.address}" styleClass="contactFormOutputLabel"/><br/>
+                    <h:inputText value="#{contactBean.contact.address1}"  styleClass="formInputText" /><br/>
+                    <h:inputText value="#{contactBean.contact.address2}"  styleClass="formInputText"/><br/>
+                    <h:inputText value="#{contactBean.contact.address3}"  styleClass="formInputText"/><br/>
 
-                <h:outputLabel value="#{msgs.phone}" styleClass="contactFormOutputLabel"/><br/>
-                <h:inputText value="#{contactBean.contact.phone1}"  styleClass="formInputText"/><br/>
-                <h:inputText value="#{contactBean.contact.phone2}"  styleClass="formInputText"/><br/>
-                <h:inputText value="#{contactBean.contact.phone3}"  styleClass="formInputText"/><br/>
+                    <h:outputLabel value="#{msgs.phone}" styleClass="contactFormOutputLabel"/><br/>
+                    <h:inputText value="#{contactBean.contact.phone1}"  styleClass="formInputText"/><br/>
+                    <h:inputText value="#{contactBean.contact.phone2}"  styleClass="formInputText"/><br/>
+                    <h:inputText value="#{contactBean.contact.phone3}"  styleClass="formInputText"/><br/>
 
-                <h:outputLabel value="#{msgs.email}" styleClass="contactFormOutputLabel"/><br/>
-                <h:inputText value="#{contactBean.contact.email}"  styleClass="formInputText" size="50"/><br/>
+                    <h:outputLabel value="#{msgs.email}" styleClass="contactFormOutputLabel"/><br/>
+                    <h:inputText value="#{contactBean.contact.email}"  styleClass="formInputText" size="50"/><br/>
 
-                <h:outputLabel value="#{msgs.website}" styleClass="contactFormOutputLabel"/><br/>
-                <h:inputText value="#{contactBean.contact.website}"  styleClass="formInputText" size="100"/><br/>
+                    <h:outputLabel value="#{msgs.website}" styleClass="contactFormOutputLabel"/><br/>
+                    <h:inputText value="#{contactBean.contact.website}"  styleClass="formInputText" size="100"/><br/>
 
-                <h:outputLabel value="#{msgs.twitter}" styleClass="contactFormOutputLabel"/><br/>
-                <h:inputText value="#{contactBean.contact.twitter}"  styleClass="formInputText" size="100"/><br/>
+                    <h:outputLabel value="#{msgs.twitter}" styleClass="contactFormOutputLabel"/><br/>
+                    <h:inputText value="#{contactBean.contact.twitter}"  styleClass="formInputText" size="100"/><br/>
 
-                <h:outputLabel value="#{msgs.facebook}" styleClass="contactFormOutputLabel"/><br/>
-                <h:inputText value="#{contactBean.contact.facebook}"  styleClass="formInputText" size="100"/><br/>
+                    <h:outputLabel value="#{msgs.facebook}" styleClass="contactFormOutputLabel"/><br/>
+                    <h:inputText value="#{contactBean.contact.facebook}"  styleClass="formInputText" size="100"/><br/>
 
-                <h:outputLabel value="#{msgs.linkedin}" styleClass="contactFormOutputLabel"/><br/>
-                <h:inputText value="#{contactBean.contact.linkedin}"  styleClass="formInputText" size="100"/><br/>
+                    <h:outputLabel value="#{msgs.linkedin}" styleClass="contactFormOutputLabel"/><br/>
+                    <h:inputText value="#{contactBean.contact.linkedin}"  styleClass="formInputText" size="100"/><br/>
 
-                <h:outputLabel value="#{msgs.foursquare}" styleClass="contactFormOutputLabel"/><br/>
-                <h:inputText value="#{contactBean.contact.foursquare}"  styleClass="formInputText" size="100"/><br/>
+                    <h:outputLabel value="#{msgs.foursquare}" styleClass="contactFormOutputLabel"/><br/>
+                    <h:inputText value="#{contactBean.contact.foursquare}"  styleClass="formInputText" size="100"/><br/>
 
-                <h:outputLabel value="#{msgs.gmap}" styleClass="contactFormOutputLabel"/><br/>
-                <h:inputText value="#{contactBean.contact.gmap}" styleClass="formInputText" size="100"/><br/>
-                <p:commandButton value="#{msgs.save}" actionListener="#{contactBean.update()}" styleClass="commandLink"/>
-                <div class="rowDiv">
-                    <h:message id="contactUpdate" for="contactUpdate"/>
-                </div>
-            </h:form>
+                    <h:outputLabel value="#{msgs.gmap}" styleClass="contactFormOutputLabel"/><br/>
+                    <h:inputText value="#{contactBean.contact.gmap}" styleClass="formInputText" size="100"/><br/>
+                    <h:commandButton id="adminContactSaveButton" value="#{msgs.save}" action="#{contactBean.update}" styleClass="commandLink"/>
+                    <div class="rowDiv">
+                        <h:message id="contactUpdate" for="contactUpdate"/>
+                    </div>
+                </h:form>
+            </f:view>
         </ui:composition>
     </h:body>
 </html>

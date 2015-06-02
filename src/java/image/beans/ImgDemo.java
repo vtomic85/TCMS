@@ -125,6 +125,7 @@ public class ImgDemo implements Serializable {
                     img.setTitle("");
                     img.setGalleryId(objectId);
                     ImageDAO.add(img);
+                    backUrl = "/admin/gallery/galleryForm.xhtml?galleryId=" + objectId;
                     System.out.println("DEBUG ::: ImgDemo:uploadFile:gallery updated");
                     break;
                 default:

@@ -34,10 +34,16 @@
                         <h:outputLabel value="${newsViewBean.item.lead}"/>
                     </div>                
                     <div class="itemDateCreated">
-                        <h:outputLabel value="${newsViewBean.item.dateCreated}"/>
-                        <h:outputLabel value="${newsViewBean.item.dateModified}"/>
+                        <h:outputLabel value="${newsViewBean.item.dateCreated}">
+                            <f:convertDateTime pattern="dd.MM.yyyy."/>
+                        </h:outputLabel>
+                        <h:outputLabel value=" &rarr; "/>
+                        <h:outputLabel value="${newsViewBean.item.dateModified}">
+                            <f:convertDateTime pattern="dd.MM.yyyy."/>
+                        </h:outputLabel>
                     </div>
                     <div class="itemAuthor">
+                        <h:outputLabel value="#{msgs.author}: "/>
                         <h:outputLabel value="${newsViewBean.item.author}"/>
                     </div>
                     <div class="itemPicture">
