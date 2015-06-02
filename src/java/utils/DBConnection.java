@@ -40,14 +40,11 @@ public class DBConnection {
             }
             stat = conn.createStatement();
         } catch (ClassNotFoundException | SQLException ex) {
-//            System.out.println("ERROR ::: " + ex.getMessage());
-//            System.out.println("ERROR ::: " + ex.getStackTrace());
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void executeUpdate(String query) {
-//        System.out.println("DEBUG ::: DBConnection:executeUpdate:query = " + query);
         try {
             stat.executeUpdate(query);
         } catch (SQLException ex) {
@@ -56,7 +53,6 @@ public class DBConnection {
     }
 
     public ResultSet executeQuery(String query) {
-//        System.out.println("DEBUG ::: DBConnection:executeQuery:query = " + query);
         try {
             if (resultSet != null) {
                 resultSet.close();
@@ -68,5 +64,9 @@ public class DBConnection {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultSet;
+    }
+
+    public Connection getConn() {
+        return conn;
     }
 }

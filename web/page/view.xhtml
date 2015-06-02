@@ -45,12 +45,11 @@
                         <h:outputText value="${pageViewBean.item.body}" escape="false"/>
                     </div>
                     <h:form>
-                        <h:commandLink styleClass="commandLink" value="#{msgs.leave_comment}" action="#{pageViewBean.leaveComment}" >
+                        <h:link styleClass="commandLink" value="#{msgs.leave_comment}" outcome="leaveComment" >
                             <f:param name="componentTypeId" value="#{pageViewBean.typeId}"/>
-                            <f:param name="componentId" value="#{pageViewBean.itemId}"/>
-                            <f:param name="holderId" value="#{pageMenuBean.holderId}"/>
-                            <f:param name="isLoginOk" value="#{loginBean.isLoginOk}"/>
-                        </h:commandLink>
+                            <f:param name="componentId" value="#{pageViewBean.item.id}"/>
+                            <f:param name="holderId" value="#{pageViewBean.item.itemId}"/>
+                        </h:link>
                     </h:form>
                     <div class="commentsHolder">
                         <h:outputText value="#{msgs.comments}: #{pageViewBean.publishedCommentsCount}"/>

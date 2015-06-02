@@ -59,11 +59,11 @@ public class NewsViewBean {
     }
 
     public String leaveComment() {
-        Utils.setSessionAttribute("componentId", itemId);
-        Utils.setSessionAttribute("componentTypeId", Commons.ITEMTYPE_NEWS);
-        Utils.setSessionAttribute("holderId", item.getItemId());
-        User u = ((User) ((HttpSession) (FacesContext.getCurrentInstance()).getExternalContext().getSession(false)).getAttribute("user"));
-        Utils.setSessionAttribute("isLoginOk", u != null);
+//        Utils.setSessionAttribute("componentId", itemId);
+//        Utils.setSessionAttribute("componentTypeId", Commons.ITEMTYPE_NEWS);
+//        Utils.setSessionAttribute("holderId", item.getItemId());
+//        User u = ((User) ((HttpSession) (FacesContext.getCurrentInstance()).getExternalContext().getSession(false)).getAttribute("user"));
+//        Utils.setSessionAttribute("isLoginOk", u != null);
         return "leaveComment";
     }
 

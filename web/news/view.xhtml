@@ -64,12 +64,11 @@
                     </div>
                     <hr/>  
                     <h:form>
-                        <h:commandLink styleClass="commandLink" value="#{msgs.leave_comment}" action="#{newsViewBean.leaveComment}" >
+                        <h:link styleClass="commandLink" value="#{msgs.leave_comment}" outcome="leaveComment" >
                             <f:param name="componentTypeId" value="#{newsViewBean.typeId}"/>
-                            <f:param name="componentId" value="#{newsViewBean.itemId}"/>
-                            <f:param name="holderId" value="#{newsMenuBean.holderId}"/>
-                            <f:param name="isLoginOk" value="#{loginBean.isLoginOk}"/>
-                        </h:commandLink>
+                            <f:param name="componentId" value="#{newsViewBean.item.id}"/>
+                            <f:param name="holderId" value="#{newsViewBean.item.itemId}"/>
+                        </h:link>
                     </h:form>
                     <div class="commentsHolder">
                         <h:outputText value="#{msgs.comments}: #{newsViewBean.publishedCommentsCount}"/>
