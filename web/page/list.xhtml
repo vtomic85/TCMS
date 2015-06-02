@@ -26,9 +26,9 @@
                                 <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
                             </h:outputLink>
                             <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
-                                <h:outputText value="#{row.title}" class="itemTitle"/>
+                                <h:outputText value="#{row.title}" styleClass="itemTitle"/>
                             </h:outputLink>
-                            <br/>
+                            <br/><br/>
                             <h:outputText value="#{row.subtitle}" styleClass="holderItemLead"/>
                         </div>
                     </ui:repeat>

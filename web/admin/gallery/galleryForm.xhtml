@@ -34,7 +34,6 @@
                         <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
                             <f:param name="objectType" value="gallery"/>
                             <f:param name="objectId" value="#{galleryFormBean.gallery.id}"/>
-                            <f:param name="backUrl" value="adminEditGallery"/>
                         </h:link>
                     </h:panelGroup>                        
                     <h:commandLink value="#{msgs.save}" action="#{galleryFormBean.save()}" styleClass="commandLink"/>

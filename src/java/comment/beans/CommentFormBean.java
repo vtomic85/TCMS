@@ -75,6 +75,10 @@ public class CommentFormBean {
         comment.setDateCreated(new java.sql.Date(d.getTime()));
         comment.calcUtilToSqlDates();
         CommentDAO.add(comment);
+        // Reset all the session parameters which were used
+        Utils.setSessionAttribute("componentId", null);
+        Utils.setSessionAttribute("componentTypeId", null);
+        Utils.setSessionAttribute("holderId", null);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(backUrl);
         } catch (IOException ex) {

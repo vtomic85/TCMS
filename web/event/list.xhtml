@@ -28,7 +28,7 @@
                                 <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
                             </h:outputLink>   
                             <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
-                                <h:outputText value="#{row.title}"/>
+                                <h:outputText value="#{row.title}" styleClass="itemTitle"/>
                             </h:outputLink>
                             <br/>
                             <h:outputText value="#{row.lead.length() gt 130 ? row.lead.substring(0,130).concat('...') : row.lead}" styleClass="holderItemLead"/>

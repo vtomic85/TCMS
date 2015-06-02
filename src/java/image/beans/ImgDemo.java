@@ -5,6 +5,7 @@
  */
 package image.beans;
 
+import comment.beans.CommentFormBean;
 import event.dao.EventDAO;
 import event.model.Event;
 import image.dao.ImageDAO;
@@ -16,8 +17,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 import news.dao.NewsDAO;
 import news.model.News;
@@ -44,11 +48,15 @@ public class ImgDemo implements Serializable {
     private String backUrl;
     private Part part;
 
+    public ImgDemo() {
+
+    }
+
     public void init() {
         System.out.println("DEBUG ::: ImgDemo:Init: objectType=" + objectType + ", objectId=" + objectId + ", backUrl=" + backUrl);
     }
 
-    public String uploadFile() throws IOException {
+    public void uploadFile() throws IOException {
         String fileName = getFileName(part);
         String date = Long.toString((new Date()).getTime());
         String basePath = "D:" + File.separatorChar + "TCMS" + File.separatorChar + "web" + File.separatorChar + "resources" + File.separatorChar + "img" + File.separatorChar + objectType + File.separatorChar + objectType + "_" + objectId + date;
@@ -125,14 +133,20 @@ public class ImgDemo implements Serializable {
                     img.setTitle("");
                     img.setGalleryId(objectId);
                     ImageDAO.add(img);
-                    backUrl = "/admin/gallery/galleryForm.xhtml?galleryId=" + objectId;
                     System.out.println("DEBUG ::: ImgDemo:uploadFile:gallery updated");
                     break;
                 default:
                     break;
             }
         }
-        return backUrl;
+        // backUrl should look like "../event/eventForm.xhtml?eventId=123"
+        backUrl = "../" + objectType + "/" + objectType + "Form.xhtml?" + objectType + "Id=" + objectId;
+        System.out.println("DEBUG ::: ImgDemo:uploadFile:REDIRECTING TO backUrl=" + backUrl);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect(backUrl);
+        } catch (IOException ex) {
+            Logger.getLogger(ImgDemo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Part getPart() {

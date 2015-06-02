@@ -34,7 +34,9 @@
                         <h:outputLabel value="${eventViewBean.item.lead}"/>
                     </div>
                     <div class="itemDateCreated">
-                        <h:outputLabel value="${eventViewBean.item.dateCreated}"/>
+                        <h:outputLabel value="${eventViewBean.item.dateCreated}">
+                            <f:convertDateTime pattern="dd.MM.yyyy."/>
+                        </h:outputLabel>
                     </div>
                     <div class="itemAuthor">
                         <h:outputLabel value="${eventViewBean.item.author}"/>
@@ -72,7 +74,9 @@
                             <ui:repeat value="#{eventViewBean.comments}" var="row" rendered="#{!eventViewBean.commentListEmpty}">
                                 <h:panelGroup rendered="#{row.published}" styleClass="commentHolder">
                                     <h:outputText value="#{row.userName}"/>
-                                    <h:outputText value="#{row.dateCreated}"/>
+                                    <h:outputText value="#{row.dateCreated}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy."/>
+                                    </h:outputText>
                                     <h:outputText value="#{row.positiveVotes}"/>
                                     <h:commandLink value="+" action="#{eventViewBean.upvote}">
                                         <f:param name="commentId" value="#{row.id}"/>

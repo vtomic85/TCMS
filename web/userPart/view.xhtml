@@ -37,10 +37,14 @@
                         <h:outputText value="#{userPartViewBean.item.body}" rendered="#{userPartViewBean.item.myConfig.hasBody}"/>
                     </div>   
                     <div class="itemDateCreated">
-                        <h:outputLabel value="#{userPartViewBean.item.dateCreated}" rendered="#{userPartViewBean.item.myConfig.hasDateCreated}"/>
+                        <h:outputLabel value="#{userPartViewBean.item.dateCreated}" rendered="#{userPartViewBean.item.myConfig.hasDateCreated}">
+                            <f:convertDateTime pattern="dd.MM.yyyy."/>
+                        </h:outputLabel>
                     </div>
                     <div class="itemDateModified">
-                        <h:outputLabel value="#{userPartViewBean.item.dateModified}" rendered="#{userPartViewBean.item.myConfig.hasDateModified}"/>
+                        <h:outputLabel value="#{userPartViewBean.item.dateModified}" rendered="#{userPartViewBean.item.myConfig.hasDateModified}">
+                            <f:convertDateTime pattern="dd.MM.yyyy."/>
+                        </h:outputLabel>
                     </div>
                     <div class="itemAuthor">
                         <h:outputLabel value="#{userPartViewBean.item.author}" rendered="#{userPartViewBean.item.myConfig.hasAuthor}"/>
@@ -75,7 +79,9 @@
                             <ui:repeat value="#{userPartViewBean.comments}" var="row" rendered="#{!userPartViewBean.commentListEmpty}">
                                 <h:panelGroup rendered="#{row.published}" styleClass="commentHolder">
                                     <h:outputText value="#{row.userName}"/>
-                                    <h:outputText value="#{row.dateCreated}"/>
+                                    <h:outputText value="#{row.dateCreated}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy."/>
+                                    </h:outputText>
                                     <h:outputText value="#{row.positiveVotes}"/>
                                     <h:commandLink value="+" action="#{userPartViewBean.upvote}">
                                         <f:param name="commentId" value="#{row.id}"/>

@@ -79,7 +79,9 @@
                             <ui:repeat value="#{newsViewBean.comments}" var="row" rendered="#{!newsViewBean.commentListEmpty}">
                                 <h:panelGroup rendered="#{row.published}" styleClass="commentHolder">
                                     <h:outputText value="#{row.userName}"/>
-                                    <h:outputText value="#{row.dateCreated}"/>
+                                    <h:outputText value="#{row.dateCreated}">
+                                        <f:convertDateTime pattern="dd.MM.yyyy."/>
+                                    </h:outputText>
                                     <h:outputText value="#{row.positiveVotes}"/>
                                     <h:commandLink value="+" action="#{newsViewBean.upvote}">
                                         <f:param name="commentId" value="#{row.id}"/>
