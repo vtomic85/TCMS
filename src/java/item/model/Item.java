@@ -185,7 +185,7 @@ public class Item {
                 holderURL.append("contact.xhtml");
                 break;
             case Commons.ITEMTYPE_NO_CONTENT:
-                LinkedList<Item> myChildren = ItemDAO.getAllWhere("parent_id=" + id);
+                LinkedList<Item> myChildren = ItemDAO.getAllWhere("parent_id=" + id + " and published=1");
                 if (myChildren.isEmpty()) { // If the "NoContent" item has no children...
                     holderURL.append("/nocontent.xhtml");
                 } else { // ...else, return the first child's URL
