@@ -47,7 +47,7 @@ public class NewsCategoryFormBean {
 
     public String save() {
         if (nc.getId() == 0) {
-            long id = NewsCategoryDAO.insert(nc);
+            long id = NewsCategoryDAO.add(nc);
             nc.setId(id);
         }
         NewsCategoryDAO.update(nc);

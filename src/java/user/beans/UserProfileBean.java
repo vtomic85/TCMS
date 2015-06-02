@@ -48,7 +48,7 @@ public class UserProfileBean {
 
     public String save() {
         user.calcUtilToSqlDates();
-        UserDAO.updateNoPass(user);
+        UserDAO.updateNoPassEnc(user);
         Utils.setSessionAttribute("user", user);
         System.out.println("DEBUG ::: UserProfileBean:save:user imgPath=" + user.getImgPath());
         return "userProfilePage";

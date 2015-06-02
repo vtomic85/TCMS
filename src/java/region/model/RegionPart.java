@@ -24,7 +24,7 @@ public class RegionPart {
     private String partName;
     private boolean topListNeeded;
 
-    public RegionPart(int id, int regionId, int partId, int ord, String title, long topListId) {
+    public RegionPart(int id, int regionId, long partId, int ord, String title, long topListId) {
         this.id = id;
         this.regionId = regionId;
         this.partId = partId;

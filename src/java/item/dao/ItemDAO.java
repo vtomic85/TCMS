@@ -6,6 +6,7 @@
 package item.dao;
 
 import item.model.Item;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -20,32 +21,51 @@ import utils.DBConnection;
  */
 public class ItemDAO {
 
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public ItemDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(long id, Item item) throws SQLException {
+        ps.setLong(1, id);
+        ps.setLong(2, item.getParentId());
+        ps.setInt(3, item.getLevel());
+        ps.setInt(4, item.getTypeId());
+        ps.setString(5, item.getName());
+        ps.setBoolean(6, item.isPublished());
+        ps.setBoolean(7, item.isPrimaryNavigation());
+        ps.setBoolean(8, item.isSecondaryNavigation());
+        ps.setLong(9, item.getContentId());
+    }
+
+    private static void setPsUpdateFields(Item item) throws SQLException {
+        ps.setLong(1, item.getParentId());
+        ps.setInt(2, item.getLevel());
+        ps.setInt(3, item.getTypeId());
+        ps.setString(4, item.getName());
+        ps.setBoolean(5, item.isPublished());
+        ps.setBoolean(6, item.isPrimaryNavigation());
+        ps.setBoolean(7, item.isSecondaryNavigation());
+        ps.setLong(8, item.getContentId());
+        ps.setLong(9, item.getId());
+    }
+
     public static LinkedList<Item> getAll() {
-        LinkedList<Item> items = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item");
-        try {
-            while (rs.next()) {
-                items.add(new Item(
-                        rs.getLong("id"),
-                        rs.getLong("parent_id"),
-                        rs.getInt("level"),
-                        rs.getInt("type_id"),
-                        rs.getString("name"),
-                        rs.getBoolean("published"),
-                        rs.getBoolean("primary_navigation"),
-                        rs.getBoolean("secondary_navigation"),
-                        rs.getLong("content_id")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return items;
+        return getAllWhere("1=1");
     }
 
     public static LinkedList<Item> getAllOrdBy(String order) {
         LinkedList<Item> items = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item ORDER BY " + order);
         try {
+            genericQuery = "SELECT * FROM item ORDER BY " + order;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 items.add(new Item(
                         rs.getLong("id"),
@@ -59,43 +79,25 @@ public class ItemDAO {
                         rs.getLong("content_id")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return items;
     }
 
     public static LinkedList<Item> getAllOrdByLevel() {
-        LinkedList<Item> items = new LinkedList<>();
-        items = getAllOrdBy("level desc");
-        return items;
+        return getAllOrdBy("level desc");
     }
 
     public static Item getById(long id) {
-        Item item = new Item();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                item = new Item(
-                        rs.getLong("id"),
-                        rs.getLong("parent_id"),
-                        rs.getInt("level"),
-                        rs.getInt("type_id"),
-                        rs.getString("name"),
-                        rs.getBoolean("published"),
-                        rs.getBoolean("primary_navigation"),
-                        rs.getBoolean("secondary_navigation"),
-                        rs.getLong("content_id"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return item;
+        return getWhere("id=" + id);
     }
 
     public static Item getWhere(String where) {
         Item item = new Item();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM item WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 item = new Item(
                         rs.getLong("id"),
@@ -109,16 +111,17 @@ public class ItemDAO {
                         rs.getLong("content_id"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return item;
     }
 
     public static synchronized LinkedList<Item> getAllWhere(String where) {
-        System.out.println("DEBUG ::: ItemDAO:getAllWhere:where=" + where);
         LinkedList<Item> list = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM item WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Item item = new Item(
                         rs.getLong("id"),
@@ -133,41 +136,37 @@ public class ItemDAO {
                 list.add(item);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
 
     public static LinkedList<Item> getPageHolders() {
-        LinkedList<Item> holders = new LinkedList<>();
-        holders = getAllWhere("type_id=" + Commons.ITEMTYPE_PAGE_HOLDER);
-        return holders;
+        return getAllWhere("type_id=" + Commons.ITEMTYPE_PAGE_HOLDER);
     }
 
     public static LinkedList<Item> getNewsHolders() {
-        LinkedList<Item> holders = new LinkedList<>();
-        holders = getAllWhere("type_id=" + Commons.ITEMTYPE_NEWS_HOLDER);
-        return holders;
+        return getAllWhere("type_id=" + Commons.ITEMTYPE_NEWS_HOLDER);
     }
 
     public static LinkedList<Item> getEventHolders() {
-        LinkedList<Item> holders = new LinkedList<>();
-        holders = getAllWhere("type_id=" + Commons.ITEMTYPE_EVENT_HOLDER);
-        return holders;
+        return getAllWhere("type_id=" + Commons.ITEMTYPE_EVENT_HOLDER);
     }
 
     public static LinkedList<Item> getAllHolders() {
-        LinkedList<Item> holders = new LinkedList<>();
-        holders = getAllWhere("type_id in(" + Commons.ITEMTYPE_EVENT_HOLDER
+        return getAllWhere("type_id in(" + Commons.ITEMTYPE_EVENT_HOLDER
                 + "," + Commons.ITEMTYPE_NEWS_HOLDER
                 + "," + Commons.ITEMTYPE_PAGE_HOLDER
+                + "," + Commons.ITEMTYPE_USER_PART_HOLDER
                 + ")");
-        return holders;
     }
 
     public static int getNumOfIndexes() {
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT COUNT(*) FROM item WHERE type_id=" + Commons.ITEMTYPE_INDEX);
         try {
+            genericQuery = "SELECT COUNT(*) FROM item WHERE type_id=?";
+            prepare(genericQuery);
+            ps.setInt(1, Commons.ITEMTYPE_INDEX);
+            ResultSet rs = ps.executeQuery();
             return rs.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -178,57 +177,75 @@ public class ItemDAO {
     public static long add(Item item) {
         long last = -1L;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM item";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getLong("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO item VALUES(" + ++last + ","
-                        + item.getParentId() + ","
-                        + item.getLevel() + ","
-                        + item.getTypeId() + ",'"
-                        + item.getName() + "',"
-                        + item.isPublished() + ","
-                        + item.isPrimaryNavigation() + ","
-                        + item.isSecondaryNavigation() + ","
-                        + item.getContentId() + ")";
-                DBConnection.getInstance().executeUpdate(query2);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM item";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getLong("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "INSERT INTO item VALUES(?,?,?,?,?,?,?,?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, item);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
     public static void update(Item item) {
-        String query = "update item set "
-                + " parent_id=" + item.getParentId() + ","
-                + " level=" + item.getLevel() + ","
-                + " type_id=" + item.getTypeId() + ","
-                + " name='" + item.getName() + "',"
-                + " published=" + item.isPublished() + ","
-                + " primary_navigation=" + item.isPrimaryNavigation() + ","
-                + " secondary_navigation=" + item.isSecondaryNavigation() + ","
-                + " content_id=" + item.getContentId()
-                + " where id=" + item.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            genericQuery = "update item set "
+                    + " parent_id=?,"
+                    + " level=?,"
+                    + " type_id=?,"
+                    + " name=?,"
+                    + " published=?,"
+                    + " primary_navigation=?,"
+                    + " secondary_navigation=?,"
+                    + " content_id=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(item);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public static void delete(long id) {
-        String query = "delete from item where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
+    public static long countAll() {
+        return countWhere("1=1");
+    }
+
+    public static long countWhere(String where) {
+        try {
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM item WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            long count = rs.getLong("rowcount");
+            return count;
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
     }
 
     public static void delete(Item item) {
-        String query = "delete from item where id=" + item.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        delete(item.getId());
+    }
+
+    public static void delete(long id) {
+        try {
+            genericQuery = "delete from item where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

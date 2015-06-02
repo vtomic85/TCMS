@@ -56,6 +56,19 @@
             <to-view-id>/inbox/messageForm.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>viewMessage</from-outcome>
+            <to-view-id>/inbox/messageView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/inbox/messageView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editMessage</from-outcome>
+            <to-view-id>/inbox/messageForm.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     <!-- END OF INBOX NAVIGATION RULES -->
     <!-- USER PROFILE NAVIGATION RULES -->

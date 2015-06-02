@@ -77,7 +77,7 @@ public class Event implements Serializable {
     public long createCmsElement() {
         CMSElement cmsel = new CMSElement();
         setCmsElementFields(cmsel);
-        long cmsElementId = CMSElementDAO.insert(cmsel);
+        long cmsElementId = CMSElementDAO.add(cmsel);
         return cmsElementId;
     }
 
@@ -86,7 +86,7 @@ public class Event implements Serializable {
         if (cmsel == null) {
             cmsel = new CMSElement();
             setCmsElementFields(cmsel);
-            CMSElementDAO.insert(cmsel);
+            CMSElementDAO.add(cmsel);
         } else {
             setCmsElementFields(cmsel);
             CMSElementDAO.update(cmsel);

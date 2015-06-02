@@ -5,6 +5,7 @@
  */
 package platform.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -18,27 +19,40 @@ import utils.DBConnection;
  * @author Vladimir Tomic
  */
 public class CountryDAO {
+
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public CountryDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(int id, Country country) throws SQLException {
+        ps.setInt(1, id);
+        ps.setString(2, country.getCode());
+        ps.setString(3, country.getName());
+    }
+
+    private static void setPsUpdateFields(Country country) throws SQLException {
+        ps.setString(1, country.getCode());
+        ps.setString(2, country.getName());
+        ps.setInt(3, country.getId());
+    }
+
     public static LinkedList<Country> getAll() {
-        LinkedList<Country> countries = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM country ORDER BY id ASC");
-        try {
-            while (rs.next()) {
-                countries.add(new Country(
-                        rs.getInt("id"),
-                        rs.getString("code"),
-                        rs.getString("name")));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Country.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return countries;
+        return getAllWhere("1=1");
     }
 
     public static LinkedList<Country> getAllWhere(String where) {
         LinkedList<Country> countries = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM country WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM country WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 countries.add(new Country(
                         rs.getInt("id"),
@@ -47,32 +61,21 @@ public class CountryDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Country.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CountryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return countries;
     }
 
     public static Country getById(long id) {
-        Country country = new Country();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM country WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                country = new Country(
-                        rs.getInt("id"),
-                        rs.getString("code"),
-                        rs.getString("name"));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Country.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return country;
+        return getWhere("id=" + id);
     }
 
     public static Country getWhere(String where) {
         Country country = new Country();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM country WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM country WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 country = new Country(
                         rs.getInt("id"),
@@ -81,54 +84,77 @@ public class CountryDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Country.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CountryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return country;
     }
 
-    public static long insert(Country country) {
-        long last = 0L;
+    public static int add(Country country) {
+        int last = -1;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM country";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getLong("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO country VALUES(" + ++last + ", '"
-                        + country.getCode() + "', '"
-                        + country.getName() + "')";
-                DBConnection.getInstance().executeUpdate(query2);
-                country.setId(last);
-                rs1.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Country.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM country";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getInt("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(Country.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "INSERT INTO country VALUES(?,?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, country);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CountryDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
     public static void update(Country country) {
-        String query = "update country set"
-                + " code='" + country.getCode() + "',"
-                + " name='" + country.getName() + "'"
-                + " where id=" + country.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            String query = "update country set"
+                    + " code=?,"
+                    + " name=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(country);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CountryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public static void delete(int id) {
-        String query = "delete from country where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
+    public static long countAll() {
+        return countWhere("1=1");
+    }
+
+    public static long countWhere(String where) {
+        try {
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM country WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            long count = rs.getLong("rowcount");
+            return count;
+        } catch (SQLException ex) {
+            Logger.getLogger(CountryDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
     }
 
     public static void delete(Country country) {
-        String query = "delete from country where id=" + country.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        delete(country.getId());
+    }
+
+    public static void delete(long id) {
+        try {
+            genericQuery = "delete from country where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CountryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

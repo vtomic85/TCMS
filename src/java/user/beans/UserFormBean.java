@@ -55,7 +55,7 @@ public class UserFormBean {
             user.setId(newId);
         }
         user.calcUtilToSqlDates();
-        UserDAO.updateNoPass(user);
+        UserDAO.updateNoPassEnc(user);
         return "adminUserList";
     }
 

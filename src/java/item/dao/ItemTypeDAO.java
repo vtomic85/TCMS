@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import item.model.ItemType;
+import java.sql.PreparedStatement;
 import utils.DBConnection;
 
 /**
@@ -19,107 +20,134 @@ import utils.DBConnection;
  */
 public class ItemTypeDAO {
 
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public ItemTypeDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(long id, ItemType it) throws SQLException {
+        ps.setLong(1, id);
+        ps.setString(2, it.getName());
+    }
+
+    private static void setPsUpdateFields(ItemType it) throws SQLException {
+        ps.setString(1, it.getName());
+        ps.setLong(2, it.getId());
+    }
+
     public static LinkedList<ItemType> getAll() {
-        LinkedList<ItemType> itemTypes = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item_type");
-        try {
-            while (rs.next()) {
-                itemTypes.add(new ItemType(
-                        rs.getInt("id"),
-                        rs.getString("name")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ItemType.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return itemTypes;
+        return getAllWhere("1=1");
     }
 
     public static LinkedList<ItemType> getAllWhere(String where) {
-        System.out.println("DEBUG ::: ItemTypeDAO: where=" + where);
         LinkedList<ItemType> itemTypes = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item_type where " + where);
         try {
+            genericQuery = "SELECT * FROM item_type WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 itemTypes.add(new ItemType(
                         rs.getInt("id"),
                         rs.getString("name")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ItemType.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItemTypeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return itemTypes;
     }
 
     public static ItemType getById(long id) {
-        ItemType item_type = new ItemType();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item_type WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                item_type = new ItemType(
-                        rs.getInt("id"),
-                        rs.getString("name"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ItemType.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return item_type;
+        return getWhere("id=" + id);
     }
 
     public static ItemType getWhere(String where) {
         ItemType item_type = new ItemType();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM item_type WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM item_type WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 item_type = new ItemType(
                         rs.getInt("id"),
                         rs.getString("name"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ItemType.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ItemTypeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return item_type;
     }
 
-    public static long add(ItemType itemType) {
+    public static long add(ItemType it) {
         long last = -1L;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM item_type";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getLong("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO item_type VALUES(" + ++last + ",'"
-                        + itemType.getName() + "')";
-                DBConnection.getInstance().executeUpdate(query2);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(ItemType.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM item_type";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getLong("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(ItemType.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "INSERT INTO item_type VALUES(?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, it);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemTypeDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
-    public static void update(ItemType itemType) {
-        String query = "update item_type set "
-                + " name='" + itemType.getName() + "',"
-                + " where id=" + itemType.getId();
-        DBConnection.getInstance().executeUpdate(query);
+    public static void update(ItemType it) {
+        try {
+            genericQuery = "update item_type set "
+                    + " name=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(it);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemTypeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static long countAll() {
+        return countWhere("1=1");
+    }
+
+    public static long countWhere(String where) {
+        try {
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM item_type WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            long count = rs.getLong("rowcount");
+            return count;
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemTypeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+
+    public static void delete(ItemType it) {
+        delete(it.getId());
     }
 
     public static void delete(long id) {
-        String query = "delete from item_type where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
-    }
-
-    public static void delete(ItemType item_type) {
-        String query = "delete from item_type where id=" + item_type.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            genericQuery = "delete from item_type where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemTypeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

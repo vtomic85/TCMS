@@ -90,7 +90,7 @@ public class UserRegistrationBean {
         User u = new User(0, ur.getUsername(), ur.getPassword(), Commons.USERTYPE_USER, ur.getFirstName(), ur.getLastName(),
                 ur.getEmail(), ur.getAddress(), ur.getCity(), 190, ur.getDateOfBirth() == null ? new Date() : ur.getDateOfBirth(),
                 ur.getPhone(), true, null);
-        UserDAO.addNoPassEncryption(u);
+        UserDAO.addNoPassEnc(u);
         ur.setApproved(true);
         UserRegistrationDAO.update(ur);
     }

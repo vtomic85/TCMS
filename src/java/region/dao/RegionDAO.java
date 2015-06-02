@@ -5,6 +5,7 @@
  */
 package region.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,28 +20,43 @@ import utils.DBConnection;
  */
 public class RegionDAO {
 
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public RegionDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(long id, Region region) throws SQLException {
+        ps.setLong(1, id);
+        ps.setString(2, region.getName());
+        ps.setInt(3, region.getOrd());
+        ps.setInt(4, region.getWidth());
+        ps.setBoolean(5, region.isRight());
+    }
+
+    private static void setPsUpdateFields(Region region) throws SQLException {
+        ps.setString(1, region.getName());
+        ps.setInt(2, region.getOrd());
+        ps.setInt(3, region.getWidth());
+        ps.setBoolean(4, region.isRight());
+        ps.setLong(5, region.getId());
+    }
+
     public static ArrayList<Region> getAll() {
-        ArrayList<Region> regions = new ArrayList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM region ORDER BY ord ASC");
-        try {
-            while (rs.next()) {
-                regions.add(new Region(
-                        rs.getLong("id"),
-                        rs.getString("name"),
-                        rs.getInt("ord"),
-                        rs.getInt("width"),
-                        rs.getBoolean("right_aligned")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Region.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return regions;
+        return getAllWhere("1=1");
     }
 
     public static ArrayList<Region> getAllWhere(String where) {
         ArrayList<Region> regions = new ArrayList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM region WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM region WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 regions.add(new Region(
                         rs.getLong("id"),
@@ -56,27 +72,15 @@ public class RegionDAO {
     }
 
     public static Region getById(long id) {
-        Region region = new Region();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM region WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                region = new Region(
-                        rs.getLong("id"),
-                        rs.getString("name"),
-                        rs.getInt("ord"),
-                        rs.getInt("width"),
-                        rs.getBoolean("right_aligned"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Region.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return region;
+        return getWhere("id=" + id);
     }
 
     public static Region getWhere(String where) {
         Region region = new Region();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM region WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM region WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 region = new Region(
                         rs.getLong("id"),
@@ -94,28 +98,19 @@ public class RegionDAO {
     public static long add(Region region) {
         long last = -1L;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM region";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getLong("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO region VALUES("
-                        + ++last + ",'"
-                        + region.getName() + "',"
-                        + region.getOrd() + ","
-                        + region.getWidth() + ","
-                        + region.isRight() + ")";
-
-                DBConnection.getInstance().executeUpdate(query2);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Region.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM region";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getLong("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
+            genericQuery = "INSERT INTO region VALUES(?,?,?,?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, region);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
             Logger.getLogger(Region.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
@@ -123,23 +118,28 @@ public class RegionDAO {
     }
 
     public static void update(Region region) {
-        String query = "update region set "
-                + " name='" + region.getName() + "',"
-                + " ord=" + region.getOrd() + ","
-                + " width=" + region.getWidth() + ","
-                + " right_aligned=" + region.isRight()
-                + " where id=" + region.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            genericQuery = "update region set "
+                    + " name=?,"
+                    + " ord=?,"
+                    + " width=?,"
+                    + " right_aligned=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(region);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static int getMinOrd() {
         try {
-            String query = "SELECT MIN(ord) AS min_ord FROM region";
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
+            genericQuery = "SELECT MIN(ord) AS min_ord FROM region";
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             rs.next();
-            int minOrd = rs.getInt("min_ord");
-            System.out.println("DEBUG ::: RegionDAO:getMinOrd:minOrd=" + minOrd);
-            return minOrd;
+            return rs.getInt("min_ord");
         } catch (SQLException ex) {
             Logger.getLogger(RegionDAO.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
@@ -148,11 +148,11 @@ public class RegionDAO {
 
     public static int getMaxOrd() {
         try {
-            String query = "SELECT MAX(ord) AS max_ord FROM region";
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
+            genericQuery = "SELECT MAX(ord) AS max_ord FROM region";
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             rs.next();
-            int minOrd = rs.getInt("max_ord");
-            return minOrd;
+            return rs.getInt("max_ord");
         } catch (SQLException ex) {
             Logger.getLogger(RegionDAO.class.getName()).log(Level.SEVERE, null, ex);
             return 0;
@@ -160,22 +160,14 @@ public class RegionDAO {
     }
 
     public static long countAll() {
-        try {
-            String query = "SELECT COUNT(*) AS rowcount FROM region";
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
-            rs.next();
-            long count = rs.getLong("rowcount");
-            return count;
-        } catch (SQLException ex) {
-            Logger.getLogger(RegionDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }
+        return countWhere("1=1");
     }
 
     public static long countWhere(String where) {
         try {
-            String query = "SELECT COUNT(*) AS rowcount FROM region WHERE " + where;
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM comment WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             rs.next();
             long count = rs.getLong("rowcount");
             return count;
@@ -186,16 +178,21 @@ public class RegionDAO {
     }
 
     public static void delete(long id) {
-        String query1 = "delete from region_part where region_id=" + id;
-        DBConnection.getInstance().executeUpdate(query1);
-        String query = "delete from region where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            genericQuery = "delete from region_part where region_id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+            genericQuery = "delete from region where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegionDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void delete(Region region) {
-        String query1 = "delete from region_part where region_id=" + region.getId();
-        DBConnection.getInstance().executeUpdate(query1);
-        String query = "delete from region where id=" + region.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        delete(region.getId());
     }
 }

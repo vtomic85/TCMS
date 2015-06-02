@@ -112,7 +112,7 @@ public class ImgDemo implements Serializable {
                 case "User":
                     User u = UserDAO.getById(objectId);
                     u.setImgPath(fullPath);
-                    UserDAO.updateNoPass(u);
+                    UserDAO.updateNoPassEnc(u);
                     Utils.setSessionAttribute("user", u);
                     System.out.println("DEBUG ::: ImgDemo:uploadFile:user updated");
                     System.out.println("DEBUG ::: ImgDemo:uploadFile:imgPath=" + u.getImgPath());

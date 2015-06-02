@@ -44,7 +44,7 @@ public class UserTypeFormBean {
 
     public String save() {
         if (ut.getId() == 0) {
-            long id = UserTypeDAO.insert(ut);
+            long id = UserTypeDAO.add(ut);
             ut.setId(id);
         }
         UserTypeDAO.update(ut);

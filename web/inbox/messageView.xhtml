@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="messageId" value="#{messageViewBean.messageId}" />
+            <f:viewAction action="#{messageViewBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="mainStripe">
+                <h:form id="messageViewForm" class="formFullWidth">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{msgs.from}"/>
+                        <h:outputLabel value="#{messageViewBean.message.fromUsername}"/>
+                        <h:outputLabel value="#{msgs.subject}"/>
+                        <h:outputLabel value="#{messageViewBean.message.subject}"/>
+                        <h:outputLabel value="#{msgs.body}"/>
+                        <h:outputText value="#{messageViewBean.message.body}" escape="false"/>
+                    </h:panelGrid>
+                    <h:link value="#{msgs.reply}" outcome="editMessage" styleClass="commandLink">
+                        <f:param name="messageId" value="#{messageViewBean.message.id}"/>
+                    </h:link>
+                    <h:commandLink value="#{msgs.delete}" action="#{messageViewBean.delete}" styleClass="commandLink"/>
+                </h:form>                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

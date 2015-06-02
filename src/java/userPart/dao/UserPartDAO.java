@@ -5,6 +5,7 @@
  */
 package userPart.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -19,40 +20,65 @@ import utils.DBConnection;
  */
 public class UserPartDAO {
 
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public UserPartDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(long id, UserPart up) throws SQLException {
+        ps.setLong(1, id);
+        ps.setLong(2, up.getConfigId());
+        ps.setLong(3, up.getItemId());
+        ps.setString(4, up.getName());
+        ps.setString(5, up.getTitle());
+        ps.setString(6, up.getSubtitle());
+        ps.setString(7, up.getLead());
+        ps.setString(8, up.getBody());
+        ps.setDate(9, up.getSqlDateCreated());
+        ps.setDate(10, up.getSqlDateModified());
+        ps.setString(11, up.getAuthor());
+        ps.setString(12, up.getImgPath());
+        ps.setLong(13, up.getGalleryId());
+        ps.setInt(14, up.getComments());
+        ps.setInt(15, up.getViews());
+        ps.setBoolean(16, up.isPublished());
+    }
+
+    private static void setPsUpdateFields(UserPart up) throws SQLException {
+        ps.setLong(1, up.getConfigId());
+        ps.setLong(2, up.getItemId());
+        ps.setString(3, up.getName());
+        ps.setString(4, up.getTitle());
+        ps.setString(5, up.getSubtitle());
+        ps.setString(6, up.getLead());
+        ps.setString(7, up.getBody());
+        ps.setDate(8, up.getSqlDateCreated());
+        ps.setDate(9, up.getSqlDateModified());
+        ps.setString(10, up.getAuthor());
+        ps.setString(11, up.getImgPath());
+        ps.setLong(12, up.getGalleryId());
+        ps.setInt(13, up.getComments());
+        ps.setInt(14, up.getViews());
+        ps.setBoolean(15, up.isPublished());
+        ps.setLong(16, up.getId());
+    }
+
     public static LinkedList<UserPart> getAll() {
-        LinkedList<UserPart> userParts = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM user_part");
-        try {
-            while (rs.next()) {
-                userParts.add(new UserPart(
-                        rs.getLong("id"),
-                        rs.getLong("config_id"),
-                        rs.getLong("item_id"),
-                        rs.getString("name"),
-                        rs.getString("title"),
-                        rs.getString("subtitle"),
-                        rs.getString("lead"),
-                        rs.getString("body"),
-                        rs.getDate("date_created"),
-                        rs.getDate("date_modified"),
-                        rs.getString("author"),
-                        rs.getString("img_path"),
-                        rs.getLong("gallery_id"),
-                        rs.getInt("comments"),
-                        rs.getInt("views"),
-                        rs.getBoolean("published")));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserPart.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return userParts;
+        return getAllWhere("1=1");
     }
 
     public static LinkedList<UserPart> getAllOrderBy(String order) {
         LinkedList<UserPart> userParts = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM user_part ORDER BY " + order);
         try {
+            genericQuery = "SELECT * FROM user_part ORDER BY " + order;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 userParts.add(new UserPart(
                         rs.getLong("id"),
@@ -81,8 +107,10 @@ public class UserPartDAO {
 
     public static LinkedList<UserPart> getAllWhere(String where) {
         LinkedList<UserPart> userParts = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM user_part WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM user_part WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 userParts.add(new UserPart(
                         rs.getLong("id"),
@@ -110,41 +138,15 @@ public class UserPartDAO {
     }
 
     public static UserPart getById(long id) {
-        UserPart userPart = new UserPart();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM user_part WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                userPart = new UserPart(
-                        rs.getLong("id"),
-                        rs.getLong("config_id"),
-                        rs.getLong("item_id"),
-                        rs.getString("name"),
-                        rs.getString("title"),
-                        rs.getString("subtitle"),
-                        rs.getString("lead"),
-                        rs.getString("body"),
-                        rs.getDate("date_created"),
-                        rs.getDate("date_modified"),
-                        rs.getString("author"),
-                        rs.getString("img_path"),
-                        rs.getLong("gallery_id"),
-                        rs.getInt("comments"),
-                        rs.getInt("views"),
-                        rs.getBoolean("published"));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(UserPart.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return userPart;
+        return getWhere("id=" + id);
     }
 
     public static UserPart getWhere(String where) {
-        System.out.println("DEBUG ::: UserPartDAO:getWhere:" + where);
         UserPart userPart = new UserPart();
-        String query = "SELECT * FROM user_part WHERE " + where;
-        ResultSet rs = DBConnection.getInstance().executeQuery(query);
         try {
+            genericQuery = "SELECT * FROM user_part WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 userPart = new UserPart(
                         rs.getLong("id"),
@@ -174,40 +176,21 @@ public class UserPartDAO {
     }
 
     public static long add(UserPart userPart) {
-        long last = 0;
+        long last = -1L;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM user_part";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getLong("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO user_part VALUES(" + ++last + ","
-                        + userPart.getConfigId() + ","
-                        + userPart.getItemId() + ",'"
-                        + userPart.getName() + "','"
-                        + userPart.getTitle() + "','"
-                        + userPart.getSubtitle() + "','"
-                        + userPart.getLead() + "','"
-                        + userPart.getBody() + "','"
-                        + userPart.getSqlDateCreated() + "','"
-                        + userPart.getSqlDateModified() + "','"
-                        + userPart.getAuthor() + "','"
-                        + userPart.getImgPath() + "',"
-                        + userPart.getGalleryId() + ","
-                        + userPart.getComments() + ","
-                        + userPart.getViews() + ","
-                        + userPart.isPublished() + ")";
-                DBConnection.getInstance().executeUpdate(query2);
-                userPart.setId(last);
-                rs1.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(UserPart.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM user_part";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getLong("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
+            genericQuery = "INSERT INTO user_part VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, userPart);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
             Logger.getLogger(UserPart.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
@@ -215,40 +198,41 @@ public class UserPartDAO {
     }
 
     public static void update(UserPart userPart) {
-        String query = "update user_part set"
-                + " config_id=" + userPart.getConfigId() + ","
-                + " item_id=" + userPart.getItemId() + ","
-                + " name='" + userPart.getName() + "',"
-                + " title='" + userPart.getTitle() + "',"
-                + " subtitle='" + userPart.getSubtitle() + "',"
-                + " lead='" + userPart.getLead() + "',"
-                + " body='" + userPart.getBody() + "',"
-                + " date_created='" + userPart.getSqlDateCreated() + "',"
-                + " date_modified='" + userPart.getSqlDateModified() + "',"
-                + " author='" + userPart.getAuthor() + "',"
-                + " img_path='" + userPart.getImgPath() + "',"
-                + " gallery_id=" + userPart.getGalleryId() + ","
-                + " comments=" + userPart.getComments() + ","
-                + " views=" + userPart.getViews() + ","
-                + " published=" + userPart.isPublished()
-                + " where id=" + userPart.getId();
-        DBConnection.getInstance().executeUpdate(query);
-    }
-
-    public static void delete(long id) {
-        String query = "delete from user_part where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
-    }
-
-    public static void delete(UserPart userPart) {
-        String query = "delete from user_part where id=" + userPart.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            String query = "update user_part set"
+                    + " config_id=?,"
+                    + " item_id=?,"
+                    + " name=?,"
+                    + " title=?,"
+                    + " subtitle=?,"
+                    + " lead=?,"
+                    + " body=?,"
+                    + " date_created=?,"
+                    + " date_modified=?,"
+                    + " author=?,"
+                    + " img_path=?,"
+                    + " gallery_id=?,"
+                    + " comments=?,"
+                    + " views=?,"
+                    + " published=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(userPart);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserPartDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static long countAll() {
+        return countWhere("1=1");
+    }
+
+    public static long countWhere(String where) {
         try {
-            String query = "SELECT COUNT(*) AS rowcount FROM user_part";
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM user_part WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             rs.next();
             long count = rs.getLong("rowcount");
             return count;
@@ -258,16 +242,18 @@ public class UserPartDAO {
         }
     }
 
-    public static long countWhere(String where) {
+    public static void delete(UserPart up) {
+        delete(up.getId());
+    }
+
+    public static void delete(long id) {
         try {
-            String query = "SELECT COUNT(*) AS rowcount FROM user_part WHERE " + where;
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
-            rs.next();
-            long count = rs.getLong("rowcount");
-            return count;
+            genericQuery = "delete from user_part where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UserPartDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
         }
     }
 }

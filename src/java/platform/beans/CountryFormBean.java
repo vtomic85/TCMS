@@ -20,7 +20,7 @@ import javax.faces.bean.ViewScoped;
 public class CountryFormBean {
 
     private Country country;
-    private long countryId;
+    private int countryId;
 
     public CountryFormBean() {
 
@@ -44,7 +44,7 @@ public class CountryFormBean {
 
     public String save() {
         if (country.getId() == 0) {
-            long id = CountryDAO.insert(country);
+            int id = CountryDAO.add(country);
             country.setId(id);
         } else {
             CountryDAO.update(country);
@@ -52,11 +52,11 @@ public class CountryFormBean {
         return "adminCountryList";
     }
 
-    public long getCountryId() {
+    public int getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(long countryId) {
+    public void setCountryId(int countryId) {
         this.countryId = countryId;
     }
 }

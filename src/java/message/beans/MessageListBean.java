@@ -86,6 +86,7 @@ public class MessageListBean {
     public String markAsReadOrUnread() {
         Message msg = MessageDAO.getWhere("id=" + Long.parseLong(Utils.getParam("messageId")) + " and owner_id=" + Long.parseLong(Utils.getParam("ownerId")));
         msg.setRead(Boolean.parseBoolean(Utils.getParam("isRead")));
+        msg.calcUtilToSqlDates();
         MessageDAO.update(msg);
         return null;
     }
@@ -93,6 +94,7 @@ public class MessageListBean {
     public String deleteMessage() {
         Message msg = MessageDAO.getWhere("id=" + Long.parseLong(Utils.getParam("messageId")));
         msg.setFolderId(Commons.MESSAGEFOLDER_DELETED);
+        msg.calcUtilToSqlDates();
         MessageDAO.update(msg);
         return null;
     }
@@ -100,6 +102,7 @@ public class MessageListBean {
     public String permanentlyDeleteMessage() {
         Message msg = MessageDAO.getWhere("id=" + Long.parseLong(Utils.getParam("messageId")));
         msg.setFolderId(Commons.MESSAGEFOLDER_PERMANENTLY_DELETED);
+        msg.calcUtilToSqlDates();
         MessageDAO.update(msg);
         return null;
     }
@@ -107,7 +110,7 @@ public class MessageListBean {
 // It is possible to physically delete a draft message from the database
     public String discard() {
         Message msg = MessageDAO.getWhere("id=" + Long.parseLong(Utils.getParam("messageId")));
-        MessageDAO.discard(msg);
+        MessageDAO.delete(msg);
         return "inbox";
     }
 

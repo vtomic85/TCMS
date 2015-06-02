@@ -5,6 +5,7 @@
  */
 package platform.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -18,26 +19,38 @@ import utils.DBConnection;
  * @author Vladimir Tomic
  */
 public class SystemParametersDAO {
+
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public SystemParametersDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(int id, SystemParameters sp) throws SQLException {
+        ps.setInt(1, id);
+        ps.setBoolean(2, sp.isAutomaticRequestProcessing());
+    }
+
+    private static void setPsUpdateFields(SystemParameters sp) throws SQLException {
+        ps.setBoolean(1, sp.isAutomaticRequestProcessing());
+        ps.setInt(2, sp.getId());
+    }
+
     public static LinkedList<SystemParameters> getAll() {
-        LinkedList<SystemParameters> systemParameters = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM system_parameters ORDER BY id ASC");
-        try {
-            while (rs.next()) {
-                systemParameters.add(new SystemParameters(
-                        rs.getInt("id"),
-                        rs.getBoolean("automatic_request_processing")));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(SystemParameters.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return systemParameters;
+        return getAllWhere("1=1");
     }
 
     public static LinkedList<SystemParameters> getAllWhere(String where) {
         LinkedList<SystemParameters> systemParameters = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM system_parameters WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM system_parameters WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 systemParameters.add(new SystemParameters(
                         rs.getInt("id"),
@@ -45,31 +58,21 @@ public class SystemParametersDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(SystemParameters.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SystemParametersDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return systemParameters;
     }
 
     public static SystemParameters getById(long id) {
-        SystemParameters systemParameters = new SystemParameters();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM system_parameters WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                systemParameters = new SystemParameters(
-                        rs.getInt("id"),
-                        rs.getBoolean("automatic_request_processing"));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(SystemParameters.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return systemParameters;
+        return getWhere("id=" + id);
     }
 
     public static SystemParameters getWhere(String where) {
         SystemParameters systemParameters = new SystemParameters();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM system_parameters WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM system_parameters WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 systemParameters = new SystemParameters(
                         rs.getInt("id"),
@@ -77,52 +80,76 @@ public class SystemParametersDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(SystemParameters.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SystemParametersDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return systemParameters;
     }
 
-    public static long insert(SystemParameters systemParameters) {
-        int last = 0;
+    public static long add(SystemParameters sp) {
+        int last = -1;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM system_parameters";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getInt("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO system_parameters VALUES(" + ++last + ","
-                        + systemParameters.isAutomaticRequestProcessing()+ ")";
-                DBConnection.getInstance().executeUpdate(query2);
-                systemParameters.setId(last);
-                rs1.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(SystemParameters.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM system_parameters";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getInt("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(SystemParameters.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "INSERT INTO system_parameters VALUES(?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, sp);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemParametersDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
-    public static void update(SystemParameters systemParameters) {
-        String query = "update system_parameters set"
-                + " automatic_request_processing=" + systemParameters.isAutomaticRequestProcessing()
-                + " where id=" + systemParameters.getId();
-        DBConnection.getInstance().executeUpdate(query);
+    public static void update(SystemParameters sp) {
+        try {
+            genericQuery = "update system_parameters set"
+                    + " automatic_request_processing=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(sp);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemParametersDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public static void delete(int id) {
-        String query = "delete from system_parameters where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
+    public static long countAll() {
+        return countWhere("1=1");
     }
 
-    public static void delete(SystemParameters systemParameters) {
-        String query = "delete from system_parameters where id=" + systemParameters.getId();
-        DBConnection.getInstance().executeUpdate(query);
+    public static long countWhere(String where) {
+        try {
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM system_parameters WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            long count = rs.getLong("rowcount");
+            return count;
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemParametersDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+
+    public static void delete(SystemParameters sp) {
+        delete(sp.getId());
+    }
+
+    public static void delete(long id) {
+        try {
+            genericQuery = "delete from system_parameters where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(SystemParametersDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

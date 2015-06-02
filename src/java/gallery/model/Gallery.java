@@ -15,7 +15,7 @@ public class Gallery {
     
     private long id;
     private String title;
-    private int numOfPics;
+    private long numOfPics;
     
     public Gallery(long id, String title) {
         this.id = id;
@@ -42,7 +42,7 @@ public class Gallery {
         this.title = title;
     }
     
-    public int getNumOfPics() {
+    public long getNumOfPics() {
         numOfPics = ImageDAO.countWhere("gallery_id=" + id);
         return numOfPics;
     }

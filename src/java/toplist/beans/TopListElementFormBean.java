@@ -55,7 +55,7 @@ public class TopListElementFormBean {
     public void saveNewElement() {
         System.out.println("DEBUG ::: SAVING ELEMENT ID=" + newElementId);
         TopListElementRelation tlre = new TopListElementRelation(0, topListId, newElementId);
-        TopListElementRelationDAO.insert(tlre);
+        TopListElementRelationDAO.add(tlre);
         System.out.println("DEBUG ::: TopListFormBean:saveNewElement:element added");
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(backUrl);

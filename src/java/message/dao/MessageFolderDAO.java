@@ -5,6 +5,7 @@
  */
 package message.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -19,96 +20,144 @@ import utils.DBConnection;
  */
 public class MessageFolderDAO {
 
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public MessageFolderDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(int id, MessageFolder mf) throws SQLException {
+        ps.setInt(1, id);
+        ps.setString(2, mf.getName());
+    }
+
+    private static void setPsUpdateFields(MessageFolder mf) throws SQLException {
+        ps.setString(1, mf.getName());
+        ps.setInt(2, mf.getId());
+    }
+
     public static LinkedList<MessageFolder> getAll() {
-        LinkedList<MessageFolder> messageFolders = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM message_folder");
-        try {
-            while (rs.next()) {
-                messageFolders.add(new MessageFolder(
-                        rs.getInt("id"),
-                        rs.getString("name")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(MessageFolder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return messageFolders;
+        return getAllWhere("1=1");
     }
 
     public static LinkedList<MessageFolder> getAllWhere(String where) {
         LinkedList<MessageFolder> messageFolders = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM message_folder WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM message_folder WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 messageFolders.add(new MessageFolder(
                         rs.getInt("id"),
                         rs.getString("name")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MessageFolder.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MessageFolderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return messageFolders;
     }
 
     public static MessageFolder getById(long id) {
-        MessageFolder messageFolder = new MessageFolder();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM message_folder WHERE id=" + id);
+        return getWhere("id=" + id);
+    }
+
+    public static MessageFolder getWhere(String where) {
+        MessageFolder mf = new MessageFolder();
         try {
+            genericQuery = "SELECT * FROM message_folder WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                messageFolder = new MessageFolder(
+                mf = new MessageFolder(
                         rs.getInt("id"),
                         rs.getString("name"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(MessageFolder.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MessageFolderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return messageFolder;
+        return mf;
     }
 
-    public static long add(MessageFolder messageFolder) {
+    public static long add(MessageFolder mf) {
         int last = -1;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM message_folder";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getInt("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO message_folder VALUES(" + ++last + ", '"
-                        + messageFolder.getName() + "')";
-                DBConnection.getInstance().executeUpdate(query2);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(MessageFolder.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM message_folder";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getInt("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(MessageFolder.class.getName()).log(Level.SEVERE, null, ex);
+            String query2 = "INSERT INTO message_folder VALUES(?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, mf);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageFolderDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
-    public static void update(MessageFolder messageFolder) {
-        String query = "update message_folder set "
-                + " name='" + messageFolder.getName() + "'"
-                + " where id=" + messageFolder.getId();
-        DBConnection.getInstance().executeUpdate(query);
+    public static void update(MessageFolder mf) {
+        try {
+            genericQuery = "update message_folder set "
+                    + " name=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(mf);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageFolderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public static void delete(long id) {
-        String query = "delete from message_folder where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
+    public static long countAll() {
+        return countWhere("1=1");
     }
 
-    public static void delete(MessageFolder messageFolder) {
-        String query = "delete from message_folder where id=" + messageFolder.getId();
-        DBConnection.getInstance().executeUpdate(query);
+    public static long countWhere(String where) {
+        try {
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM message_folder WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            long count = rs.getLong("rowcount");
+            return count;
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageFolderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+
+    public static void delete(MessageFolder mf) {
+        delete(mf.getId());
+    }
+
+    public static void delete(int id) {
+        try {
+            genericQuery = "delete from message_folder where id=?";
+            prepare(genericQuery);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageFolderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void deleteForUser(long userId) {
-        String query = "delete from message_folder where to=" + userId;
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            genericQuery = "delete from message_folder where to=" + userId;
+            prepare(genericQuery);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageFolderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

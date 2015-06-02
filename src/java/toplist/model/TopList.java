@@ -112,7 +112,7 @@ public class TopList {
         TopListElementRelation tler = new TopListElementRelation();
         tler.setCmsElementId(cmsel.getId());
         tler.setTopListId(this.id);
-        TopListElementRelationDAO.insert(tler);
+        TopListElementRelationDAO.add(tler);
         return list.size();
     }
 

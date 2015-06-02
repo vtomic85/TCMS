@@ -5,6 +5,7 @@
  */
 package toplist.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -19,27 +20,39 @@ import utils.DBConnection;
  */
 public class TopListDAO {
 
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public TopListDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(long id, TopList tl) throws SQLException {
+        ps.setLong(1, id);
+        ps.setString(2, tl.getName());
+        ps.setLong(3, tl.getTypeId());
+    }
+
+    private static void setPsUpdateFields(TopList tl) throws SQLException {
+        ps.setString(1, tl.getName());
+        ps.setLong(2, tl.getTypeId());
+        ps.setLong(3, tl.getId());
+    }
+
     public static LinkedList<TopList> getAll() {
-        LinkedList<TopList> topLists = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM toplist");
-        try {
-            while (rs.next()) {
-                topLists.add(new TopList(
-                        rs.getLong("id"),
-                        rs.getString("name"),
-                        rs.getLong("type_id")));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(TopList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return topLists;
+        return getAllWhere("1=1");
     }
 
     public static LinkedList<TopList> getAllWhere(String where) {
         LinkedList<TopList> topLists = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM toplist WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM toplist WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 topLists.add(new TopList(
                         rs.getLong("id"),
@@ -48,32 +61,21 @@ public class TopListDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(TopList.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TopListDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return topLists;
     }
 
     public static TopList getById(long id) {
-        TopList topList = new TopList();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM toplist WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                topList = new TopList(
-                        rs.getLong("id"),
-                        rs.getString("name"),
-                        rs.getLong("type_id"));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(TopList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return topList;
+        return getWhere("id=" + id);
     }
 
     public static TopList getWhere(String where) {
         TopList topList = new TopList();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM toplist WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM toplist WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 topList = new TopList(
                         rs.getLong("id"),
@@ -82,55 +84,77 @@ public class TopListDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(TopList.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TopListDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return topList;
     }
 
-    public static long insert(TopList topList) {
-        long last = 0L;
+    public static long add(TopList tl) {
+        long last = -1L;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM toplist";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getLong("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO toplist VALUES(" + ++last + ", '"
-                        + topList.getName() + "', "
-                        + topList.getTypeId() + ")";
-                DBConnection.getInstance().executeUpdate(query2);
-                topList.setId(last);
-                rs1.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(TopList.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM toplist";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getLong("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(TopList.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "INSERT INTO toplist VALUES(?,?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, tl);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(TopListDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
-    public static void update(TopList topList) {
-        String query = "update toplist set"
-                + " name='" + topList.getName() + "',"
-                + " type_id=" + topList.getTypeId()
-                + " where id=" + topList.getId();
-        DBConnection.getInstance().executeUpdate(query);
+    public static void update(TopList tl) {
+        try {
+            genericQuery = "update toplist set"
+                    + " name=?,"
+                    + " type_id=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(tl);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(TopListDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static long countAll() {
+        return countWhere("1=1");
+    }
+
+    public static long countWhere(String where) {
+        try {
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM toplist WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            long count = rs.getLong("rowcount");
+            return count;
+        } catch (SQLException ex) {
+            Logger.getLogger(TopListDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
+    }
+
+    public static void delete(TopList tl) {
+        delete(tl.getId());
     }
 
     public static void delete(long id) {
-        String query = "delete from toplist where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            genericQuery = "delete from toplist where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(TopListDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
-    public static void delete(TopList topList) {
-        String query = "delete from toplist where id=" + topList.getId();
-        DBConnection.getInstance().executeUpdate(query);
-    }
-
 }

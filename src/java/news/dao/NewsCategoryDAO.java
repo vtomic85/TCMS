@@ -5,6 +5,7 @@
  */
 package news.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -19,117 +20,122 @@ import utils.DBConnection;
  */
 public class NewsCategoryDAO {
 
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public NewsCategoryDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(long id, NewsCategory nc) throws SQLException {
+        ps.setLong(1, id);
+        ps.setLong(2, nc.getParentId());
+        ps.setString(3, nc.getName());
+    }
+
+    private static void setPsUpdateFields(NewsCategory nc) throws SQLException {
+        ps.setLong(1, nc.getParentId());
+        ps.setString(2, nc.getName());
+        ps.setLong(3, nc.getId());
+    }
+
     public static LinkedList<NewsCategory> getAll() {
-        LinkedList<NewsCategory> newsCategories = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM news_category");
-        try {
-            while (rs.next()) {
-                newsCategories.add(new NewsCategory(
-                        rs.getInt("id"),
-                        rs.getInt("parent_id"),
-                        rs.getString("name")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NewsCategory.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return newsCategories;
+        return getAllWhere("1=1");
     }
 
     public static NewsCategory getById(long id) {
-        NewsCategory news_category = new NewsCategory();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM news_category WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                news_category = new NewsCategory(
-                        rs.getInt("id"),
-                        rs.getInt("parent_id"),
-                        rs.getString("name"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(NewsCategory.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return news_category;
+        return getWhere("id=" + id);
     }
 
     public static NewsCategory getWhere(String where) {
         NewsCategory news_category = new NewsCategory();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM news_category WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM news_category WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 news_category = new NewsCategory(
-                        rs.getInt("id"),
-                        rs.getInt("parent_id"),
+                        rs.getLong("id"),
+                        rs.getLong("parent_id"),
                         rs.getString("name"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NewsCategory.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewsCategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return news_category;
     }
+
     public static LinkedList<NewsCategory> getAllWhere(String where) {
         LinkedList<NewsCategory> newsCategories = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM news_category WHERE "+where);
         try {
+            genericQuery = "SELECT * FROM news_category WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 newsCategories.add(new NewsCategory(
-                        rs.getInt("id"),
-                        rs.getInt("parent_id"),
+                        rs.getLong("id"),
+                        rs.getLong("parent_id"),
                         rs.getString("name")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NewsCategory.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewsCategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return newsCategories;
     }
 
-    public static long insert(NewsCategory newsCategory) {
-        long last = 0L;
+    public static long add(NewsCategory newsCategory) {
+        long last = -1L;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM news_category";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
+            genericQuery = "SELECT MAX(id) AS last FROM news_category";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
             try {
                 if (rs1.next()) {
                     last = rs1.getLong("last");
                 } else {
                     last = 0;
                 }
-                String query2 = "INSERT INTO news_category VALUES(" + ++last + ","
-                        + newsCategory.getParentId() + ", '"
-                        + newsCategory.getName() + "')";
-                DBConnection.getInstance().executeUpdate(query2);
-
+                genericQuery = "INSERT INTO news_category VALUES(?,?,?)";
+                prepare(genericQuery);
+                setPsInsertFields(++last, newsCategory);
+                ps.executeUpdate();
             } catch (SQLException ex) {
-                Logger.getLogger(NewsCategory.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NewsCategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (Exception ex) {
-            Logger.getLogger(NewsCategory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(NewsCategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
     public static void update(NewsCategory newsCategory) {
-        String query = "update news_category set "
-                + " parent_id=" + newsCategory.getParentId() + ","
-                + " name='" + newsCategory.getName() + "',"
-                + " where id=" + newsCategory.getId();
-        DBConnection.getInstance().executeUpdate(query);
-    }
-
-    public static void delete(long id) {
-        String query = "delete from news_category where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
-    }
-
-    public static void delete(NewsCategory news_category) {
-        String query = "delete from news_category where id=" + news_category.getId();
-        DBConnection.getInstance().executeUpdate(query);
-    }
-    public static long countAll() {
         try {
-            String query = "SELECT COUNT(*) AS rowcount FROM news_category";
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
+            String query = "update news_category set "
+                    + " parent_id=?,"
+                    + " name=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(newsCategory);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(NewsCategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static long countAll() {
+        return countWhere("1=1");
+    }
+
+    public static long countWhere(String where) {
+        try {
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM news_category WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             rs.next();
             long count = rs.getLong("rowcount");
             return count;
@@ -139,16 +145,18 @@ public class NewsCategoryDAO {
         }
     }
 
-    public static long countWhere(String where) {
+    public static void delete(NewsCategory newsCategory) {
+        delete(newsCategory.getId());
+    }
+
+    public static void delete(long id) {
         try {
-            String query = "SELECT COUNT(*) AS rowcount FROM news_category WHERE " + where;
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
-            rs.next();
-            long count = rs.getLong("rowcount");
-            return count;
+            genericQuery = "delete from news_category where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(NewsCategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
         }
     }
 }

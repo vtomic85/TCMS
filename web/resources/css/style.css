@@ -49,8 +49,8 @@ li {list-style-type: none;}
 .adminItemChildrenText:hover{color:#000066;}
 
 /* INBOX */
-.readMsg{height:40px; width:40px; background:url('../resources/images/cms/read.png');}
-.unreadMsg{height:40px; width:40px; background:url('../resources/images/cms/unread.png');}
+.readMsg{height:32px; width:32px; display:block; float:left; background:url('../resources/img/cms/read.png') no-repeat;}
+.unreadMsg{height:32px; width:32px; display:block; float:left; background:url('../resources/img/cms/unread.png') no-repeat;}
 .msgTitle{float:left; width:100px; font-weight: bold; border: white 1px solid; padding-left: 2px;}
 .msgContent{padding-bottom: 3px; float:left; width:500px; border:white 1px solid; padding-left:5px; padding-top:2px;}
 

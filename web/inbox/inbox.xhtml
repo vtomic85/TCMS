@@ -35,34 +35,29 @@
                         <h:dataTable value="#{messageListBean.messages}" var="row" rendered="#{!messageListBean.listEmpty}" class="tableFullWidth">
                             <h:column rendered="#{messageListBean.folderId==1}">
                                 <f:facet name="header">
-                                    <h:outputText value="#{msgs.status}"/>
                                 </f:facet>
-                                <h:outputLabel value="READ" rendered="#{row.read}"/>
-                                <h:outputLabel value="UNREAD" rendered="#{!row.read}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="ID"/>
-                                </f:facet>
-                                <h:outputLabel value="#{row.id}"/>
+                                <h:graphicImage value="../resources/img/cms/read.png" styleClass="readMsg" rendered="#{row.read}"/>
+                                <h:graphicImage value="../resources/img/cms/unread.png" styleClass="unreadMsg" rendered="#{!row.read}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{msgs.subject}"/>
                                 </f:facet>
-                                <h:outputText value="#{row.subject}"/>
+                                <h:link value="#{row.subject}" outcome="viewMessage">
+                                    <f:param name="messageId" value="#{row.id}"/>
+                                </h:link>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{msgs.from}" rendered="#{messageListBean.folderId!=2 and messageListBean.folderId!=3}"/>
+                                    <h:outputText value="#{msgs.from}"/>
                                 </f:facet>
-                                <h:outputText value="#{row.fromUsername}" rendered="#{messageListBean.folderId!=2 and messageListBean.folderId!=3}"/>
+                                <h:outputText value="#{row.fromUsername}"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{msgs.to}" rendered="#{messageListBean.folderId==2 or messageListBean.folderId==3}"/>
+                                    <h:outputText value="#{msgs.to}"/>
                                 </f:facet>
-                                <h:outputText value="#{row.toUsername}" rendered="#{messageListBean.folderId==2 or messageListBean.folderId==3}"/>
+                                <h:outputText value="#{row.toUsername}"/>
                             </h:column>                                       
                             <h:column>
                                 <f:facet name="header">

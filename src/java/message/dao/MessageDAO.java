@@ -5,6 +5,7 @@
  */
 package message.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -20,32 +21,51 @@ import utils.DBConnection;
  */
 public class MessageDAO {
 
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public MessageDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(long id, Message msg) throws SQLException {
+        ps.setLong(1, id);
+        ps.setLong(2, msg.getFromId());
+        ps.setLong(3, msg.getToId());
+        ps.setDate(4, msg.getSqlDate());
+        ps.setString(5, msg.getSubject());
+        ps.setString(6, msg.getBody());
+        ps.setBoolean(7, msg.isRead());
+        ps.setInt(8, msg.getFolderId());
+        ps.setLong(9, msg.getOwnerId());
+    }
+
+    private static void setPsUpdateFields(Message msg) throws SQLException {
+        ps.setLong(1, msg.getFromId());
+        ps.setLong(2, msg.getToId());
+        ps.setDate(3, msg.getSqlDate());
+        ps.setString(4, msg.getSubject());
+        ps.setString(5, msg.getBody());        
+        ps.setBoolean(6, msg.isRead());
+        ps.setInt(7, msg.getFolderId());
+        ps.setLong(8, msg.getOwnerId());
+        ps.setLong(9, msg.getId());
+    }
+
     public static LinkedList<Message> getAll() {
-        LinkedList<Message> messages = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM message");
-        try {
-            while (rs.next()) {
-                messages.add(new Message(
-                        rs.getLong("id"),
-                        rs.getLong("from_id"),
-                        rs.getLong("to_id"),
-                        rs.getString("subject"),
-                        rs.getString("body"),
-                        rs.getDate("date"),
-                        rs.getBoolean("msg_read"),
-                        rs.getInt("folder_id"),
-                        rs.getLong("owner_id")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return messages;
+        return getAllWhere("1=1");
     }
 
     public static LinkedList<Message> getAllWhere(String where) {
         LinkedList<Message> messages = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM message WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM message WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 messages.add(new Message(
                         rs.getLong("id"),
@@ -59,15 +79,17 @@ public class MessageDAO {
                         rs.getLong("owner_id")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MessageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return messages;
     }
 
     public static Message getWhere(String where) {
         Message message = new Message();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM message WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM message WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 message = new Message(
                         rs.getLong("id"),
@@ -83,7 +105,7 @@ public class MessageDAO {
                 message = null;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MessageDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return message;
     }
@@ -113,93 +135,81 @@ public class MessageDAO {
     }
 
     public static Message getById(long id) {
-        Message message = new Message();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM message WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                message = new Message(
-                        rs.getLong("id"),
-                        rs.getLong("from_id"),
-                        rs.getLong("to_id"),
-                        rs.getString("subject"),
-                        rs.getString("body"),
-                        rs.getDate("date"),
-                        rs.getBoolean("msg_read"),
-                        rs.getInt("folder_id"),
-                        rs.getLong("owner_id"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return message;
+        return getWhere("id=" + id);
     }
 
     public static long add(Message message) {
-        message.calcUtilToSqlDates();
         long last = -1L;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM message";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getLong("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO message VALUES(" + ++last + ", "
-                        + message.getFromId() + ", "
-                        + message.getToId() + ", '"
-                        + message.getSqlDate()+ "', '"
-                        + message.getSubject() + "', '"
-                        + message.getBody() + "', "
-                        + message.isRead() + ", "
-                        + message.getFolderId() + ", "
-                        + message.getOwnerId() + ")";
-                DBConnection.getInstance().executeUpdate(query2);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM message";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getLong("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "INSERT INTO message VALUES(?,?,?,?,?,?,?,?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, message);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
     public static void update(Message message) {
-        message.calcUtilToSqlDates();
-        String query = "update message set "
-                + " from_id=" + message.getFromId() + ","
-                + " to_id=" + message.getToId() + ","
-                + " subject='" + message.getSubject() + "',"
-                + " body='" + message.getBody() + "',"
-                + " date='" + message.getSqlDate() + "',"
-                + " msg_read=" + message.isRead() + ","
-                + " folder_id=" + message.getFolderId() + ","
-                + " owner_id=" + message.getOwnerId()
-                + " where id=" + message.getId();
-        System.out.println("DEBUG ::: MessageDAO:update:query=" + query);
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            genericQuery = "update message set "
+                    + " from_id=?,"
+                    + " to_id=?,"
+                    + " date=?,"
+                    + " subject=?,"
+                    + " body=?,"                    
+                    + " msg_read=?,"
+                    + " folder_id=?,"
+                    + " owner_id=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(message);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public static void delete(long messageId, long ownerId, boolean permanently) {
-        String query = "delete from message where id=" + messageId;
-        DBConnection.getInstance().executeUpdate(query);
+    public static long countAll() {
+        return countWhere("1=1");
     }
 
-    public static void discard(Message message) {
-        String query = "delete from message where id=" + message.getId();
-        DBConnection.getInstance().executeUpdate(query);
+    public static long countWhere(String where) {
+        try {
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM message WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            long count = rs.getLong("rowcount");
+            return count;
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
+        }
     }
-//    public static void delete(Message message) {
-//        String query = "delete from message where id=" + message.getId();
-//        DBConnection.getInstance().executeUpdate(query);
-//    }
-//
-//    public static void deleteForUser(long userId) {
-//        String query = "delete from message where to=" + userId;
-//        DBConnection.getInstance().executeUpdate(query);
-//    }
+
+    public static void delete(Message message) {
+        delete(message.getId());
+    }
+
+    public static void delete(long id) {
+        try {
+            genericQuery = "delete from message where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MessageDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

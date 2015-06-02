@@ -115,7 +115,7 @@ public class MessageFormBean {
         // Don't save any changes, just go back
         // If we were replying or creating a new message, we need to delete the draft that was created
         if (source == Commons.MESSAGEFOLDER_INBOX || source == Commons.MESSAGEFOLDER_NEW_MESSAGE) {
-            MessageDAO.discard(message);
+            MessageDAO.delete(message);
         } else {
         // We were editing a draft. Just go back without updating the database
         }

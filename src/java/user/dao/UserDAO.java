@@ -5,6 +5,8 @@
  */
 package user.dao;
 
+import comment.model.Comment;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -19,38 +21,61 @@ import utils.DBConnection;
  */
 public class UserDAO {
 
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public UserDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(long id, User user) throws SQLException {
+        ps.setLong(1, id);
+        ps.setString(2, user.getUsername());
+        ps.setString(3, user.getPassword());
+        ps.setInt(4, user.getTypeId());
+        ps.setString(5, user.getFirstName());
+        ps.setString(6, user.getLastName());
+        ps.setString(7, user.getEmail());
+        ps.setString(8, user.getAddress());
+        ps.setString(9, user.getCity());
+        ps.setInt(10, user.getCountryId());
+        ps.setDate(11, user.getSqlDateOfBirth());
+        ps.setString(12, user.getPhone());
+        ps.setBoolean(13, user.isActive());
+        ps.setString(14, user.getImgPath());
+    }
+
+    private static void setPsUpdateFields(User user) throws SQLException {
+        ps.setString(1, user.getUsername());
+        ps.setString(2, user.getPassword());
+        ps.setInt(3, user.getTypeId());
+        ps.setString(4, user.getFirstName());
+        ps.setString(5, user.getLastName());
+        ps.setString(6, user.getEmail());
+        ps.setString(7, user.getAddress());
+        ps.setString(8, user.getCity());
+        ps.setInt(9, user.getCountryId());
+        ps.setDate(10, user.getSqlDateOfBirth());
+        ps.setString(11, user.getPhone());
+        ps.setBoolean(12, user.isActive());
+        ps.setString(13, user.getImgPath());
+        ps.setLong(14, user.getId());
+    }
+
     public static LinkedList<User> getAll() {
-        LinkedList<User> users = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM user");
-        try {
-            while (rs.next()) {
-                users.add(new User(
-                        rs.getLong("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getInt("type_id"),
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("email"),
-                        rs.getString("address"),
-                        rs.getString("city"),
-                        rs.getInt("country_id"),
-                        rs.getDate("date_of_birth"),
-                        rs.getString("phone"),
-                        rs.getBoolean("active"),
-                        rs.getString("img_path")));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return users;
+        return getAllWhere("1=1");
     }
 
     public static LinkedList<User> getAllWhere(String where) {
         LinkedList<User> users = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM user WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM user WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 users.add(new User(
                         rs.getLong("id"),
@@ -70,45 +95,21 @@ public class UserDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return users;
     }
 
     public static User getById(long id) {
-        User user = new User();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM user WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                user = new User(
-                        rs.getLong("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getInt("type_id"),
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("email"),
-                        rs.getString("address"),
-                        rs.getString("city"),
-                        rs.getInt("country_id"),
-                        rs.getDate("date_of_birth"),
-                        rs.getString("phone"),
-                        rs.getBoolean("active"),
-                        rs.getString("img_path"));
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return user;
+        return getWhere("id=" + id);
     }
 
     public static User getWhere(String where) {
-        System.out.println("DEBUG ::: UserDAO:getWhere:" + where);
         User user = new User();
-        String query = "SELECT * FROM user WHERE " + where;
-        ResultSet rs = DBConnection.getInstance().executeQuery(query);
         try {
+            genericQuery = "SELECT * FROM user WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 user = new User(
                         rs.getLong("id"),
@@ -130,15 +131,21 @@ public class UserDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return user;
     }
 
     public static LinkedList<User> getAllOrdByUsername() {
+        return getAllOrdBy("username");
+    }
+
+    public static LinkedList<User> getAllOrdBy(String order) {
         LinkedList<User> users = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM user ORDER BY username");
         try {
+            genericQuery = "SELECT * FROM user ORDER BY " + order;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 users.add(new User(
                         rs.getLong("id"),
@@ -158,107 +165,81 @@ public class UserDAO {
             }
             rs.close();
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return users;
     }
 
     public static long add(User user) {
-        long last = 0;
+        long last = -1L;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM user";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getLong("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO user VALUES(" + ++last + ", '"
-                        + user.getUsername() + "', MD5('"
-                        + user.getPassword() + "'),"
-                        + user.getTypeId() + ", '"
-                        + user.getFirstName() + "', '"
-                        + user.getLastName() + "', '"
-                        + user.getEmail() + "', '"
-                        + user.getAddress() + "', '"
-                        + user.getCity() + "', "
-                        + user.getCountryId() + ", '"
-                        + user.getSqlDateOfBirth() + "', '"
-                        + user.getPhone() + "',"
-                        + user.isActive() + ",'"
-                        + user.getImgPath() + "')";
-                DBConnection.getInstance().executeUpdate(query2);
-                user.setId(last);
-                rs1.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM user";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getLong("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "INSERT INTO user VALUES(?,?,MD5(?),?,?,?,?,?,?,?,?,?,?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, user);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
-    public static long addNoPassEncryption(User user) {
-        long last = 0;
+    public static long addNoPassEnc(User user) {
+        long last = -1L;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM user";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getLong("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO user VALUES(" + ++last + ", '"
-                        + user.getUsername() + "','"
-                        + user.getPassword() + "',"
-                        + user.getTypeId() + ", '"
-                        + user.getFirstName() + "', '"
-                        + user.getLastName() + "', '"
-                        + user.getEmail() + "', '"
-                        + user.getAddress() + "', '"
-                        + user.getCity() + "', "
-                        + user.getCountryId() + ", '"
-                        + user.getSqlDateOfBirth() + "', '"
-                        + user.getPhone() + "',"
-                        + user.isActive() + ",'"
-                        + user.getImgPath() + "')";
-                DBConnection.getInstance().executeUpdate(query2);
-                user.setId(last);
-                rs1.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM user";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getLong("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "INSERT INTO user VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, user);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
-    public static void updateNoPass(User user) {
-        String query = "update user set"
-                + " type_id=" + user.getTypeId() + ","
-                + " first_name='" + user.getFirstName() + "',"
-                + " last_name='" + user.getLastName() + "',"
-                + " email='" + user.getEmail() + "',"
-                + " address='" + user.getAddress() + "',"
-                + " city='" + user.getCity() + "',"
-                + " country_id=" + user.getCountryId() + ","
-                + " date_of_birth='" + user.getSqlDateOfBirth() + "',"
-                + " phone='" + user.getPhone() + "',"
-                + " active=" + user.isActive() + ","
-                + " img_path='" + user.getImgPath() + "'"
-                + " where id=" + user.getId();
-        DBConnection.getInstance().executeUpdate(query);
+    public static void updateNoPassEnc(User user) {
+        try {
+            String query = "update user set"
+                    + " username=?,"
+                    + " password=?,"
+                    + " type_id=?,"
+                    + " first_name=?,"
+                    + " last_name=?,"
+                    + " email=?,"
+                    + " address=?,"
+                    + " city=?,"
+                    + " country_id=?,"
+                    + " date_of_birth=?,"
+                    + " phone=?,"
+                    + " active=?,"
+                    + " img_path=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(user);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public static void update(User user) {
+    public static void updatePassEnc(User user) {
         String query = "update user set"
                 + " username='" + user.getUsername() + "',"
                 + " password=MD5('" + user.getPassword() + "'),"
@@ -278,13 +259,18 @@ public class UserDAO {
     }
 
     public static void delete(long id) {
-        String query = "delete from user where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            genericQuery = "delete from user where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void delete(User user) {
-        String query = "delete from user where id=" + user.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        delete(user.getId());
     }
 
     public static int passwordOk(String username, String password) {
@@ -305,22 +291,14 @@ public class UserDAO {
     }
 
     public static long countAll() {
-        try {
-            String query = "SELECT COUNT(*) AS rowcount FROM user";
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
-            rs.next();
-            long count = rs.getLong("rowcount");
-            return count;
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }
+        return countWhere("1=1");
     }
 
     public static long countWhere(String where) {
         try {
-            String query = "SELECT COUNT(*) AS rowcount FROM user WHERE " + where;
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM user WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             rs.next();
             long count = rs.getLong("rowcount");
             return count;

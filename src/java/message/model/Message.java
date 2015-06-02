@@ -36,6 +36,7 @@ public class Message {
         this.read = read;
         this.folderId = folderId;
         this.ownerId = ownerId;
+        calcUtilToSqlDates();
     }
 
     public Message() {

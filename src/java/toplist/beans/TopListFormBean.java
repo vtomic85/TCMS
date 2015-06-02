@@ -113,7 +113,7 @@ public class TopListFormBean {
 
     public String save() {
         if (topList.getId() == 0) {
-            long newId = TopListDAO.insert(topList);
+            long newId = TopListDAO.add(topList);
             topList.setId(newId);
         }
         TopListDAO.update(topList);

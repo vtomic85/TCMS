@@ -5,6 +5,7 @@
  */
 package part.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -21,30 +22,47 @@ import utils.DBConnection;
  */
 public class PartDAO {
 
+    private static String genericQuery;
+    private static PreparedStatement ps;
+
+    public PartDAO() {
+
+    }
+
+    private static void prepare(String query) throws SQLException {
+        ps = DBConnection.getInstance().getConn().prepareStatement(query);
+    }
+
+    private static void setPsInsertFields(long id, Part part) throws SQLException {
+        ps.setLong(1, id);
+        ps.setString(2, part.getFolder());
+        ps.setString(3, part.getName());
+        ps.setLong(4, part.getItemType());
+        ps.setBoolean(5, part.isTopListNeeded());
+        ps.setInt(6, part.getWidth());
+        ps.setLong(7, part.getTopListId());
+    }
+
+    private static void setPsUpdateFields(Part part) throws SQLException {
+        ps.setString(1, part.getFolder());
+        ps.setString(2, part.getName());
+        ps.setLong(3, part.getItemType());
+        ps.setBoolean(4, part.isTopListNeeded());
+        ps.setInt(5, part.getWidth());
+        ps.setLong(6, part.getTopListId());
+        ps.setLong(7, part.getId());
+    }
+
     public static LinkedList<Part> getAll() {
-        LinkedList<Part> parts = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM part");
-        try {
-            while (rs.next()) {
-                parts.add(new Part(
-                        rs.getLong("id"),
-                        rs.getString("folder"),
-                        rs.getString("name"),
-                        rs.getInt("item_type"),
-                        rs.getBoolean("toplist_needed"),
-                        rs.getInt("width"),
-                        rs.getLong("toplist_id")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Part.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return parts;
+        return getAllWhere("1=1");
     }
 
     public static LinkedList<Part> getAllWhere(String where) {
         LinkedList<Part> parts = new LinkedList<>();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM part WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM part WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 parts.add(new Part(
                         rs.getLong("id"),
@@ -56,7 +74,7 @@ public class PartDAO {
                         rs.getLong("toplist_id")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Part.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return parts;
     }
@@ -82,29 +100,15 @@ public class PartDAO {
     }
 
     public static Part getById(long id) {
-        Part part = new Part();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM part WHERE id=" + id);
-        try {
-            if (rs.next()) {
-                part = new Part(
-                        rs.getLong("id"),
-                        rs.getString("folder"),
-                        rs.getString("name"),
-                        rs.getInt("item_type"),
-                        rs.getBoolean("toplist_needed"),
-                        rs.getInt("width"),
-                        rs.getLong("toplist_id"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Part.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return part;
+        return getWhere("id=" + id);
     }
 
     public static Part getWhere(String where) {
         Part part = new Part();
-        ResultSet rs = DBConnection.getInstance().executeQuery("SELECT * FROM part WHERE " + where);
         try {
+            genericQuery = "SELECT * FROM part WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 part = new Part(
                         rs.getLong("id"),
@@ -116,7 +120,7 @@ public class PartDAO {
                         rs.getLong("toplist_id"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Part.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PartDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return part;
     }
@@ -124,64 +128,52 @@ public class PartDAO {
     public static long add(Part part) {
         long last = -1L;
         try {
-            String query1 = "SELECT MAX(id) AS last FROM part";
-            ResultSet rs1 = DBConnection.getInstance().executeQuery(query1);
-
-            try {
-                if (rs1.next()) {
-                    last = rs1.getLong("last");
-                } else {
-                    last = 0;
-                }
-                String query2 = "INSERT INTO part VALUES("
-                        + ++last + ", '"
-                        + part.getFolder() + "', '"
-                        + part.getName() + "', "
-                        + part.getItemType() + ","
-                        + part.isTopListNeeded() + ","
-                        + part.getWidth() + ","
-                        + part.getTopListId() + ")";
-                DBConnection.getInstance().executeUpdate(query2);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Part.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "SELECT MAX(id) AS last FROM part";
+            prepare(genericQuery);
+            ResultSet rs1 = ps.executeQuery();
+            if (rs1.next()) {
+                last = rs1.getLong("last");
+            } else {
+                last = 0;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(Part.class.getName()).log(Level.SEVERE, null, ex);
+            genericQuery = "INSERT INTO part VALUES(?,?,?,?,?,?,?)";
+            prepare(genericQuery);
+            setPsInsertFields(++last, part);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PartDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return last;
         }
     }
 
     public static void update(Part part) {
-        String query = "update part set "
-                + " folder='" + part.getFolder() + "',"
-                + " name='" + part.getName() + "',"
-                + " item_type=" + part.getItemType() + ","
-                + " toplist_needed=" + part.isTopListNeeded() + ","
-                + " width=" + part.getWidth() + ","
-                + " toplist_id=" + part.getTopListId()
-                + " where id=" + part.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            genericQuery = "update part set "
+                    + " folder=?,"
+                    + " name=?,"
+                    + " item_type=?,"
+                    + " toplist_needed=?,"
+                    + " width=?,"
+                    + " toplist_id=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(part);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PartDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static long countAll() {
-        try {
-            String query = "SELECT COUNT(*) AS rowcount FROM part";
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
-            rs.next();
-            long count = rs.getLong("rowcount");
-            return count;
-        } catch (SQLException ex) {
-            Logger.getLogger(PartDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
-        }
+        return countWhere("1=1");
     }
 
     public static long countWhere(String where) {
         try {
-            String query = "SELECT COUNT(*) AS rowcount FROM part WHERE " + where;
-            ResultSet rs = DBConnection.getInstance().executeQuery(query);
+            genericQuery = "SELECT COUNT(*) AS rowcount FROM part WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
             rs.next();
             long count = rs.getLong("rowcount");
             return count;
@@ -191,13 +183,18 @@ public class PartDAO {
         }
     }
 
-    public static void delete(long id) {
-        String query = "delete from part where id=" + id;
-        DBConnection.getInstance().executeUpdate(query);
+    public static void delete(Part part) {
+        delete(part.getId());
     }
 
-    public static void delete(Part part) {
-        String query = "delete from part where id=" + part.getId();
-        DBConnection.getInstance().executeUpdate(query);
+    public static void delete(long id) {
+        try {
+            genericQuery = "delete from part where id=?";
+            prepare(genericQuery);
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PartDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
