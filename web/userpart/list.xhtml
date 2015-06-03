@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:tcms="http://tcms.com">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="itemId" value="#{userPartHolderViewBean.itemId}" />
+            <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
+            <f:viewAction action="#{userPartHolderViewBean.init}" />
+            <f:viewAction action="#{indexMenuBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="mainStripe">
+                <f:view>
+                    <tcms:topIndexMenu/>
+                    <ui:repeat value="#{userPartHolderViewBean.list}" var="row">
+                        <div class="holderItem">
+                            <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
+                                <h:outputText value="#{row.title}" class="itemTitle"/>
+                            </h:outputLink>
+                            <br/>
+                        </div>
+                    </ui:repeat>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
