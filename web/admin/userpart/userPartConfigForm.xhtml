@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="upcId" value="#{userPartConfigFormBean.upcId}" />
+            <f:viewAction action="#{userPartConfigFormBean.init}" />
+        </f:metadata>
+        <h:head>
+            <title><h:outputText value="#{msgs.site_title}"/></title>
+        </h:head>
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
+                <h:form id="adminUserPartConfigFormForm" class="formFullWidth">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="ID" rendered="#{userPartConfigFormBean.upc.id>0}"/>
+                        <h:outputLabel value="#{userPartConfigFormBean.upc.id}" rendered="#{userPartConfigFormBean.upc.id>0}"/>
+                        <h:outputLabel value="#{msgs.name}"/>
+                        <h:inputText value="#{userPartConfigFormBean.upc.name}"/>
+                        <h:outputLabel value="#{msgs.title}"/>
+                        <h:selectOneRadio id="titleRadio" value="#{userPartConfigFormBean.upc.hasTitle}">
+                            <f:selectItem itemLabel="Yes" itemValue="TRUE" />
+                            <f:selectItem itemLabel="No" itemValue="FALSE" />
+                        </h:selectOneRadio>
+                        <h:outputLabel value="#{msgs.subtitle}"/>
+                        <h:selectOneRadio id="subtitleRadio" value="#{userPartConfigFormBean.upc.hasSubtitle}">
+                            <f:selectItem itemLabel="Yes" itemValue="TRUE" />
+                            <f:selectItem itemLabel="No" itemValue="FALSE" />
+                        </h:selectOneRadio>
+                        <h:outputLabel value="#{msgs.lead}"/>
+                        <h:selectOneRadio id="leadRadio" value="#{userPartConfigFormBean.upc.hasLead}">
+                            <f:selectItem itemLabel="Yes" itemValue="TRUE" />
+                            <f:selectItem itemLabel="No" itemValue="FALSE" />
+                        </h:selectOneRadio>
+                        <h:outputLabel value="#{msgs.body}"/>
+                        <h:selectOneRadio id="bodyRadio" value="#{userPartConfigFormBean.upc.hasBody}">
+                            <f:selectItem itemLabel="Yes" itemValue="TRUE" />
+                            <f:selectItem itemLabel="No" itemValue="FALSE" />
+                        </h:selectOneRadio>
+                        <h:outputLabel value="#{msgs.date_created}"/>
+                        <h:selectOneRadio id="dateCreatedRadio" value="#{userPartConfigFormBean.upc.hasDateCreated}">
+                            <f:selectItem itemLabel="Yes" itemValue="TRUE" />
+                            <f:selectItem itemLabel="No" itemValue="FALSE" />
+                        </h:selectOneRadio>
+                        <h:outputLabel value="#{msgs.date_modified}"/>
+                        <h:selectOneRadio id="dateModifiedRadio" value="#{userPartConfigFormBean.upc.hasDateModified}">
+                            <f:selectItem itemLabel="Yes" itemValue="TRUE" />
+                            <f:selectItem itemLabel="No" itemValue="FALSE" />
+                        </h:selectOneRadio>
+                        <h:outputLabel value="#{msgs.author}"/>
+                        <h:selectOneRadio id="authorRadio" value="#{userPartConfigFormBean.upc.hasAuthor}">
+                            <f:selectItem itemLabel="Yes" itemValue="TRUE" />
+                            <f:selectItem itemLabel="No" itemValue="FALSE" />
+                        </h:selectOneRadio>
+                        <h:outputLabel value="#{msgs.image}"/>
+                        <h:selectOneRadio id="imageRadio" value="#{userPartConfigFormBean.upc.hasImage}">
+                            <f:selectItem itemLabel="Yes" itemValue="TRUE" />
+                            <f:selectItem itemLabel="No" itemValue="FALSE" />
+                        </h:selectOneRadio>
+                        <h:outputLabel value="#{msgs.gallery}"/>
+                        <h:selectOneRadio id="galleryRadio" value="#{userPartConfigFormBean.upc.hasGallery}">
+                            <f:selectItem itemLabel="Yes" itemValue="TRUE" />
+                            <f:selectItem itemLabel="No" itemValue="FALSE" />
+                        </h:selectOneRadio>
+                    </h:panelGrid>
+                    <h:commandLink value="#{msgs.save}" action="#{userPartConfigFormBean.save()}" styleClass="commandLink"/>
+                    <h:commandLink value="#{msgs.back}" action="adminUserPartConfigList" styleClass="commandLink"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
