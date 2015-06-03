@@ -25,24 +25,24 @@
                 <f:view>
                     <tcms:topPageMenu/>  
                     <div class="itemTitle">
-                        <h:outputLabel value="${pageViewBean.item.title}"/>
+                        <h:outputLabel value="#{pageViewBean.item.title}"/>
                     </div>
                     <div class="itemSubtitle">
-                        <h:outputLabel value="${pageViewBean.item.subtitle}"/>
+                        <h:outputLabel value="#{pageViewBean.item.subtitle}"/>
                     </div>
                     <div class="itemDateCreated">
-                        <h:outputLabel value="${pageViewBean.item.dateCreated}">
+                        <h:outputLabel value="#{pageViewBean.item.dateCreated}">
                             <f:convertDateTime pattern="dd.MM.yyyy."/>
                         </h:outputLabel>
                     </div>
                     <div class="itemAuthor">
-                        <h:outputLabel value="${pageViewBean.item.author}"/>
+                        <h:outputLabel value="#{pageViewBean.item.author}"/>
                     </div>
                     <div class="itemPicture">
                         <h:graphicImage value="#{pageViewBean.item.imgPath}" rendered="#{pageViewBean.item.imgPath!=null}" height="300"/>
                     </div>
                     <div class="itemBody">
-                        <h:outputText value="${pageViewBean.item.body}" escape="false"/>
+                        <h:outputText value="#{pageViewBean.item.body}" escape="false"/>
                     </div>
                     <h:form>
                         <h:link styleClass="commandLink" value="#{msgs.leave_comment}" outcome="leaveComment" >
@@ -58,20 +58,20 @@
                         <h:form id="pageCommentsListForm" rendered="#{!pageViewBean.commentListEmpty}">
                             <ui:repeat value="#{pageViewBean.comments}" var="row" rendered="#{!pageViewBean.commentListEmpty}">
                                 <h:panelGroup rendered="#{row.published}" styleClass="commentHolder">
-                                    <h:outputText value="#{row.userName}"/>
-                                    <h:outputText value="#{row.dateCreated}">
+                                    <h:outputText value="#{row.userName}&nbsp;" styleClass="commentUserName"/>
+                                    <h:outputText value="#{row.dateCreated}" styleClass="commentDate">
                                         <f:convertDateTime pattern="dd.MM.yyyy."/>
                                     </h:outputText>
-                                    <h:outputText value="#{row.positiveVotes}"/>
-                                    <h:commandLink value="+" action="#{pageViewBean.upvote}">
+                                    <br/>
+                                    <h:commandLink value="#{row.positiveVotes}&nbsp;&uArr;" action="#{pageViewBean.upvote}" styleClass="commentVoteButton commentPositiveVote">
                                         <f:param name="commentId" value="#{row.id}"/>
                                         <f:ajax render="@form"/>
                                     </h:commandLink>
-                                    <h:outputText value="#{row.negativeVotes}"/>
-                                    <h:commandLink value="-" action="#{pageViewBean.downvote}">
+                                    <h:commandLink value="#{row.negativeVotes}&nbsp;&dArr;" action="#{pageViewBean.downvote}" styleClass="commentVoteButton commentNegativeVote">
                                         <f:param name="commentId" value="#{row.id}"/>
                                         <f:ajax render="@form"/>
                                     </h:commandLink>
+                                    <br/>
                                     <h:outputText value="#{row.body}"/>
                                 </h:panelGroup>
                             </ui:repeat>

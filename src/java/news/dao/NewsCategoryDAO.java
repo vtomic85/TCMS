@@ -115,7 +115,7 @@ public class NewsCategoryDAO {
 
     public static void update(NewsCategory newsCategory) {
         try {
-            String query = "update news_category set "
+            genericQuery = "update news_category set "
                     + " parent_id=?,"
                     + " name=?"
                     + " where id=?";

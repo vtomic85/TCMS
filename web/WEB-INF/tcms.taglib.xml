@@ -27,11 +27,11 @@
     <!-- User parts -->
     <tag>
         <tag-name>adminListAllUserParts</tag-name>
-        <source>tags/admin/userPart/listAllUserParts.xhtml</source>
+        <source>tags/admin/userpart/listAllUserParts.xhtml</source>
     </tag>
     <tag>
         <tag-name>adminListAllUserPartConfigs</tag-name>
-        <source>tags/admin/userPart/listAllUserPartConfigs.xhtml</source>
+        <source>tags/admin/userpart/listAllUserPartConfigs.xhtml</source>
     </tag>
     <!-- Pages -->
     <tag>

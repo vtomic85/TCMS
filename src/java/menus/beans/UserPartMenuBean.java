@@ -5,8 +5,8 @@
  */
 package menus.beans;
 
-import userPart.dao.UserPartDAO;
-import userPart.model.UserPart;
+import userpart.dao.UserPartDAO;
+import userpart.model.UserPart;
 import item.dao.ItemDAO;
 import item.model.Item;
 import java.util.LinkedList;

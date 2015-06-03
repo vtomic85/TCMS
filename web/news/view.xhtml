@@ -77,20 +77,20 @@
                         <h:form id="newsCommentsListForm" rendered="#{!newsViewBean.commentListEmpty}">
                             <ui:repeat value="#{newsViewBean.comments}" var="row" rendered="#{!newsViewBean.commentListEmpty}">
                                 <h:panelGroup rendered="#{row.published}" styleClass="commentHolder">
-                                    <h:outputText value="#{row.userName}"/>
-                                    <h:outputText value="#{row.dateCreated}">
+                                    <h:outputText value="#{row.userName}&nbsp;" styleClass="commentUserName"/>
+                                    <h:outputText value="#{row.dateCreated}" styleClass="commentDate">
                                         <f:convertDateTime pattern="dd.MM.yyyy."/>
                                     </h:outputText>
-                                    <h:outputText value="#{row.positiveVotes}"/>
-                                    <h:commandLink value="+" action="#{newsViewBean.upvote}">
+                                    <br/>
+                                    <h:commandLink value="#{row.positiveVotes}&nbsp;&uArr;" action="#{newsViewBean.upvote}" styleClass="commentVoteButton commentPositiveVote">
                                         <f:param name="commentId" value="#{row.id}"/>
                                         <f:ajax render="@form"/>
                                     </h:commandLink>
-                                    <h:outputText value="#{row.negativeVotes}"/>
-                                    <h:commandLink value="-" action="#{newsViewBean.downvote}">
+                                    <h:commandLink value="#{row.negativeVotes}&nbsp;&dArr;" action="#{newsViewBean.downvote}" styleClass="commentVoteButton commentNegativeVote">
                                         <f:param name="commentId" value="#{row.id}"/>
                                         <f:ajax render="@form"/>
                                     </h:commandLink>
+                                    <br/>
                                     <h:outputText value="#{row.body}"/>
                                 </h:panelGroup>
                             </ui:repeat>

@@ -246,22 +246,22 @@
         </navigation-case>        
         <navigation-case>
             <from-outcome>adminUserPartList</from-outcome>
-            <to-view-id>/admin/userPart/userPartList.xhtml</to-view-id>
+            <to-view-id>/admin/userpart/userPartList.xhtml</to-view-id>
             <redirect/>
         </navigation-case> 
         <navigation-case>
             <from-outcome>adminEditUserPart</from-outcome>
-            <to-view-id>/admin/userPart/userPartForm.xhtml</to-view-id>
+            <to-view-id>/admin/userpart/userPartForm.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>adminUserPartConfigList</from-outcome>
-            <to-view-id>/admin/userPart/userPartConfigList.xhtml</to-view-id>
+            <to-view-id>/admin/userpart/userPartConfigList.xhtml</to-view-id>
             <redirect/>
         </navigation-case> 
         <navigation-case>
             <from-outcome>adminEditUserPartConfig</from-outcome>
-            <to-view-id>/admin/userPart/userPartConfigForm.xhtml</to-view-id>
+            <to-view-id>/admin/userpart/userPartConfigForm.xhtml</to-view-id>
             <redirect/>
         </navigation-case>        
         <navigation-case>

@@ -153,6 +153,10 @@ public class ItemDAO {
         return getAllWhere("type_id=" + Commons.ITEMTYPE_EVENT_HOLDER);
     }
 
+    public static LinkedList<Item> getUserPartHolders() {
+        return getAllWhere("type_id=" + Commons.ITEMTYPE_USER_PART_HOLDER);
+    }
+
     public static LinkedList<Item> getAllHolders() {
         return getAllWhere("type_id in(" + Commons.ITEMTYPE_EVENT_HOLDER
                 + "," + Commons.ITEMTYPE_NEWS_HOLDER

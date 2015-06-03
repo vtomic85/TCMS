@@ -43,10 +43,6 @@ public class CommentFormBean {
     }
 
     public void init() {
-//        componentId = (Long) Utils.getSessionAttribute("componentId");
-//        componentTypeId = (Integer) Utils.getSessionAttribute("componentTypeId");
-//        holderId = (Long) Utils.getSessionAttribute("holderId");
-//        isLoginOk = (Boolean) Utils.getSessionAttribute("isLoginOk");
         isLoginOk = ((User) ((HttpSession) (FacesContext.getCurrentInstance()).getExternalContext().getSession(false)).getAttribute("user")) != null;
         comment = new Comment();
         if (isLoginOk) {

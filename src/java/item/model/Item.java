@@ -170,7 +170,7 @@ public class Item {
                 break;
             case Commons.ITEMTYPE_USER_PART_HOLDER:
             case Commons.ITEMTYPE_USER_PART:
-                folder = "userPart";
+                folder = "userpart";
                 break;
         }
         holderURL = new StringBuilder("");

@@ -10,9 +10,10 @@
         <ui:composition>
             <h:form style="border:1px solid black; float:left; width:100%;">
                 <ul class="indexHalfPartList">
-                    <ui:repeat value="#{latestUserParts.list}" var="row" rendered="#{!latestUserParts.listEmpty}" size="10">
-                        <li>                            
-                            <h:outputLink value="userpart/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexHalfPartTitleHolder">
+                    <ui:repeat value="#{latestNews.list}" var="row" rendered="#{!latestNews.listEmpty}" size="3">
+                        <li>
+                            <div class="indexHalfPartContentHolder">
+                            <h:outputLink value="news/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexHalfPartTitleHolder">
                                 <div class="indexHalfPartContentHolder">
                                     <p class="indexHalfPartParagraph">
                                         <h:graphicImage url="#{row.imgPath}" styleClass="indexHalfPartImage"/>
@@ -23,7 +24,8 @@
                                         <h:outputText value="#{row.lead.length() gt 160 ? row.lead.substring(0,160).concat('...') : row.lead}" styleClass="indexHalfPartLead"/>
                                     </p>
                                 </div>
-                            </h:outputLink>                                     
+                            </h:outputLink> 
+                                </div>
                         </li>
                     </ui:repeat>
                 </ul>

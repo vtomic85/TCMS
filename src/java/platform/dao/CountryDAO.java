@@ -113,7 +113,7 @@ public class CountryDAO {
 
     public static void update(Country country) {
         try {
-            String query = "update country set"
+            genericQuery = "update country set"
                     + " code=?,"
                     + " name=?"
                     + " where id=?";

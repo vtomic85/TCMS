@@ -12,7 +12,7 @@
                 <ul class="indexPartList">
                     <ui:repeat value="#{latestUserParts.list}" var="row" rendered="#{!latestUserParts.listEmpty}" size="10">
                         <li>
-                            <h:outputLink value="userPart/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexPartTitleHolder">
+                            <h:outputLink value="userpart/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexPartTitleHolder">
                                 <h:outputText value="#{row.title}" styleClass="indexPartTitleText"/>
                                 <h:outputText value="#{row.dateCreated}" styleClass="indexPartDateText">
                                     <f:convertDateTime type="date" pattern="dd.MM.yyyy"/>

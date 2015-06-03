@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import userPart.dao.UserPartDAO;
-import userPart.model.UserPart;
+import userpart.dao.UserPartDAO;
+import userpart.model.UserPart;
 
 /**
  *

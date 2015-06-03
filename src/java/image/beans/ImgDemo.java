@@ -29,8 +29,8 @@ import page.dao.PageDAO;
 import page.model.Page;
 import user.dao.UserDAO;
 import user.model.User;
-import userPart.dao.UserPartDAO;
-import userPart.model.UserPart;
+import userpart.dao.UserPartDAO;
+import userpart.model.UserPart;
 import utils.Utils;
 
 /**
@@ -118,6 +118,7 @@ public class ImgDemo implements Serializable {
                     System.out.println("DEBUG ::: ImgDemo:uploadFile:imgPath=" + u.getImgPath());
                     break;
                 case "userPart":
+                case "userpart":
                 case "UserPart":
                 case "USERPART":
                     UserPart up = UserPartDAO.getById(objectId);

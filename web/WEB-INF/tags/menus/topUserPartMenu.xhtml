@@ -10,7 +10,7 @@
         <ui:composition>
             <h:form styleClass="topMenuHolder">
                 <ui:repeat value="#{userPartMenuBean.topMenuItems}" var="row">
-                    <h:outputLink value="../userParts/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" class="topMenuLink">
+                    <h:outputLink value="../userpart/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" class="topMenuLink">
                         <h:outputText value="#{row.title}" class="itemTitle"/>
                     </h:outputLink> 
                 </ui:repeat>

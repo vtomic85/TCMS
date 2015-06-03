@@ -184,8 +184,8 @@ public class ContactDAO {
 
     public static void delete(int id) {
         try {
-            String query = "delete from comment where id=?";
-            ps = DBConnection.getInstance().getConn().prepareStatement(query);
+            genericQuery = "delete from comment where id=?";
+            prepare(genericQuery);
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException ex) {

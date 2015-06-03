@@ -6,8 +6,8 @@
 
 package customParts.beans;
 
-import userPart.dao.UserPartDAO;
-import userPart.model.UserPart;
+import userpart.dao.UserPartDAO;
+import userpart.model.UserPart;
 import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;

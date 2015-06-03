@@ -10,7 +10,7 @@
         <ui:composition>
             <h:form style="border:1px solid black; float:left; width:100%;">
                 <ul class="indexHalfPartList">
-                    <ui:repeat value="#{latestUserParts.list}" var="row" rendered="#{!latestUserParts.listEmpty}" size="10">
+                    <ui:repeat value="#{latestUserParts.list}" var="row" rendered="#{!latestUserParts.listEmpty}" size="3">
                         <li>                            
                             <h:outputLink value="userpart/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexHalfPartTitleHolder">
                                 <div class="indexHalfPartContentHolder">

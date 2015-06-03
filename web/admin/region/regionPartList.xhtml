@@ -12,8 +12,8 @@
             <f:viewParam name="regionId" value="#{regionPartsListBean.regionId}" />
             <f:viewAction action="#{regionPartsListBean.init}" />
         </f:metadata>
-        <ui:composition template="/resources/templates/template.xhtml">
-            <ui:define name="mainStripe">
+        <ui:composition template="/resources/templates/adminTemplate.xhtml">
+            <ui:define name="adminContent">
                 <f:view>
                     <h:form id="regionListForm" class="regionListForm">
                         <ui:repeat value="#{regionPartsListBean.regions}" var="row">

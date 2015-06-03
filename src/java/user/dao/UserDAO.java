@@ -216,7 +216,7 @@ public class UserDAO {
 
     public static void updateNoPassEnc(User user) {
         try {
-            String query = "update user set"
+           genericQuery = "update user set"
                     + " username=?,"
                     + " password=?,"
                     + " type_id=?,"
@@ -240,22 +240,28 @@ public class UserDAO {
     }
 
     public static void updatePassEnc(User user) {
-        String query = "update user set"
-                + " username='" + user.getUsername() + "',"
-                + " password=MD5('" + user.getPassword() + "'),"
-                + " type_id=" + user.getTypeId() + ","
-                + " first_name='" + user.getFirstName() + "',"
-                + " last_name='" + user.getLastName() + "',"
-                + " email='" + user.getEmail() + "',"
-                + " address='" + user.getAddress() + "',"
-                + " city='" + user.getCity() + "',"
-                + " country_id=" + user.getCountryId() + ","
-                + " date_of_birth='" + user.getSqlDateOfBirth() + "',"
-                + " phone='" + user.getPhone() + "',"
-                + " active=" + user.isActive() + ","
-                + " img_path='" + user.getImgPath() + "'"
-                + " where id=" + user.getId();
-        DBConnection.getInstance().executeUpdate(query);
+        try {
+            genericQuery = "update user set"
+                    + " username=?,"
+                    + " password=MD5(?),"
+                    + " type_id=?,"
+                    + " first_name=?,"
+                    + " last_name=?,"
+                    + " email=?,"
+                    + " address=?,"
+                    + " city=?,"
+                    + " country_id=?,"
+                    + " date_of_birth=?,"
+                    + " phone=?,"
+                    + " active=?,"
+                    + " img_path=?"
+                    + " where id=?";
+            prepare(genericQuery);
+            setPsUpdateFields(user);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void delete(long id) {

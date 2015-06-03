@@ -94,7 +94,7 @@ public class MessageFolderDAO {
             } else {
                 last = 0;
             }
-            String query2 = "INSERT INTO message_folder VALUES(?,?)";
+            genericQuery = "INSERT INTO message_folder VALUES(?,?)";
             prepare(genericQuery);
             setPsInsertFields(++last, mf);
             ps.executeUpdate();
