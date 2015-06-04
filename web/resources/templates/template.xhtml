@@ -6,7 +6,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:tcms="http://tcms.com">
     <f:view locale="#{localeBean.locale}">
         <h:head>
             <title><h:outputText value="#{msgs.site_title}"/></title>
@@ -57,7 +58,7 @@
                 </div>
                 <div class="footer">
                     <ui:insert name="footer">
-                        <ui:include src="/resources/menus/simpleMenu.xhtml"/>
+                        <tcms:bottomMenu/>
                     </ui:insert>
                 </div>
             </div>

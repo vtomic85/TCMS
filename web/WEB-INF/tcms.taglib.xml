@@ -134,6 +134,10 @@
     </tag>
     <!-- Menus -->
     <tag>
+        <tag-name>bottomMenu</tag-name>
+        <source>tags/menus/bottomMenu.xhtml</source>
+    </tag>
+    <tag>
         <tag-name>leftSideUserPartMenu</tag-name>
         <source>tags/menus/leftSideUserPartMenu.xhtml</source>
     </tag>

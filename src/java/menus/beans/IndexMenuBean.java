@@ -34,9 +34,7 @@ public class IndexMenuBean {
             itemId = 1;
         }
         topMenuItems = new LinkedList<>();
-        String where = "parent_id=" + itemId + " and published=1 order by id";
-        topMenuItems.addAll(ItemDAO.getAllWhere(where)); // fetch the children
-        System.out.println("DEBUG ::: IndexMenuBean:init:itemId=" + itemId + ", size=" + topMenuItems.size());
+        topMenuItems.addAll(ItemDAO.getAllWhere("parent_id=" + itemId + " and published=1 and primary_navigation=1 order by id")); // fetch the children
     }
 
     public LinkedList<Item> getTopMenuItems() {

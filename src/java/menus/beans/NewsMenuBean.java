@@ -39,7 +39,7 @@ public class NewsMenuBean {
         leftSideMenuItems = new LinkedList<>();
         topMenuItems = new LinkedList<>();
         currentItem = ItemDAO.getById(holderId);
-        leftSideMenuItems.addAll(ItemDAO.getAllWhere("published=1 and level=" + currentItem.getLevel()));
+        leftSideMenuItems.addAll(ItemDAO.getAllWhere("published=1 and primary_navigation=1 and parent_id=" + currentItem.getParentId()));
         if (holderId > 0) {
             topMenuItems.addAll(NewsDAO.getAllWhere("published=1 and item_id=" + holderId + " and id<>" + currentItem.getId()));
         }

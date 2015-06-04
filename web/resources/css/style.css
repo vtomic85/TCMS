@@ -1,15 +1,15 @@
 /* GLOBAL */
-html{background-color: #ffffff;}
+html{}
 ul {padding:0; list-style-type: none;}
 li {list-style-type: none;}
 /*html{background:url('../resources/img/cms/back.png') repeat;}*/
-.mainStripe{width:70%; float:left; background-color: #ffffff; padding: 5px; margin: auto; min-height: 600px; overflow-x: auto;}
+.mainStripe{width:70%; float:left; margin: auto; min-height: 600px;}
 .leftStripe{width:15%; float:left; min-height: 600px;}
 .rightStripe{width:14%; float:right; min-height: 600px;}
 /*.leftStripe{float:left; width:13%; padding: 5px;}
 .rightStripe{float:right; width:13%; padding: 5px;}*/
 .header{text-align: center; width: 100%; height: 103px; background:url('../resources/img/cms/header.png'); background-repeat: no-repeat; /*background-color: #006600; border-radius: 5px; border:groove; */font-size: 2em; color:white; margin-top: 10px; margin-bottom: 10px; width:100%; clear:both;}
-.footer{text-align: center; background-color: white; width:100%; margin: auto; clear:both; border: 2px outset; min-height: 30px; padding:0 5px 10px 5px; }
+.footer{width:100%; margin: auto; clear:both; float:left; text-align: center;}
 .fullWidth{width:100%;}
 .boldText{font-weight: bold;}
 .redText{font-weight: bold; color:red;}
@@ -58,6 +58,7 @@ li {list-style-type: none;}
 .topHolder{width:100%; margin:auto;}
 .singleEventHolder{width:80%; border:dotted; margin-top:10px; margin-bottom:10px; padding: 5px; border-radius: 5px; float:left;}
 .topMenuHolder{width:100%; float:left; clear:both; border-bottom: #000066 groove;}
+.bottomMenuHolder{width:100%; float:left; clear:both; border-top: #000066 groove; text-align: center;}
 .locationHolder{width:100%; float:left; clear:both; border-bottom: #006600 2px solid; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
 .locationHolderLogin{width:100%; float:left; clear:both; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
 .eventsHolder{border-bottom: #006600 2px solid; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
@@ -210,6 +211,7 @@ li {list-style-type: none;}
 /* LINKS */
 .simpleLink{text-decoration: none; color: #003333; padding: 2px;}
 .simpleLink:hover{background-color:#99ff99;}
+.bottomMenuLink {text-decoration: none;}
 .commandLink {
     display: inline-block;
     -webkit-box-sizing: content-box;
@@ -242,7 +244,7 @@ li {list-style-type: none;}
     -webkit-box-shadow: -2px -2px 2px 0 #000066 inset;
     box-shadow: -2px -2px 2px 0 #000066 inset;
 }
-.leftMenuLink{width:99%;}
+.leftMenuLink{width:95%;}
 
 /* FORMS */
 /*form{width: 300px;}*/
