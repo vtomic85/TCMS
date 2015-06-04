@@ -8,6 +8,7 @@ package userpart.beans;
 import userpart.dao.UserPartDAO;
 import userpart.model.UserPart;
 import item.dao.ItemDAO;
+import item.model.Item;
 import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -23,6 +24,7 @@ public class UserPartHolderViewBean {
 
     private long itemId;
     private LinkedList<UserPart> list;
+    private LinkedList<Item> holders;
     private String itemName;
 
     public UserPartHolderViewBean() {
@@ -36,8 +38,14 @@ public class UserPartHolderViewBean {
         } else {
             list.clear();
         }
+        if (holders == null) {
+            holders = new LinkedList<>();
+        } else {
+            holders.clear();
+        }
         list = UserPartDAO.getAllWhere("item_id=" + itemId);
-        itemName=ItemDAO.getById(itemId).getName();
+        holders = ItemDAO.getAllWhere("parent_id=" + itemId);
+        itemName = ItemDAO.getById(itemId).getName();
     }
 
     public long getItemId() {
@@ -62,5 +70,13 @@ public class UserPartHolderViewBean {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public LinkedList<Item> getHolders() {
+        return holders;
+    }
+
+    public void setHolders(LinkedList<Item> holders) {
+        this.holders = holders;
     }
 }

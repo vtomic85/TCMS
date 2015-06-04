@@ -10,6 +10,8 @@ import event.dao.EventDAO;
 import event.model.Event;
 import image.dao.ImageDAO;
 import image.model.Image;
+import item.dao.ItemDAO;
+import item.model.Item;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -124,7 +126,7 @@ public class ImgDemo implements Serializable {
                     UserPart up = UserPartDAO.getById(objectId);
                     up.setImgPath(fullPath);
                     UserPartDAO.update(up);
-                    System.out.println("DEBUG ::: ImgDemo:uploadFile:user part updated");
+                    System.out.println("DEBUG ::: ImgDemo:uploadFile:userpart updated");
                     break;
                 case "gallery":
                 case "GALLERY":
@@ -135,6 +137,14 @@ public class ImgDemo implements Serializable {
                     img.setGalleryId(objectId);
                     ImageDAO.add(img);
                     System.out.println("DEBUG ::: ImgDemo:uploadFile:gallery updated");
+                    break;
+                case "item":
+                case "ITEM":
+                case "Item":
+                    Item item = ItemDAO.getById(objectId);
+                    item.setImgPath(fullPath);
+                    ItemDAO.update(item);
+                    System.out.println("DEBUG ::: ImgDemo:uploadFile:item updated");
                     break;
                 default:
                     break;

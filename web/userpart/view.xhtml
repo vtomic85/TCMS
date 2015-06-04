@@ -8,11 +8,12 @@
       xmlns:tcms="http://tcms.com">
     <h:body>
         <f:metadata>
+            <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
+            <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
+            <f:viewParam name="holderId" value="#{indexMenuBean.holderId}"/>
             <f:viewParam name="itemId" value="#{userPartViewBean.itemId}" />
-            <f:viewParam name="itemId" value="#{userPartMenuBean.itemId}"/>
-            <f:viewParam name="holderId" value="#{userPartMenuBean.holderId}"/>
             <f:viewAction action="#{userPartViewBean.init}" />
-            <f:viewAction action="#{userPartMenuBean.init}"/>
+            <f:viewAction action="#{indexMenuBean.init}" />
         </f:metadata>
         <h:head>
             <title><h:outputText value="#{msgs.site_title}"/></title>
@@ -23,7 +24,7 @@
             </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
-                    <tcms:topUserPartMenu/>
+                    <tcms:topIndexMenu/>
                     <div class="itemTitle">
                         <h:outputLabel value="#{userPartViewBean.item.title}" rendered="#{userPartViewBean.item.myConfig.hasTitle}"/>
                     </div>
@@ -54,6 +55,7 @@
                     </div>                    
                     <hr/>
                     <div class="itemGallery">
+                        <h:outputLabel value="#{msgs.gallery}" styleClass="galleryLabel" rendered="#{userPartViewBean.item.myConfig.hasGallery}"/>
                         <p:lightBox styleClass="imagebox" id="galleryLightBox" rendered="#{userPartViewBean.item.myConfig.hasGallery}">
                             <ui:repeat value="#{userPartViewBean.galleryImages}" var="row" varStatus="status">
                                 <h:outputLink value="..#{row.imgPath}" title="#{row.title}">  

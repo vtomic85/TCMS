@@ -11,7 +11,7 @@
             <h:form styleClass="topMenuHolder">
                 <ui:repeat value="#{pageMenuBean.topMenuItems}" var="row">
                     <h:outputLink value="../page/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" class="topMenuLink">
-                        <h:outputText value="#{row.title}" class="itemTitle"/>
+                        <h:outputText value="#{row.title}"/>
                     </h:outputLink> 
                 </ui:repeat>
             </h:form>

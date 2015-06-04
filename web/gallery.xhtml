@@ -10,21 +10,27 @@
     <h:body>
         <f:metadata>
             <f:viewParam name="itemId" value="#{galleryViewBean.itemId}"/>
+            <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
+            <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
+            <f:viewParam name="holderId" value="#{indexMenuBean.holderId}"/>
+            <f:viewAction action="#{indexMenuBean.init}"/>
             <f:viewAction action="#{galleryViewBean.init}" />
         </f:metadata>
         <ui:composition template="resources/templates/template.xhtml">
             <ui:define name="mainStripe">
-                <tcms:topIndexMenu/>
-                <h:outputLabel value="#{galleryViewBean.gallery.title}"/>
-                <div class="itemGallery">
-                    <p:lightBox styleClass="imagebox" id="galleryLightBox">
-                        <ui:repeat value="#{galleryViewBean.galleryImages}" var="row" varStatus="status">
-                            <h:outputLink value="..#{row.imgPath}" title="#{row.title}">  
-                                <h:graphicImage url="..#{row.imgPath}" style="height: 77px; width: 100px; padding:1px;" />                                    
-                            </h:outputLink>
-                        </ui:repeat>
-                    </p:lightBox>
-                </div>
+                <f:view>
+                    <tcms:topIndexMenu/>
+                    <h:outputLabel value="#{galleryViewBean.gallery.title}"/>
+                    <div class="itemGallery">
+                        <p:lightBox styleClass="imagebox" id="galleryLightBox">
+                            <ui:repeat value="#{galleryViewBean.galleryImages}" var="row" varStatus="status">
+                                <h:outputLink value="#{request.contextPath}#{row.imgPath}" title="#{row.title}">  
+                                    <h:graphicImage value="#{row.imgPath}" style="height: 77px; width: 100px; padding:1px;" />                                    
+                                </h:outputLink>
+                            </ui:repeat>
+                        </p:lightBox>
+                    </div>
+                </f:view>
             </ui:define>
         </ui:composition>
     </h:body>

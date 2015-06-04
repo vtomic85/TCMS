@@ -8,10 +8,19 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:tcms="http://tcms.com">
     <h:body>        
+        <f:metadata>
+            <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
+            <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
+            <f:viewParam name="holderId" value="#{indexMenuBean.holderId}"/>
+            <f:viewAction action="#{indexMenuBean.init}"/>
+        </f:metadata>
         <ui:composition template="resources/templates/template.xhtml">
             <ui:define name="mainStripe">
-                <h:outputText value="#{msgs.no_content}"/>
-                <h:link value="#{msgs.home}" outcome="home"/>
+                <f:view>
+                    <tcms:topIndexMenu/>
+                    <h:outputText value="#{msgs.no_content}"/>
+                    <h:link value="#{msgs.home}" outcome="home"/>
+                </f:view>
             </ui:define>
         </ui:composition>
     </h:body>

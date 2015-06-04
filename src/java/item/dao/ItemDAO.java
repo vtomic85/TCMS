@@ -42,6 +42,7 @@ public class ItemDAO {
         ps.setBoolean(7, item.isPrimaryNavigation());
         ps.setBoolean(8, item.isSecondaryNavigation());
         ps.setLong(9, item.getContentId());
+        ps.setString(10, item.getImgPath());
     }
 
     private static void setPsUpdateFields(Item item) throws SQLException {
@@ -53,7 +54,8 @@ public class ItemDAO {
         ps.setBoolean(6, item.isPrimaryNavigation());
         ps.setBoolean(7, item.isSecondaryNavigation());
         ps.setLong(8, item.getContentId());
-        ps.setLong(9, item.getId());
+        ps.setString(9, item.getImgPath());
+        ps.setLong(10, item.getId());
     }
 
     public static LinkedList<Item> getAll() {
@@ -76,7 +78,8 @@ public class ItemDAO {
                         rs.getBoolean("published"),
                         rs.getBoolean("primary_navigation"),
                         rs.getBoolean("secondary_navigation"),
-                        rs.getLong("content_id")));
+                        rs.getLong("content_id"),
+                        rs.getString("img_path")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,7 +111,8 @@ public class ItemDAO {
                         rs.getBoolean("published"),
                         rs.getBoolean("primary_navigation"),
                         rs.getBoolean("secondary_navigation"),
-                        rs.getLong("content_id"));
+                        rs.getLong("content_id"),
+                        rs.getString("img_path"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ItemDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,7 +136,8 @@ public class ItemDAO {
                         rs.getBoolean("published"),
                         rs.getBoolean("primary_navigation"),
                         rs.getBoolean("secondary_navigation"),
-                        rs.getLong("content_id"));
+                        rs.getLong("content_id"),
+                        rs.getString("img_path"));
                 list.add(item);
             }
         } catch (SQLException ex) {
@@ -189,7 +194,7 @@ public class ItemDAO {
             } else {
                 last = 0;
             }
-            genericQuery = "INSERT INTO item VALUES(?,?,?,?,?,?,?,?,?)";
+            genericQuery = "INSERT INTO item VALUES(?,?,?,?,?,?,?,?,?,?)";
             prepare(genericQuery);
             setPsInsertFields(++last, item);
             ps.executeUpdate();
@@ -210,7 +215,8 @@ public class ItemDAO {
                     + " published=?,"
                     + " primary_navigation=?,"
                     + " secondary_navigation=?,"
-                    + " content_id=?"
+                    + " content_id=?,"
+                    + " img_path=?"
                     + " where id=?";
             prepare(genericQuery);
             setPsUpdateFields(item);

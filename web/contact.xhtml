@@ -7,11 +7,19 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:tcms="http://tcms.com">
-    <h:body>        
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
+            <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
+            <f:viewParam name="holderId" value="#{indexMenuBean.holderId}"/>
+            <f:viewAction action="#{indexMenuBean.init}"/>
+        </f:metadata>
         <ui:composition template="resources/templates/template.xhtml">
             <ui:define name="mainStripe">
-                <tcms:topIndexMenu/>
-                <tcms:contact/>
+                <f:view>
+                    <tcms:topIndexMenu/>
+                    <tcms:contact/>
+                </f:view>
             </ui:define>
         </ui:composition>
     </h:body>

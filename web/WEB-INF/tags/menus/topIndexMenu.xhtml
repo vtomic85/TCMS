@@ -13,13 +13,11 @@
         </f:metadata>
         <ui:composition>
             <h:form styleClass="topMenuHolder">
-                <h:outputLink value="#{request.contextPath}/index.xhtml" class="commandLink">
-                    <h:outputText value="Index"/>
-                </h:outputLink>
-                <ui:repeat value="#{indexMenuBean.topMenuItems}" var="row">
-                    <h:outputLink value="#{request.contextPath}/#{row.holderURL}" class="commandLink">
+                <ui:repeat value="#{indexMenuBean.topMenuItems}" var="row" varStatus="status">
+                    <h:outputLink value="#{request.contextPath}/#{row.holderURL}" class="topMenuLink">
                         <h:outputText value="#{row.name}"/>
                     </h:outputLink>
+                    <h:outputLabel value="&nbsp;//&nbsp;" rendered="#{!status.last}" styleClass="topMenuLinkSeparator"/>
                 </ui:repeat>
             </h:form>
         </ui:composition>

@@ -7,6 +7,7 @@ package toplist.beans;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.FacesComponent;
@@ -16,6 +17,7 @@ import javax.faces.context.FacesContext;
 import platform.model.CMSElement;
 import toplist.dao.TopListDAO;
 import toplist.model.TopList;
+import utils.Utils;
 
 /**
  *
@@ -33,13 +35,17 @@ public class TopListViewBean extends UIComponentBase {
         elements = new LinkedList<>();
     }
 
+    @PostConstruct
     public void init() {
         System.out.println("DEBUG ::: TopListViewBean:init");
-//        long topListId = (long) getAttributes().get("topListId");
+        long topListId1 = Long.parseLong(Utils.getParam("topListId"));
+        long topListId2 = Long.parseLong(Utils.getSessionAttribute("topListId").toString());
+        System.out.println("DEBUG ::: TopListViewBean:init:topListId1="+topListId1);
+        System.out.println("DEBUG ::: TopListViewBean:init:topListId2="+topListId2);
         System.out.println("DEBUG ::: TopListViewBean:init:toplistId=" + topListId);
         TopList topList = TopListDAO.getById(topListId);
         elements = topList.getList();
-        System.out.println("DEBUG ::: TopListViewBean:init:topList size=" + elements.size());
+//        System.out.println("DEBUG ::: TopListViewBean:init:topList size=" + elements.size());
     }
 
     @Override

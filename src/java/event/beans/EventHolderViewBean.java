@@ -8,6 +8,7 @@ package event.beans;
 import event.dao.EventDAO;
 import event.model.Event;
 import item.dao.ItemDAO;
+import item.model.Item;
 import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -23,6 +24,7 @@ public class EventHolderViewBean {
 
     private long itemId;
     private LinkedList<Event> list;
+    private LinkedList<Item> holders;
     private String itemName;
 
     public EventHolderViewBean() {
@@ -36,7 +38,13 @@ public class EventHolderViewBean {
         } else {
             list.clear();
         }
+        if(holders==null){
+            holders=new LinkedList<>();
+        }else{
+            holders.clear();
+        }
         list = EventDAO.getAllWhere("item_id=" + itemId);
+        holders = ItemDAO.getAllWhere("parent_id=" + itemId);
         itemName=ItemDAO.getById(itemId).getName();
     }
 
@@ -62,5 +70,13 @@ public class EventHolderViewBean {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public LinkedList<Item> getHolders() {
+        return holders;
+    }
+
+    public void setHolders(LinkedList<Item> holders) {
+        this.holders = holders;
     }
 }

@@ -11,7 +11,7 @@
     <h:body>        
         <f:metadata>
             <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
-            <f:viewAction action="#{indexMenuBean.init}" />
+            <f:viewAction action="#{indexMenuBean.init}"/>
         </f:metadata>
         <h:head>
             <title><h:outputText value="#{msgs.site_title}"/></title>
@@ -19,7 +19,7 @@
         <ui:composition template="resources/templates/template.xhtml">
             <ui:define name="mainStripe">
                 <f:view>
-                    <tcms:topIndexMenu/>                
+                    <tcms:topIndexMenu/>
                     <c:forEach items="#{indexRegions.regions}" var="region" rendered="#{!indexRegions.listEmpty}">
                         <h:form style="min-height: 250px; float:#{region.positionName}; width:#{region.width}%;">
                             <c:forEach items="#{region.myParts}" var="part" rendered="#{!region.myPartListEmpty}">

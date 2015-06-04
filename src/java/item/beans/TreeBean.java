@@ -18,7 +18,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.swing.text.DefaultEditorKit;
 import news.dao.NewsDAO;
 import news.model.News;
 import org.primefaces.model.DefaultTreeNode;
@@ -98,7 +97,7 @@ public class TreeBean {
 
     public String addNode() {
         int newLevel = item.getLevel() + 1;
-        Item newItem = new Item(0, itemId, newLevel, Commons.ITEMTYPE_NO_CONTENT, "New Item", false, false, false, 0);
+        Item newItem = new Item(0, itemId, newLevel, Commons.ITEMTYPE_NO_CONTENT, "New Item", false, false, false, 0, null);
         long newItemId = ItemDAO.add(newItem);
         newItem.setId(newItemId);
         init();

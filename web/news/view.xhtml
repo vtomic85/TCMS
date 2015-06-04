@@ -8,11 +8,12 @@
       xmlns:tcms="http://tcms.com">
     <h:body>
         <f:metadata>
+            <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
+            <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
+            <f:viewParam name="holderId" value="#{indexMenuBean.holderId}"/>
             <f:viewParam name="itemId" value="#{newsViewBean.itemId}" />
-            <f:viewParam name="itemId" value="#{newsMenuBean.itemId}"/>
-            <f:viewParam name="holderId" value="#{newsMenuBean.holderId}"/>
             <f:viewAction action="#{newsViewBean.init}" />
-            <f:viewAction action="#{newsMenuBean.init}"/>
+            <f:viewAction action="#{indexMenuBean.init}"/>
         </f:metadata>
         <h:head>
             <title><h:outputText value="#{msgs.site_title}"/></title>
@@ -23,7 +24,7 @@
             </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
-                    <tcms:topNewsMenu/>  
+                    <tcms:topIndexMenu/>
                     <div class="itemCategory">
                         <h:outputLabel value="${newsViewBean.item.categoryName}"/>
                     </div>
@@ -54,6 +55,7 @@
                     </div>
                     <hr/>
                     <div class="itemGallery">
+                        <h:outputLabel value="#{msgs.gallery}" styleClass="galleryLabel"/>
                         <p:lightBox styleClass="imagebox" id="galleryLightBox">
                             <ui:repeat value="#{newsViewBean.galleryImages}" var="row" varStatus="status">
                                 <h:outputLink value="..#{row.imgPath}" title="#{row.title}">  

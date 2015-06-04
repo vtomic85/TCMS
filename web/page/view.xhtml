@@ -8,11 +8,12 @@
       xmlns:tcms="http://tcms.com">
     <h:body>
         <f:metadata>
+            <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
+            <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
+            <f:viewParam name="holderId" value="#{indexMenuBean.holderId}"/>
             <f:viewParam name="itemId" value="#{pageViewBean.itemId}" />
-            <f:viewParam name="itemId" value="#{pageMenuBean.itemId}"/>
-            <f:viewParam name="holderId" value="#{pageMenuBean.holderId}"/>
             <f:viewAction action="#{pageViewBean.init}" />
-            <f:viewAction action="#{pageMenuBean.init}"/>
+            <f:viewAction action="#{indexMenuBean.init}" />
         </f:metadata>
         <h:head>
             <title><h:outputText value="#{msgs.site_title}"/></title>
@@ -23,7 +24,7 @@
             </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
-                    <tcms:topPageMenu/>  
+                    <tcms:topIndexMenu/>
                     <div class="itemTitle">
                         <h:outputLabel value="#{pageViewBean.item.title}"/>
                     </div>

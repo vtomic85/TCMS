@@ -10,6 +10,8 @@
         <f:metadata>
             <f:viewParam name="itemId" value="#{eventHolderViewBean.itemId}" />
             <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
+            <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
+            <f:viewParam name="holderId" value="#{indexMenuBean.holderId}"/>
             <f:viewAction action="#{eventHolderViewBean.init}" />
             <f:viewAction action="#{indexMenuBean.init}" />
         </f:metadata>
@@ -22,6 +24,14 @@
                     <tcms:topIndexMenu/>
                     <h:outputText value="#{eventHolderViewBean.itemName}" styleClass="holderTitle"/>
                     <br/><br/>
+                    <ui:repeat value="#{eventHolderViewBean.holders}" var="holdersRow">
+                        <h:panelGroup styleClass="holderHolderItem" rendered="#{holdersRow.published}">
+                            <h:outputLink value="#{request.contextPath}/#{holdersRow.holderURL}">
+                                <h:graphicImage value="#{holdersRow.imgPath}" styleClass="holderListHolderImg"/>
+                                <h:outputText value="#{holdersRow.name}" styleClass="holderListHolderTitle"/>
+                            </h:outputLink>
+                        </h:panelGroup>
+                    </ui:repeat>
                     <ui:repeat value="#{eventHolderViewBean.list}" var="row">
                         <h:panelGroup styleClass="holderItem" rendered="#{row.published}">
                             <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">

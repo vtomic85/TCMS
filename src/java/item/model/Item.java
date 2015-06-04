@@ -32,8 +32,9 @@ public class Item {
     private boolean childrenEmpty;
     private StringBuilder holderURL;
     private long contentId;
+    private String imgPath;
 
-    public Item(long id, long parentId, int level, int typeId, String name, boolean published, boolean primaryNavigation, boolean secondaryNavigation, long contentId) {
+    public Item(long id, long parentId, int level, int typeId, String name, boolean published, boolean primaryNavigation, boolean secondaryNavigation, long contentId,String imgPath) {
         this.id = id;
         this.parentId = parentId;
         this.level = level;
@@ -43,10 +44,11 @@ public class Item {
         this.primaryNavigation = primaryNavigation;
         this.secondaryNavigation = secondaryNavigation;
         this.contentId = contentId;
+        this.imgPath=imgPath;
     }
 
     public Item() {
-        this(0, 0, 0, 0, null, false, false, false, 0);
+        this(0, 0, 0, 0, null, false, false, false, 0,null);
     }
 
     public void refreshChildren() {
@@ -158,36 +160,36 @@ public class Item {
         switch (typeId) {
             case Commons.ITEMTYPE_EVENT_HOLDER:
             case Commons.ITEMTYPE_EVENT:
-                folder = "event";
+                folder = "event/";
                 break;
             case Commons.ITEMTYPE_NEWS_HOLDER:
             case Commons.ITEMTYPE_NEWS:
-                folder = "news";
+                folder = "news/";
                 break;
             case Commons.ITEMTYPE_PAGE_HOLDER:
             case Commons.ITEMTYPE_PAGE:
-                folder = "page";
+                folder = "page/";
                 break;
             case Commons.ITEMTYPE_USER_PART_HOLDER:
             case Commons.ITEMTYPE_USER_PART:
-                folder = "userpart";
+                folder = "userpart/";
                 break;
         }
         holderURL = new StringBuilder("");
         switch (typeId) {
             case Commons.ITEMTYPE_INDEX:
-                holderURL.append("/index.xhtml");
+                holderURL.append("index.xhtml");
                 break;
             case Commons.ITEMTYPE_GALLERY:
-                holderURL.append("/gallery.xhtml?itemId=").append(contentId);
+                holderURL.append("gallery.xhtml?itemTypeId=").append(typeId).append("&itemId=").append(contentId).append("&holderId=").append(parentId);;;
                 break;
             case Commons.ITEMTYPE_CONTACT:
-                holderURL.append("contact.xhtml");
+                holderURL.append("contact.xhtml?itemTypeId=").append(typeId).append("&itemId=").append(id);
                 break;
             case Commons.ITEMTYPE_NO_CONTENT:
                 LinkedList<Item> myChildren = ItemDAO.getAllWhere("parent_id=" + id + " and published=1");
                 if (myChildren.isEmpty()) { // If the "NoContent" item has no children...
-                    holderURL.append("/nocontent.xhtml");
+                    holderURL.append("nocontent.xhtml?itemTypeId=").append(typeId).append("&itemId=").append("0").append("&holderId=").append(parentId);
                 } else { // ...else, return the first child's URL
                     holderURL = myChildren.getFirst().getHolderURL();
                 }
@@ -196,18 +198,17 @@ public class Item {
             case Commons.ITEMTYPE_PAGE_HOLDER:
             case Commons.ITEMTYPE_NEWS_HOLDER:
             case Commons.ITEMTYPE_USER_PART_HOLDER:
-                holderURL.append(folder).append("/list.xhtml?itemId=").append(id);
+                holderURL.append(folder).append("list.xhtml?itemTypeId=").append(typeId).append("&itemId=").append(id).append("&holderId=").append(parentId);;
                 break;
             case Commons.ITEMTYPE_EVENT:
             case Commons.ITEMTYPE_PAGE:
             case Commons.ITEMTYPE_NEWS:
             case Commons.ITEMTYPE_USER_PART:
-                holderURL.append(folder).append("/view.xhtml?itemId=").append(contentId).append("&holderId=").append(parentId);
+                holderURL.append(folder).append("view.xhtml?itemTypeId=").append(typeId).append("&itemId=").append(contentId).append("&holderId=").append(parentId);
                 break;
             default:
                 break;
         }
-        System.out.println("DEBUG ::: Item: getHolderURL:" + holderURL);
         return holderURL;
     }
 
@@ -221,5 +222,13 @@ public class Item {
 
     public void setContentId(long contentId) {
         this.contentId = contentId;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 }

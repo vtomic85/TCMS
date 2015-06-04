@@ -73,6 +73,14 @@
                                 <p:selectBooleanCheckbox label="#{msgs.primary_navigation}" value="#{treeBean.item.primaryNavigation}"/>
                                 <h:outputLabel value="#{msgs.secondary_navigation}"/>
                                 <p:selectBooleanCheckbox label="#{msgs.secondary_navigation}" value="#{treeBean.item.secondaryNavigation}"/>
+                                <h:outputLabel value="#{msgs.image}" rendered="#{treeBean.item.id>0}"/>
+                                <h:panelGroup id="imageControlButtons" rendered="#{treeBean.item.id>0}">
+                                    <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
+                                        <f:param name="objectType" value="item"/>
+                                        <f:param name="objectId" value="#{treeBean.item.id}"/>
+                                    </h:link>
+                                    <h:graphicImage value="#{treeBean.item.imgPath}" styleClass="itemFormImage" rendered="#{treeBean.item.imgPath!=null}"/>
+                                </h:panelGroup> 
                             </h:panelGrid>
                             <h:commandLink value="#{msgs.save}" action="#{treeBean.save()}" styleClass="commandLink"/>
                             <h:commandLink value="#{msgs.back}" action="adminItemList" styleClass="commandLink"/>
