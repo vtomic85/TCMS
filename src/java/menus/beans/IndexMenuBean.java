@@ -23,6 +23,7 @@ import platform.model.Commons;
 public class IndexMenuBean {
 
     private LinkedList<Item> topMenuItems;
+    private LinkedList<Item> leftMenuItems;
     private long itemId;
     private long itemTypeId;
     private long holderId;
@@ -33,6 +34,8 @@ public class IndexMenuBean {
 
     public void init() {
         topMenuItems = new LinkedList<>();
+        leftMenuItems=new LinkedList<>();
+        leftMenuItems.addAll(ItemDAO.getAllWhere("parent_id=1 and published=1 and primary_navigation=1 order by id"));
         if ((itemTypeId == Commons.ITEMTYPE_INDEX && itemId == 1) || itemId == 0) { // Index
             topMenuItems.addAll(ItemDAO.getAllWhere("parent_id=1 and published=1 and primary_navigation=1 order by id"));
             return;
@@ -80,6 +83,14 @@ public class IndexMenuBean {
 
     public void setHolderId(long holderId) {
         this.holderId = holderId;
+    }
+
+    public LinkedList<Item> getLeftMenuItems() {
+        return leftMenuItems;
+    }
+
+    public void setLeftMenuItems(LinkedList<Item> leftMenuItems) {
+        this.leftMenuItems = leftMenuItems;
     }
 
 }

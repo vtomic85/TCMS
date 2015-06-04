@@ -15,6 +15,9 @@
             <f:viewAction action="#{indexMenuBean.init}"/>
         </f:metadata>
         <ui:composition template="resources/templates/template.xhtml">
+            <ui:define name="leftStripe">
+                <tcms:leftSideIndexMenu/>
+            </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
                     <tcms:topIndexMenu/>

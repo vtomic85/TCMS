@@ -1,8 +1,9 @@
 /* GLOBAL */
-html{background: -webkit-linear-gradient(bottom, rgba(255,200,0,0), rgba(255,200,0,0.25)); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(top, rgba(255,200,0,0), rgba(255,200,0,0.25)); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(top, rgba(255,200,0,0), rgba(255,200,0,0.25)); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to top, rgba(255,200,0,0), rgba(255,200,0,0.25)); /* Standard syntax (must be last) */}
+html{background: -webkit-linear-gradient(bottom, rgba(0,0,255,0), rgba(0,0,255,0.25)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(top, rgba(0,0,255,0), rgba(0,0,255,0.25)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(top, rgba(0,0,255,0), rgba(0,0,255,0.25)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to top, rgba(0,0,255,0), rgba(0,0,255,0.25)); /* Standard syntax (must be last) */
+height:100%;}
 ul {padding:0; list-style-type: none;}
 li {list-style-type: none;}
 /*html{background:url('../resources/img/cms/back.png') repeat;}*/
@@ -31,7 +32,7 @@ li {list-style-type: none;}
 
 /* ADMIN */
 #adminHeader {clear:both; width:100%; float:left;}
-.adminHolder{width:100%; float:left; clear:both;}
+.adminHolder{width:100%; float:left; clear:both; border-bottom: solid 1px black;}
 .adminButtonHolderDiv{float:left; border:none; height:100%; border-right: 1px solid white; border-left: 1px solid white; border-radius:3px; display:inline-flex;}
 #adminMenuForm{clear:both; width:100%; float:left;}
 #simpleAdminMenuForm{clear:both; width:100%; float:left; color: #003333; text-decoration: none; font-weight: bold; padding-top: 10px;}
@@ -124,10 +125,11 @@ li {list-style-type: none;}
 .itemTitle{float:left; font-weight: bold; font-size: 1.2em; color:#000066; text-decoration: none; clear:both; width: 100%; line-height: 1.5;}
 /*.itemTitle:hover{color:#000033; background-color:#f0f0f0;}*/
 .itemCategory{float:left; font-size:10px; font-weight: bold; clear:both; color: white; background-color: red; padding:1px; text-transform: uppercase; border-bottom-right-radius: 5px; border-top-left-radius: 5px;}
-.itemLead{float:left; clear:both; }
+.itemLead{float:left; clear:both;}
+.itemSubtitle{float:left; clear:both; font-size:0.9em; font-style: italic; text-align: justify;}
 .itemDateModified{font-size: 0.8em; float:left;}
 .itemDateCreated{font-size: 0.8em; float:left;}
-.itemBody{clear:both; width:100%; background-color: #f0f0f0; border-radius: 3px; text-align: justify; padding: 3px;}
+.itemBody{clear:both; width:100%; text-align: justify; padding: 3px;}
 .regionTitle{clear:both; float:left; font-weight: bold; font-size:16px; width:100%; border-top:double #000066; border-bottom:double #000066;}
 .itemFormImage{width:100px; height:70px;display:block; float:left;}
 .holderHolderItem{width:200px; height:120px; float:left; padding:2px; position:relative;}
@@ -221,6 +223,7 @@ li {list-style-type: none;}
 .simpleLink:hover{background-color:#99ff99;}
 .bottomMenuLink {text-decoration: none;}
 .commandLink {
+    font-size: 0.9em;
     display: inline-block;
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
@@ -293,11 +296,11 @@ li {list-style-type: none;}
 .topMenuLinkSeparator{float:left;}
 /* HOLDER ITEMS */
 .holderTitle{font-weight: bold; color:#000066; font-size: 1.2em; line-height:1.2em; width:100%; clear:both; float:left;}
-.holderItem{float:left; display: inline-block; height:90px; padding:2px; width:30%; border: dotted 1px #000066; text-align: justify;
+.holderItem{float:left; display: inline-block; height:120px; padding:2px; width:50%; clear:both; border-bottom: dotted 1px #000066; text-align: justify;
             line-height:12px;}
-.holderItemImg{float:left; height: 90px;}
-.holderItemTitle{float:left; font-size:14px; font-weight: bold; text-decoration: none; }
-.holderItemLead{font-size: 11px;}
+.holderItemImg{float:left; height: 90px; padding:2px;}
+.holderItemTitle{float:left; font-size:14px; font-weight: bold; text-decoration: none; clear:both; width:100%;}
+.holderItemLead{font-size: 11px; padding:2px;}
 .galleryLabel{font-weight: bold; font-size:1.1em; clear:both; float:left; width:100%; color:#000066;}
 
 /* PRIMEFACES CSS OVERWRITE */

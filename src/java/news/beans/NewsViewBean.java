@@ -12,12 +12,10 @@ import image.model.Image;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
+import javax.faces.bean.ViewScoped;
 import news.dao.NewsDAO;
 import news.model.News;
 import platform.model.Commons;
-import user.model.User;
 import utils.Utils;
 
 /**
@@ -25,7 +23,7 @@ import utils.Utils;
  * @author Vladimir Tomic
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class NewsViewBean {
 
     private News item;

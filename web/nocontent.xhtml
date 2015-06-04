@@ -12,14 +12,26 @@
             <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
             <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
             <f:viewParam name="holderId" value="#{indexMenuBean.holderId}"/>
+            <f:viewParam name="itemId" value="#{noContentViewBean.itemId}"/>
             <f:viewAction action="#{indexMenuBean.init}"/>
+            <f:viewAction action="#{noContentViewBean.init}"/>
         </f:metadata>
         <ui:composition template="resources/templates/template.xhtml">
+            <ui:define name="leftStripe">
+                <tcms:leftSideIndexMenu/>
+            </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
                     <tcms:topIndexMenu/>
-                    <h:outputText value="#{msgs.no_content}"/>
-                    <h:link value="#{msgs.home}" outcome="home"/>
+                    <h:outputText value="#{msgs.no_content}" rendered="#{noContentViewBean.holdersListEmpty}"/>
+                    <ui:repeat value="#{noContentViewBean.holders}" var="holdersRow" rendered="#{!noContentViewBean.holdersListEmpty}">
+                        <h:panelGroup styleClass="holderHolderItem" rendered="#{holdersRow.published}">
+                            <h:outputLink value="#{request.contextPath}/#{holdersRow.holderURL}">
+                                <h:graphicImage value="#{holdersRow.imgPath}" styleClass="holderListHolderImg"/>
+                                <h:outputText value="#{holdersRow.name}" styleClass="holderListHolderTitle"/>
+                            </h:outputLink>
+                        </h:panelGroup>
+                    </ui:repeat>
                 </f:view>
             </ui:define>
         </ui:composition>

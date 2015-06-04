@@ -7,11 +7,10 @@ package page.beans;
 
 import comment.dao.CommentDAO;
 import comment.model.Comment;
-import image.dao.ImageDAO;
-import image.model.Image;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import page.dao.PageDAO;
@@ -25,7 +24,7 @@ import utils.Utils;
  * @author Vladimir Tomic
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class PageViewBean {
 
     private Page item;

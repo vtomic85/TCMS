@@ -138,6 +138,10 @@
         <source>tags/menus/bottomMenu.xhtml</source>
     </tag>
     <tag>
+        <tag-name>leftSideIndexMenu</tag-name>
+        <source>tags/menus/leftSideIndexMenu.xhtml</source>
+    </tag>
+    <tag>
         <tag-name>leftSideUserPartMenu</tag-name>
         <source>tags/menus/leftSideUserPartMenu.xhtml</source>
     </tag>

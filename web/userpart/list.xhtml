@@ -19,6 +19,9 @@
             <title><h:outputText value="#{msgs.site_title}"/></title>
         </h:head>
         <ui:composition template="/resources/templates/template.xhtml">
+            <ui:define name="leftStripe">
+                <tcms:leftSideIndexMenu/>
+            </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
                     <tcms:topIndexMenu/>

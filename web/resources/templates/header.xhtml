@@ -7,8 +7,8 @@
     <h:body>
         <ui:composition>
             <h:form id="headerForm">
-                <div class="adminButtonHolderDiv"><h:commandLink value="#{msgs.adminLink}" action="adminHome" styleClass="commandLink" rendered="#{loginBean.isAdmin or loginBean.isModerator}"/></div>
                 <div class="adminButtonHolderDiv"><h:commandLink value="#{msgs.home}" action="home" styleClass="commandLink"/></div>
+                <div class="adminButtonHolderDiv"><h:commandLink value="#{msgs.adminLink}" action="adminHome" styleClass="commandLink" rendered="#{loginBean.isAdmin or loginBean.isModerator}"/></div>                
                 <div class="adminButtonHolderDiv"><h:commandLink value="#{msgs.logout}" action="#{loginBean.logout}" styleClass="commandLink" rendered="#{loginBean.isLoginOk}"/></div>
                 <div class="adminButtonHolderDiv"><h:commandLink value="#{msgs.inbox}" action="inbox" styleClass="commandLink" rendered="#{loginBean.isLoginOk}"/></div>
             </h:form>
