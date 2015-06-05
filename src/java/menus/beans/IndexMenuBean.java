@@ -110,5 +110,4 @@ public class IndexMenuBean {
     public void setTopHolderChain(LinkedList<Item> topHolderChain) {
         this.topHolderChain = topHolderChain;
     }
-
 }

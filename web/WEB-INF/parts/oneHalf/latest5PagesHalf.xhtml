@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/ xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>        
+        <ui:composition>
+            <h:form style="border:1px solid black; float:left; width:100%;">
+                <ul class="indexHalfPartList">
+                    <ui:repeat value="#{latestPages.list}" var="row" rendered="#{!latestPages.listEmpty}" size="5">
+                        <li>                            
+                            <h:outputLink value="page/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=7" title="#{row.title}" styleClass="indexHalfPartTitleHolder">
+                                <div class="indexHalfPartContentHolder">
+                                    <p class="indexHalfPartParagraph">
+                                        <h:graphicImage url="#{row.imgPath}" styleClass="indexHalfPartImage"/>
+                                        <h:outputText value="#{row.title}" styleClass="indexHalfPartTitleText"/><br/>
+                                        <h:outputText value="#{row.dateCreated}" styleClass="indexHalfPartDateText">
+                                            <f:convertDateTime type="date" pattern="dd.MM.yyyy"/>
+                                        </h:outputText><br/>
+                                        <h:outputText value="#{row.subtitle.length() gt 160 ? row.subtitle.substring(0,160).concat('...') : row.subtitle}" styleClass="indexHalfPartLead"/>
+                                    </p>
+                                </div>
+                            </h:outputLink> 
+                        </li>
+                    </ui:repeat>
+                </ul>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>

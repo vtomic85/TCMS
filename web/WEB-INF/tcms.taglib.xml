@@ -162,6 +162,10 @@
         <source>tags/menus/topMenu.xhtml</source>
     </tag>
     <tag>
+        <tag-name>topMainIndexMenu</tag-name>
+        <source>tags/menus/topMainIndexMenu.xhtml</source>
+    </tag>
+    <tag>
         <tag-name>topIndexMenu</tag-name>
         <source>tags/menus/topIndexMenu.xhtml</source>
     </tag>

@@ -23,7 +23,9 @@
             <ui:define name="mainStripe">
                 <f:view>
                     <tcms:topMenu/>
-                    <h:outputLabel value="#{galleryViewBean.gallery.title}"/>
+                    <div class="itemTitle">
+                        <h:outputLabel value="#{galleryViewBean.gallery.title}"/>
+                    </div>
                     <div class="itemGallery">
                         <p:lightBox styleClass="imagebox" id="galleryLightBox">
                             <ui:repeat value="#{galleryViewBean.galleryImages}" var="row" varStatus="status">

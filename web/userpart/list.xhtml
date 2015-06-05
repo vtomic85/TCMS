@@ -41,7 +41,7 @@
                     <div class="holdersHolder">
                         <ui:repeat value="#{userPartHolderViewBean.list}" var="row">
                             <div class="holderItem">
-                                <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
+                                <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=20" title="#{row.title}" styleClass="holderItemTitle">
                                     <h:outputText value="#{row.title}" class="holderItemTitle"/>
                                 </h:outputLink>
                                 <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">

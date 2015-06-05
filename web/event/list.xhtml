@@ -41,7 +41,7 @@
                     <div class="holdersHolder">
                         <ui:repeat value="#{eventHolderViewBean.list}" var="row">
                             <h:panelGroup styleClass="holderItem" rendered="#{row.published}">
-                                <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
+                                <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=9" title="#{row.title}" styleClass="holderItemTitle">
                                     <h:outputText value="#{row.title}" styleClass="itemTitle"/>
                                 </h:outputLink>
                                 <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">

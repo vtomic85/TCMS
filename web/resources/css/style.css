@@ -1,12 +1,16 @@
 /* GLOBAL */
+* {text-decoration: none;}
 html{background: -webkit-linear-gradient(bottom, rgba(0,0,255,0), rgba(0,0,255,0.25)); /* For Safari 5.1 to 6.0 */
      background: -o-linear-gradient(top, rgba(0,0,255,0), rgba(0,0,255,0.25)); /* For Opera 11.1 to 12.0 */
      background: -moz-linear-gradient(top, rgba(0,0,255,0), rgba(0,0,255,0.25)); /* For Firefox 3.6 to 15 */
      background: linear-gradient(to top, rgba(0,0,255,0), rgba(0,0,255,0.25)); /* Standard syntax (must be last) */
      min-height: 100%;
 }
-ul {padding:0; list-style-type: none;}
-li {list-style-type: none;}
+a{color:inherit;}
+a:visited{color:inherit;}
+p{margin:0;}
+ul {padding:0; margin:0; list-style-type: none;}
+li {padding:0; margin:0; list-style-type: none;}
 /*html{background:url('../resources/img/cms/back.png') repeat;}*/
 body {min-height:100%;}
 .container{min-height:100%;}
@@ -35,7 +39,7 @@ body {min-height:100%;}
 /* ADMIN */
 #adminHeader {clear:both; width:100%; float:left;}
 .adminHolder{width:100%; float:left; clear:both; border-bottom: solid 1px black;}
-.adminButtonHolderDiv{float:left; border:none; height:100%; border-right: 1px solid white; border-left: 1px solid white; border-radius:3px; display:inline-flex;}
+.adminButtonHolderDiv{float:left; height:100%; border-radius:3px; display:inline-flex;}
 #adminMenuForm{clear:both; width:100%; float:left;}
 #simpleAdminMenuForm{clear:both; width:100%; float:left; color: #003333; text-decoration: none; font-weight: bold; padding-top: 10px;}
 #adminForm{width:100%; float:left;}
@@ -164,6 +168,7 @@ body {min-height:100%;}
 .indexThirdPartMoreLink{text-decoration: none; font-size: 11px;}
 .indexThirdPartParagraph{text-align: justify;}
 .indexThirdPartTitleText{width:100%; text-decoration: none; float:left; font-size:16px; font-weight: bold; color:#000066; clear:both;}
+.indexThirdPartTitleText:hover{color:red;}
 .indexThirdPartDateText{display:block; float:left; font-size: 10px; color:black; clear:both;}
 .indexThirdPartCategoryText{float:right; font-size: 10px; background-color: red; color:white; padding-right:5px;}
 
@@ -180,10 +185,19 @@ body {min-height:100%;}
 .indexHalfPartMoreLink{text-decoration: none; font-size: 11px;}
 .indexHalfPartParagraph{text-align: justify;}
 .indexHalfPartTitleText{width:100%; text-decoration: none; font-size:16px; font-weight: bold; color:#000066;}
+.indexHalfPartTitleText:hover{color:red;}
 .indexHalfPartDateText{font-size: 10px; color:black;}
 .indexHalfPartCategoryText{float:right; font-size: 10px; background-color: red; color:white; padding-right:5px;}
 
 /* INDEX 2/3 PARTS */
+.indexTwoThirdsPartTitleHolder{padding:2px; float:left; height:35px; width:100%; display:block;}
+.indexTwoThirdsPartTitleList{width:50%; height:165px; float:left;}
+.indexTwoThirdsPartItemList{width:50%; height:165px; float:left;}
+.indexTwoThirdsPartTitleListItem{width:100%; height:35px; font-size:1.1em; color:#000066; font-weight: bold; float:left; background-color:transparent; text-decoration: none;}
+.indexTwoThirdsPartTitleListItem:first-child{background-color:red; color:white;}
+.indexTwoThirdsPartTitleListItem:hover .indexTwoThirdsPartTitleText{color:white;}
+.indexTwoThirdsPartItemListItem{width:100%; float:left; height:165px; display:none;}
+.indexTwoThirdsPartItemListItem:first-child{display:block;}
 .indexTwoThirdsPartList{width:100%; list-style: none; padding:0px; margin:0px; float:left;}
 .indexTwoThirdsPartList li{width:100%; float:left; clear:both;}
 .indexTwoThirdsPartListItem .indexTwoThirdsPartTitleText .indexTwoThirdsPartContentHolder{display:none;}
@@ -191,7 +205,7 @@ body {min-height:100%;}
 .indexTwoThirdsPartListItem .indexTwoThirdsPartTitleText{color:#000066;}
 .indexTwoThirdsPartListItem:first-child .indexTwoThirdsPartTitleText{color:red;}
 .indexTwoThirdsPartContentHolder{width:100%; padding:1px; float:left; text-decoration: none; color:black;  border-bottom: dotted black 1px; clear:both; min-height: 50px; padding-bottom: 2px;}
-.indexTwoThirdsPartImage {height:150px; display: inline; padding:1px; padding-right:3px; float:left; clear:left;}
+.indexTwoThirdsPartImage {height:165px; display: inline; padding:1px; padding-right:3px; float:left; clear:left;}
 .indexTwoThirdsPartLead {font-size:12px; padding:1px; font-weight: normal;}
 .indexTwoThirdsPartMoreLink{text-decoration: none; font-size: 12px;}
 .indexTwoThirdsPartParagraph{text-align: justify;}
@@ -251,16 +265,18 @@ body {min-height:100%;}
     -moz-border-radius: 8px / 9px;
     border-radius: 8px / 9px;
     /*font: normal 16px/normal "Times New Roman", Times, serif;*/
-    color: rgba(255,255,255,0.9);
+    color:#000066;
     -o-text-overflow: clip;
     text-overflow: clip;
-    background: #0199d9;
+    background: transparent;
     -webkit-box-shadow: -2px -2px 2px 0 #000066 inset;
     box-shadow: -2px -2px 2px 0 #000066 inset;
-    text-shadow: -1px -1px 0 rgba(15,73,168,0.66) ;
+    font-weight: bold;
+    //text-shadow: -1px -1px 0 rgba(15,73,168,0.66) ;
 }
 .commandLink:hover {
-    background: #000066;
+    background: red;
+    color:white;
     -webkit-box-shadow: -2px -2px 2px 0 #b4b4b4 inset;
     box-shadow: -2px -2px 2px 0 #b4b4b4 inset;
 }
@@ -308,7 +324,7 @@ body {min-height:100%;}
 .topMenuBar{width:100%; float:left; clear:both; display:block;}
 .topMenuLabel{float:left; font-weight: bold; font-size: 0.9em;}
 .topMenuLink{float:left; font-size: 0.9em; border-radius: 3px; padding: 1px; margin-bottom: 2px; margin-right:1px; font-weight: bold; text-decoration: none;}
-.topMenuLink:hover{background-color: #000066; color: #FFFFFF;}
+.topMenuLink:hover{background-color: red; color: #FFFFFF;}
 .topMenuLinkSeparator{float:left;}
 /* HOLDER ITEMS */
 .holderTitle{font-weight: bold; color:#000066; font-size: 1.2em; line-height:1.2em; width:100%; clear:both; float:left;}
