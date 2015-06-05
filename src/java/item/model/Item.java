@@ -181,7 +181,7 @@ public class Item {
                 holderURL.append("index.xhtml");
                 break;
             case Commons.ITEMTYPE_GALLERY:
-                holderURL.append("gallery.xhtml?itemTypeId=").append(typeId).append("&itemId=").append(contentId).append("&holderId=").append(parentId);
+                holderURL.append("gallery.xhtml?itemTypeId=").append(typeId).append("&itemId=").append(id).append("&contentId=").append(contentId).append("&holderId=").append(parentId);
                 break;
             case Commons.ITEMTYPE_CONTACT:
                 holderURL.append("contact.xhtml?itemTypeId=").append(typeId).append("&itemId=").append(id);

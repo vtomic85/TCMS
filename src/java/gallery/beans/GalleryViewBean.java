@@ -26,7 +26,7 @@ import utils.Utils;
 @ViewScoped
 public class GalleryViewBean {
 
-    private long itemId;
+    private long contentId;
     private Gallery gallery;
     private LinkedList<Image> galleryImages;
 
@@ -38,16 +38,16 @@ public class GalleryViewBean {
         if (galleryImages == null) {
             galleryImages = new LinkedList<>();
         }
-        galleryImages = ImageDAO.getAllWhere("gallery_id=" + itemId);
-        gallery = GalleryDAO.getById(itemId);
+        galleryImages = ImageDAO.getAllWhere("gallery_id=" + contentId);
+        gallery = GalleryDAO.getById(contentId);
     }
 
-    public long getItemId() {
-        return itemId;
+    public long getContentId() {
+        return contentId;
     }
 
-    public void setItemId(long itemId) {
-        this.itemId = itemId;
+    public void setContentId(long contentId) {
+        this.contentId = contentId;
     }
 
     public Gallery getGallery() {

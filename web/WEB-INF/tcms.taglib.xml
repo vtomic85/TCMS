@@ -158,6 +158,10 @@
         <source>tags/menus/leftSideNewsMenu.xhtml</source>
     </tag>
     <tag>
+        <tag-name>topMenu</tag-name>
+        <source>tags/menus/topMenu.xhtml</source>
+    </tag>
+    <tag>
         <tag-name>topIndexMenu</tag-name>
         <source>tags/menus/topIndexMenu.xhtml</source>
     </tag>

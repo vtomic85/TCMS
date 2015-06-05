@@ -18,7 +18,7 @@
                                     <p class="indexThirdPartParagraph">                                            
                                         <h:graphicImage value="#{row.imgPath}" styleClass="indexThirdPartImage"/>
                                         <h:outputText value="#{row.lead.length() gt 160 ? row.lead.substring(0,160).concat('...') : row.lead}" styleClass="indexThirdPartLead"/>     
-                                        <h:outputLink value="news/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexThirdPartMoreLink">
+                                        <h:outputLink value="news/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=8" title="#{row.title}" styleClass="indexThirdPartMoreLink">
                                             <h:outputText value="#{msgs.more}"/>
                                         </h:outputLink>                                                
                                     </p>

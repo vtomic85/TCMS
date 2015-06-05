@@ -23,6 +23,7 @@ import platform.model.Commons;
 public class IndexMenuBean {
 
     private LinkedList<Item> topMenuItems;
+    private LinkedList<Item> topHolderChain;
     private LinkedList<Item> leftMenuItems;
     private long itemId;
     private long itemTypeId;
@@ -34,7 +35,8 @@ public class IndexMenuBean {
 
     public void init() {
         topMenuItems = new LinkedList<>();
-        leftMenuItems=new LinkedList<>();
+        leftMenuItems = new LinkedList<>();
+        topHolderChain = new LinkedList<>();
         leftMenuItems.addAll(ItemDAO.getAllWhere("parent_id=1 and published=1 and primary_navigation=1 order by id"));
         if ((itemTypeId == Commons.ITEMTYPE_INDEX && itemId == 1) || itemId == 0) { // Index
             topMenuItems.addAll(ItemDAO.getAllWhere("parent_id=1 and published=1 and primary_navigation=1 order by id"));
@@ -45,8 +47,16 @@ public class IndexMenuBean {
             return;
         }
         // Else, make a chain from the current item's parent to the index
+        // If the current item is a "real" Item (not News, Page, Event or UserPart), add it to the end of the chain
+        if (itemTypeId != Commons.ITEMTYPE_EVENT
+                && itemTypeId != Commons.ITEMTYPE_NEWS
+                && itemTypeId != Commons.ITEMTYPE_PAGE
+                && itemTypeId != Commons.ITEMTYPE_USER_PART) {
+            topMenuItems.add(ItemDAO.getById(itemId));
+        }
+
         Item item = ItemDAO.getWhere("id=" + holderId);
-        topMenuItems.add(item);
+        topMenuItems.add(0, item);
         while (item.getParentId() > 0) {
             item = ItemDAO.getWhere("id=" + item.getParentId());
             topMenuItems.add(0, item);
@@ -91,6 +101,14 @@ public class IndexMenuBean {
 
     public void setLeftMenuItems(LinkedList<Item> leftMenuItems) {
         this.leftMenuItems = leftMenuItems;
+    }
+
+    public LinkedList<Item> getTopHolderChain() {
+        return topHolderChain;
+    }
+
+    public void setTopHolderChain(LinkedList<Item> topHolderChain) {
+        this.topHolderChain = topHolderChain;
     }
 
 }

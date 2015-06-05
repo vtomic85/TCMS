@@ -8,12 +8,13 @@ html{background: -webkit-linear-gradient(bottom, rgba(0,0,255,0), rgba(0,0,255,0
 ul {padding:0; list-style-type: none;}
 li {list-style-type: none;}
 /*html{background:url('../resources/img/cms/back.png') repeat;}*/
-.mainStripe{width:70%; float:left; margin: auto; min-height: 100%;}
+body {min-height:100%;}
+.container{min-height:100%;}
+.mainStripe{width:70%; float:left; margin: auto; height: 100%;}
 .leftStripe{width:15%; float:left; height:100%;}
 .rightStripe{width:14%; float:right; height:100%;}
-.rightStripe:empty{height:1px;}
 .header{text-align: center; font-weight: bold; text-shadow: -1px 0 white, 1px 2px white, 2px 1px white, 0 -1px white;
-       width: 100%; font-size: 2em; color:#000066; margin-top: 10px; margin-bottom: 10px; width:100%; clear:both;}
+        width: 100%; font-size: 2em; color:#000066; margin-top: 10px; margin-bottom: 10px; width:100%; clear:both;}
 .footer{width:100%; margin: auto; clear:both; float:left; text-align: center;}
 .fullWidth{width:100%;}
 .boldText{font-weight: bold;}
@@ -62,7 +63,7 @@ li {list-style-type: none;}
 /* HOLDERS */
 .topHolder{width:100%; margin:auto;}
 .singleEventHolder{width:80%; border:dotted; margin-top:10px; margin-bottom:10px; padding: 5px; border-radius: 5px; float:left;}
-.topMenuHolder{width:100%; float:left; clear:both; border-bottom: #000066 groove;}
+.topMenuHolder{width:100%; float:left; margin:auto; clear:both; border-bottom: #000066 groove; text-align: center;}
 .bottomMenuHolder{width:100%; float:left; clear:both; border-top: #000066 groove; text-align: center;}
 .locationHolder{width:100%; float:left; clear:both; border-bottom: #006600 2px solid; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
 .locationHolderLogin{width:100%; float:left; clear:both; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
@@ -124,7 +125,7 @@ li {list-style-type: none;}
 .itemAuthor{float:left; font-size:10px; clear:both; width:100%;}
 .itemDate{float:left; font-size:10px; font-weight: bold; clear:left; font-size: 0.8em;}
 .itemTitle{float:left; font-weight: bold; font-size: 1.2em; color:#000066; text-decoration: none; clear:both; width: 100%; line-height: 1.5;}
-.itemCategory{float:left; width:100%; font-size:10px; font-weight: bold; clear:both; color: white; background-color: red; padding:1px; text-transform: uppercase; border-bottom-right-radius: 5px; border-top-left-radius: 5px;}
+.itemCategory{float:left; font-size:10px; font-weight: bold; clear:both; color: white; background-color: red; padding:1px; text-transform: uppercase; border-bottom-right-radius: 5px; border-top-left-radius: 5px;}
 .itemLead{float:left; width:100%; clear:both; font-style: italic; text-align: justify;}
 .itemSubtitle{float:left; width:100%; clear:both; font-style: italic; text-align: justify;}
 .itemDateModified{font-size: 0.8em; float:left;}
@@ -132,9 +133,23 @@ li {list-style-type: none;}
 .itemBody{clear:both; width:100%; text-align: justify; padding: 3px;}
 .regionTitle{clear:both; float:left; font-weight: bold; font-size:16px; width:100%; border-top:double #000066; border-bottom:double #000066;}
 .itemFormImage{width:100px; height:70px;display:block; float:left;}
-.holderHolderItem{width:200px; height:120px; float:left; padding:2px; position:relative;}
-.holderListHolderImg{height:100%; width:100%;}
-.holderListHolderTitle{font-size:1.5em; position:absolute; left:5px; top:5px; color:white; text-decoration: none; font-weight: bold; background: red; padding:0 2px 0 2px;}
+.holderHolderItem{width:154px; height:90px; float:left; padding:2px; position:relative;}
+.holderListHolderImg{height:100%; width:100%;
+                     -webkit-box-shadow: 1px 1px 3px 0px rgba(0,0,0,1);
+                     -moz-box-shadow: 1px 1px 3px 0px rgba(0,0,0,1);
+                     box-shadow: 1px 1px 3px 0px rgba(0,0,0,1);
+}
+.holderListHolderImg:hover{
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(255,255,255,1);
+    -moz-box-shadow: 1px 1px 3px 0px rgba(255,255,255,1);
+    box-shadow: 1px 1px 3px 0px rgba(255,255,255,1);
+}
+.holderListHolderTitle{font-size:1.2em; position:absolute; left:5px; top:5px; color:white; text-decoration: none;
+                       font-weight: bold; background: red; padding:0 2px 0 2px;
+                       -webkit-box-shadow: 1px 1px 3px 0px rgba(255,255,255,1);
+                       -moz-box-shadow: 1px 1px 3px 0px rgba(255,255,255,1);
+                       box-shadow: 1px 1px 3px 0px rgba(255,255,255,1);}
+.holdersHolder{float:left; width:100%; clear:both;}
 
 /* INDEX 1/3 PARTS */
 .indexThirdPartList{width:100%; list-style: none; padding:0px; margin:0px; float:left;}
@@ -199,7 +214,7 @@ li {list-style-type: none;}
 .indexFullPartImage{float:left; height:180px; width:50%;}
 .indexFullPartLead{float:left; height:180px; width:50%; color:white; background-color: black;}
 
-.indexPartName{background-color:#000066; color:white; text-decoration:none; font-weight:bold; font-size:20px; width:100%; clear:both; float:left; padding:2px; margin:0px; border-top-left-radius: 5px; border-top-right-radius: 5px;}
+.indexPartName{background-color:#000066; color:white; text-decoration:none; font-weight:bold; font-size:20px; width:100%; clear:both; float:left; padding:2px; margin-top:1px; border-top-left-radius: 5px; border-top-right-radius: 5px;}
 .topPartFullForm{padding:0px;}
 .topPartHalfForm{padding:0px;}
 .topPartThirdForm{padding:0px;}
@@ -291,12 +306,13 @@ li {list-style-type: none;}
 .roundBorder{border:3px #000066; border-radius: 3px; border-style:groove;}
 .backgroundBlue{background-color:#ccccff;}
 .topMenuBar{width:100%; float:left; clear:both; display:block;}
+.topMenuLabel{float:left; font-weight: bold; font-size: 0.9em;}
 .topMenuLink{float:left; font-size: 0.9em; border-radius: 3px; padding: 1px; margin-bottom: 2px; margin-right:1px; font-weight: bold; text-decoration: none;}
 .topMenuLink:hover{background-color: #000066; color: #FFFFFF;}
 .topMenuLinkSeparator{float:left;}
 /* HOLDER ITEMS */
 .holderTitle{font-weight: bold; color:#000066; font-size: 1.2em; line-height:1.2em; width:100%; clear:both; float:left;}
-.holderItem{float:left; display: inline-block; height:120px; padding:2px; width:50%; clear:both; border-bottom: dotted 1px #000066; text-align: justify;
+.holderItem{float:left; display: inline-block; height:120px; padding:2px; width:49%; border-bottom: dotted 1px #000066; text-align: justify;
             line-height:12px;}
 .holderItemImg{float:left; height: 90px; padding:2px;}
 .holderItemTitle{float:left; font-size:14px; font-weight: bold; text-decoration: none; clear:both; width:100%;}
@@ -329,9 +345,9 @@ li {list-style-type: none;}
     color: #000000;
 }
 .ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
-/*    border-style: solid;
-    border-width: 1px;
-    overflow: hidden;*/
+    /*    border-style: solid;
+        border-width: 1px;
+        overflow: hidden;*/
     padding: 2px 4px !important;
 }
 .ui-inputfield{

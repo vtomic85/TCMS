@@ -12,7 +12,7 @@
                 <ul class="indexPartList">
                     <ui:repeat value="#{topViewedPages.list}" var="row" rendered="#{!topViewedPages.listEmpty}" size="10">
                         <li>
-                            <h:outputLink value="page/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexPartTitleHolder">
+                            <h:outputLink value="page/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=7" title="#{row.title}" styleClass="indexPartTitleHolder">
                                 <h:outputText value="#{row.title}" styleClass="indexPartTitleText"/>
                                 <h:outputText value="#{row.views}" styleClass="indexPartDateText"/>
                             </h:outputLink> 

@@ -24,16 +24,13 @@
             </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
-                    <tcms:topIndexMenu/>
+                    <tcms:topMenu/>
                     <div class="itemCategory">
                         <h:outputLabel value="${newsViewBean.item.categoryName}"/>
                     </div>
                     <div class="itemTitle">
                         <h:outputLabel value="${newsViewBean.item.title}"/>
-                    </div>
-                    <div class="itemSubtitle">
-                        <h:outputLabel value="${newsViewBean.item.lead}"/>
-                    </div>                
+                    </div>            
                     <div class="itemDateCreated">
                         <h:outputLabel value="${newsViewBean.item.dateCreated}">
                             <f:convertDateTime pattern="dd.MM.yyyy."/>
@@ -47,6 +44,9 @@
                         <h:outputLabel value="#{msgs.author}: "/>
                         <h:outputLabel value="${newsViewBean.item.author}"/>
                     </div>
+                    <div class="itemSubtitle">
+                        <h:outputLabel value="${newsViewBean.item.lead}"/>
+                    </div>    
                     <div class="itemPicture">
                         <h:graphicImage value="#{newsViewBean.item.imgPath}" rendered="#{newsViewBean.item.imgPath!=null}" height="300"/>
                     </div>

@@ -24,19 +24,19 @@
             </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
-                    <tcms:topIndexMenu/>
+                    <tcms:topMenu/>
                     <div class="itemTitle">
                         <h:outputLabel value="#{userPartViewBean.item.title}" rendered="#{userPartViewBean.item.myConfig.hasTitle}"/>
                     </div>
-                    <div class="itemSubtitle">
-                        <h:outputLabel value="#{userPartViewBean.item.subtitle}" rendered="#{userPartViewBean.item.myConfig.hasSubtitle}"/>
-                    </div>  
                     <div class="itemLead">
                         <h:outputLabel value="#{userPartViewBean.item.lead}" rendered="#{userPartViewBean.item.myConfig.hasLead}"/>
                     </div>
                     <div class="itemAuthor">
                         <h:outputLabel value="#{userPartViewBean.item.author}" rendered="#{userPartViewBean.item.myConfig.hasAuthor}"/>
                     </div>
+                    <div class="itemSubtitle">
+                        <h:outputLabel value="#{userPartViewBean.item.subtitle}" rendered="#{userPartViewBean.item.myConfig.hasSubtitle}"/>
+                    </div>  
                     <div class="itemPicture">
                         <h:graphicImage value="#{userPartViewBean.item.imgPath}" rendered="#{userPartViewBean.item.imgPath!=null}" height="300"/>
                     </div>

@@ -9,16 +9,16 @@
     <h:body>        
         <ui:composition>
             <h:form style="width:100%">
-                <h:outputLink value="../index.xhtml" title="Index" styleClass="commandLink leftMenuLink">
-                    <h:outputText value="Index"/>
+                <h:outputLink value="../index.xhtml" title="#{msgs.home}" styleClass="commandLink leftMenuLink">
+                    <h:outputText value="#{msgs.home}"/>
                 </h:outputLink>
                 <ui:repeat value="#{eventMenuBean.leftSideMenuItems}" var="row">
                     <h:outputLink value="list.xhtml?itemId=#{row.id}" title="#{row.name}" rendered="#{row.id>2}" styleClass="commandLink leftMenuLink">
                         <h:outputText value="#{row.name}"/>
                     </h:outputLink>
                 </ui:repeat>
-                <h:outputLink value="../contact.xhtml" title="Contact" styleClass="commandLink leftMenuLink">
-                    <h:outputText value="Contact"/>
+                <h:outputLink value="../contact.xhtml" title="#{msgs.contact}" styleClass="commandLink leftMenuLink">
+                    <h:outputText value="#{msgs.contact}"/>
                 </h:outputLink>
             </h:form>
         </ui:composition>

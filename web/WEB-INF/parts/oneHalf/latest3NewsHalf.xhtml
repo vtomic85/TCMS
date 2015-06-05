@@ -13,7 +13,7 @@
                     <ui:repeat value="#{latestNews.list}" var="row" rendered="#{!latestNews.listEmpty}" size="3">
                         <li>
                             <div class="indexHalfPartContentHolder">
-                            <h:outputLink value="news/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexHalfPartTitleHolder">
+                                <h:outputLink value="news/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=8" title="#{row.title}" styleClass="indexHalfPartTitleHolder">
                                 <div class="indexHalfPartContentHolder">
                                     <p class="indexHalfPartParagraph">
                                         <h:graphicImage url="#{row.imgPath}" styleClass="indexHalfPartImage"/>

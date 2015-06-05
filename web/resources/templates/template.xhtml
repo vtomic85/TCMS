@@ -21,7 +21,10 @@
             </f:facet>
             <div class="container">
                 <div class="topHolder">
-                    <h:form id="topHolderForm" onkeypress="if (event.keyCode == 13) { document.getElementById('topHolderForm:loginButton').click(); return false; }">
+                    <h:form id="topHolderForm" onkeypress="if (event.keyCode == 13) {
+                                document.getElementById('topHolderForm:loginButton').click();
+                                return false;
+                            }">
                         <div class="adminHolder">                            
                             <h:commandLink value="#{msgs.home}" action="home" styleClass="commandLink"/>
                             <h:commandLink value="#{msgs.adminLink}" action="adminHome" styleClass="commandLink" rendered="#{loginBean.isAdmin}"/>
@@ -57,11 +60,12 @@
                 <div class="rightStripe">
                     <ui:insert name="rightStripe">&nbsp;</ui:insert>
                 </div>
-                <div class="footer">
-                    <ui:insert name="footer">
-                        <tcms:bottomMenu/>
-                    </ui:insert>
-                </div>
+
+            </div>
+            <div class="footer">
+                <ui:insert name="footer">
+                    <tcms:bottomMenu/>
+                </ui:insert>
             </div>
         </h:body>
     </f:view>

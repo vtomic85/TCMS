@@ -25,6 +25,7 @@ public class NoContentViewBean {
     private int typeId;
     private LinkedList<Item> holders;
     private boolean holdersListEmpty;
+    private String itemName;
 
     public NoContentViewBean() {
 
@@ -36,6 +37,7 @@ public class NoContentViewBean {
             holders = ItemDAO.getAllWhere("parent_id=" + itemId);
             holdersListEmpty = holders.isEmpty();
         }
+        itemName=ItemDAO.getById(itemId).getName();
         typeId = Commons.ITEMTYPE_NO_CONTENT;
     }
 
@@ -77,5 +79,13 @@ public class NoContentViewBean {
 
     public void setHoldersListEmpty(boolean holdersListEmpty) {
         this.holdersListEmpty = holdersListEmpty;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 }

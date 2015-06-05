@@ -12,7 +12,7 @@
                 <ul class="indexHalfPartList">
                     <ui:repeat value="#{latestPages.list}" var="row" rendered="#{!latestPages.listEmpty}" size="3">
                         <li>                            
-                            <h:outputLink value="page/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexHalfPartTitleHolder">
+                            <h:outputLink value="page/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=7" title="#{row.title}" styleClass="indexHalfPartTitleHolder">
                                 <div class="indexHalfPartContentHolder">
                                     <p class="indexHalfPartParagraph">
                                         <h:graphicImage url="#{row.imgPath}" styleClass="indexHalfPartImage"/>

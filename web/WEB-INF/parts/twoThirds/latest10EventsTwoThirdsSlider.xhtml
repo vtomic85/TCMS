@@ -20,7 +20,7 @@
                                     <p class="indexTwoThirdsPartParagraph">                                            
                                         <h:graphicImage value="#{row.imgPath}" styleClass="indexTwoThirdsPartImage"/>
                                         <h:outputText value="#{row.lead.length() gt 160 ? row.lead.substring(0,160).concat('...') : row.lead}" styleClass="indexTwoThirdsPartLead"/>     
-                                        <h:outputLink value="event/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="indexTwoThirdsPartMoreLink">
+                                        <h:outputLink value="event/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=9" title="#{row.title}" styleClass="indexTwoThirdsPartMoreLink">
                                             <h:outputText value="#{msgs.more}"/>
                                         </h:outputLink>                                                
                                     </p>

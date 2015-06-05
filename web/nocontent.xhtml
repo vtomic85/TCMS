@@ -24,6 +24,8 @@
                 <f:view>
                     <tcms:topIndexMenu/>
                     <h:outputText value="#{msgs.no_content}" rendered="#{noContentViewBean.holdersListEmpty}"/>
+                    <h:outputText value="#{noContentViewBean.itemName}" rendered="#{!noContentViewBean.holdersListEmpty}" styleClass="holderTitle"/>
+                    <br/>
                     <ui:repeat value="#{noContentViewBean.holders}" var="holdersRow" rendered="#{!noContentViewBean.holdersListEmpty}">
                         <h:panelGroup styleClass="holderHolderItem" rendered="#{holdersRow.published}">
                             <h:outputLink value="#{request.contextPath}/#{holdersRow.holderURL}">

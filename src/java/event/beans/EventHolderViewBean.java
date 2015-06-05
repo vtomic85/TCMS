@@ -43,8 +43,8 @@ public class EventHolderViewBean {
         }else{
             holders.clear();
         }
-        list = EventDAO.getAllWhere("item_id=" + itemId);
         holders = ItemDAO.getAllWhere("parent_id=" + itemId);
+        list = EventDAO.getAllWhere("item_id=" + itemId);        
         itemName=ItemDAO.getById(itemId).getName();
     }
 

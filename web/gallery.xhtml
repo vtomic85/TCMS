@@ -9,7 +9,7 @@
       xmlns:tcms="http://tcms.com">
     <h:body>
         <f:metadata>
-            <f:viewParam name="itemId" value="#{galleryViewBean.itemId}"/>
+            <f:viewParam name="contentId" value="#{galleryViewBean.contentId}"/>
             <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
             <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
             <f:viewParam name="holderId" value="#{indexMenuBean.holderId}"/>
@@ -22,7 +22,7 @@
             </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
-                    <tcms:topIndexMenu/>
+                    <tcms:topMenu/>
                     <h:outputLabel value="#{galleryViewBean.gallery.title}"/>
                     <div class="itemGallery">
                         <p:lightBox styleClass="imagebox" id="galleryLightBox">

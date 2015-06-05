@@ -24,19 +24,35 @@
             </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
-                    <tcms:topIndexMenu/>
-                    <ui:repeat value="#{newsHolderViewBean.list}" var="row">
-                        <div class="holderItem">
-                            <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
-                                <h:outputText value="#{row.title}" styleClass="itemTitle"/>
-                            </h:outputLink>
-                            <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">
-                                <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
-                            </h:outputLink>
-                            <br/>
-                            <h:outputText value="#{row.lead}" styleClass="holderItemLead"/>
-                        </div>
-                    </ui:repeat>
+                    <tcms:topMenu/>
+                    <h:outputText value="#{newsHolderViewBean.itemName}" styleClass="holderTitle"/>
+                    <br/>
+                    <div class="holdersHolder">
+                        <ui:repeat value="#{newsHolderViewBean.holders}" var="holdersRow">
+                            <h:panelGroup styleClass="holderHolderItem" rendered="#{holdersRow.published}">
+                                <h:outputLink value="#{request.contextPath}/#{holdersRow.holderURL}">
+                                    <h:graphicImage value="#{holdersRow.imgPath}" rendered="#{holdersRow.imgPath!=null}" styleClass="holderListHolderImg"/>
+                                    <h:graphicImage value="../resources/img/cms/tcms_noimg_154090.png" rendered="#{holdersRow.imgPath==null}" styleClass="holderListHolderImg"/>
+                                    <h:outputText value="#{holdersRow.name}" styleClass="holderListHolderTitle"/>
+                                </h:outputLink>
+                            </h:panelGroup>
+                        </ui:repeat>
+                    </div>
+                    <div class="holdersHolder">
+                        <ui:repeat value="#{newsHolderViewBean.list}" var="row">
+                            <div class="holderItem">
+                                <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}" title="#{row.title}" styleClass="holderItemTitle">
+                                    <h:outputText value="#{row.title}" styleClass="itemTitle"/>
+                                </h:outputLink>
+                                <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">
+                                    <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
+                                    <h:graphicImage value="../resources/img/cms/tcms_noimg_154090.png" rendered="#{row.imgPath==null}" styleClass="holderItemImg"/>
+                                </h:outputLink>
+                                <br/>
+                                <h:outputText value="#{row.lead}" styleClass="holderItemLead"/>
+                            </div>
+                        </ui:repeat>
+                    </div>
                 </f:view>
             </ui:define>
         </ui:composition>

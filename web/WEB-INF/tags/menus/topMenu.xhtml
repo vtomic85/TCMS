@@ -9,16 +9,16 @@
     <h:body>
         <f:metadata>
             <f:viewParam name="itemId" value="#{indexMenuBean.itemId}"/>
-            <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
             <f:viewAction action="#{indexMenuBean.init}" />
         </f:metadata>
         <ui:composition>
             <h:form styleClass="topMenuHolder">
-                <ui:repeat value="#{indexMenuBean.topHolderChain}" var="row" varStatus="status">
+                <h:outputLabel value="#{msgs.you_are_here}:&nbsp;" styleClass="topMenuLabel"/>
+                <ui:repeat value="#{indexMenuBean.topMenuItems}" var="row" varStatus="status">
                     <h:outputLink value="#{request.contextPath}/#{row.holderURL}" styleClass="topMenuLink">
                         <h:outputText value="#{row.name}"/>
                     </h:outputLink>
-                    <h:outputLabel value="&nbsp;|&nbsp;" rendered="#{!status.last}" styleClass="topMenuLinkSeparator"/>
+                    <h:outputLabel value="&rarr;" rendered="#{!status.last}" styleClass="topMenuLinkSeparator"/>
                 </ui:repeat>
             </h:form>
         </ui:composition>

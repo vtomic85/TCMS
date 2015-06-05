@@ -24,15 +24,12 @@
             </ui:define>
             <ui:define name="mainStripe">
                 <f:view>
-                    <tcms:topIndexMenu/>
+                    <tcms:topMenu/>
                     <div class="itemCategory">
                         <h:outputLabel value="${eventViewBean.item.categoryName}"/>
                     </div>
                     <div class="itemTitle">
                         <h:outputLabel value="${eventViewBean.item.title}"/>
-                    </div>
-                    <div class="itemSubtitle">
-                        <h:outputLabel value="${eventViewBean.item.lead}"/>
                     </div>
                     <div class="itemDateCreated">
                         <h:outputLabel value="${eventViewBean.item.dateCreated}">
@@ -41,6 +38,9 @@
                     </div>
                     <div class="itemAuthor">
                         <h:outputLabel value="${eventViewBean.item.author}"/>
+                    </div>
+                    <div class="itemSubtitle">
+                        <h:outputLabel value="${eventViewBean.item.lead}"/>
                     </div>
                     <div class="itemPicture">
                         <h:graphicImage value="#{eventViewBean.item.imgPath}" rendered="#{eventViewBean.item.imgPath!=null}" height="300"/>
