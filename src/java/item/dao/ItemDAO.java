@@ -88,7 +88,7 @@ public class ItemDAO {
     }
 
     public static LinkedList<Item> getAllOrdByLevel() {
-        return getAllOrdBy("level desc");
+        return getAllOrdBy("level desc,id asc");
     }
 
     public static Item getById(long id) {

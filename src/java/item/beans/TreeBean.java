@@ -67,7 +67,6 @@ public class TreeBean {
     }
 
     public void generateTree() {
-//        System.out.println("DEBUG ::: TreeBean:generateTree start");
         LinkedList<Item> items = ItemDAO.getAllOrdByLevel();
         LinkedList<TreeNode> nodes = new LinkedList<>();
         // Obradjujem sve iteme sortirane po opadajucem levelu (odozdo na gore)
