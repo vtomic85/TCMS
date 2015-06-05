@@ -20,7 +20,7 @@
                     <div class="adminItemFormContainer">
                         <h:form id="treeForm" rendered="#{loginBean.isAdmin}">
                             <p:growl id="treeMsgs" showDetail="true" escape="false"/>
-                            <p:tree value="#{treeBean.root}" var="node" dynamic="false" cache="false" animate="false"
+                            <p:tree value="#{treeBean.root}" var="node" dynamic="true" cache="false" animate="false"
                                     selectionMode="single" selection="#{treeBean.nodeSelected}">
                                 <p:ajax event="select" listener="#{treeBean.nodeClicked}"
                                         process="@form" update="@all">
