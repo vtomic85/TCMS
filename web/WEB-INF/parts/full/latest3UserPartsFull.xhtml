@@ -22,7 +22,9 @@
                     <ui:repeat value="#{latestUserParts.list}" var="row" varStatus="status" rendered="#{!latestUserParts.listEmpty}" size="3">
                         <li class="indexFullPartItemListItem indexFullPartItemListItem#{status.index}">                            
                             <h:graphicImage value="#{row.imgPath}" styleClass="indexFullPartImage"/>
-                            <h:outputText value="#{row.lead.length() gt 160 ? row.lead.substring(0,160).concat('...') : row.lead}" styleClass="indexFullPartLead"/>
+                            <div class="fullPartLeadTextHolder">
+                                <h:outputText value="#{row.lead.length() gt 160 ? row.lead.substring(0,160).concat('...') : row.lead}" styleClass="indexFullPartLead"/>
+                            </div>
                         </li>
                     </ui:repeat>
                 </ul>                

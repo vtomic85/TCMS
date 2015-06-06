@@ -8,17 +8,17 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:body>        
         <ui:composition>
-            <h:form style="width:100%">
+            <h:form styleClass="leftMenuHolder">
                 <h:outputLink value="../index.xhtml" title="#{msgs.home}" styleClass="commandLink leftMenuLink">
-                    <h:outputText value="#{msgs.home}"/>
+                    <h:outputText value="#{msgs.home}" styleClass="noSkew"/>
                 </h:outputLink>
                 <ui:repeat value="#{eventMenuBean.leftSideMenuItems}" var="row">
                     <h:outputLink value="list.xhtml?itemId=#{row.id}" title="#{row.name}" rendered="#{row.id>2}" styleClass="commandLink leftMenuLink">
-                        <h:outputText value="#{row.name}"/>
+                        <h:outputText value="#{row.name}" styleClass="noSkew"/>
                     </h:outputLink>
                 </ui:repeat>
                 <h:outputLink value="../contact.xhtml" title="#{msgs.contact}" styleClass="commandLink leftMenuLink">
-                    <h:outputText value="#{msgs.contact}"/>
+                    <h:outputText value="#{msgs.contact}" styleClass="noSkew"/>
                 </h:outputLink>
             </h:form>
         </ui:composition>

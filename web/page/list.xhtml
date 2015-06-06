@@ -44,7 +44,7 @@
                                 <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=7" title="#{row.title}" styleClass="holderItemTitle">
                                     <h:outputText value="#{row.title}" styleClass="itemTitle"/>
                                 </h:outputLink>
-                                <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}">
+                                <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=7">
                                     <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="holderItemImg"/>
                                     <h:graphicImage value="../resources/img/cms/tcms_noimg_154090.png" rendered="#{row.imgPath==null}" styleClass="holderItemImg"/>
                                 </h:outputLink>                            

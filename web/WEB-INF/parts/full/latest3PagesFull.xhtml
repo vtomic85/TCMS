@@ -22,7 +22,9 @@
                     <ui:repeat value="#{latestPages.list}" var="row" varStatus="status" rendered="#{!latestPages.listEmpty}" size="3">
                         <li class="indexFullPartItemListItem indexFullPartItemListItem#{status.index}">                            
                             <h:graphicImage value="#{row.imgPath}" styleClass="indexFullPartImage"/>
-                            <h:outputText value="#{row.subtitle.length() gt 160 ? row.subtitle.substring(0,160).concat('...') : row.subtitle}" styleClass="indexFullPartLead"/>
+                            <div class="fullPartLeadTextHolder">
+                                <h:outputText value="#{row.subtitle.length() gt 160 ? row.subtitle.substring(0,160).concat('...') : row.subtitle}" styleClass="indexFullPartLead"/>
+                            </div>
                         </li>
                     </ui:repeat>
                 </ul>                

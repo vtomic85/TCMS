@@ -13,7 +13,7 @@
             <f:viewAction action="#{indexMenuBean.init}" />
         </f:metadata>
         <ui:composition>
-            <h:form styleClass="topMenuHolder">
+            <h:form styleClass="topIndexMenuHolder">
                 <ui:repeat value="#{indexMenuBean.topMenuItems}" var="row" varStatus="status">
                     <h:outputLink value="#{request.contextPath}/#{row.holderURL}" styleClass="topMenuLink">
                         <h:outputText value="#{row.name}"/>
