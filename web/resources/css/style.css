@@ -57,6 +57,9 @@ body {min-height:100%;}
 .adminItemChildrenHolder:hover .adminItemChildrenText{color:#000066;}
 .adminItemChildrenText{text-decoration: none; color:white; font-weight: bold;}
 .adminItemChildrenText:hover{color:#000066;}
+#adminRequestProcessingStatus{padding:5px; float:left; height:auto;}
+.adminRegistrationRequestIndicator{box-shadow: 1px 1px 1px 0 #000; margin-right:5px; padding:2px;}
+.adminRegistrationRequestIndicatorStatus{font-weight: bold; color:#F00; font-size: 1.1em;}
 
 /* INBOX */
 .readMsg{height:32px; width:32px; display:block; float:left; background:url('../resources/img/cms/read.png') no-repeat;}
@@ -258,6 +261,7 @@ body {min-height:100%;}
 .simpleLink{text-decoration: none; color: #003333; padding: 2px;}
 .simpleLink:hover{background-color:#99ff99;}
 .bottomMenuLink {text-decoration: none;}
+.bottomMenuLink:hover {color:#ccffff;}
 .commandLink {
     font-size: 0.9em;
     display: inline-block;
@@ -315,7 +319,26 @@ body {min-height:100%;}
     color:#fff;
 }
 .alsoInCategoryLabel{width:100%; font-weight: bold; color:#000066; clear: both; float:left; margin-top:10px; border-top: 2px dotted #000066;}
-
+.blankRow{background:#fff;}
+.highlightRow{background: -webkit-linear-gradient(right, rgba(0,0,255,0.5), rgba(0,0,255,0.25));
+              background: -o-linear-gradient(left, rgba(0,0,255,0.5), rgba(0,0,255,0.25));
+              background: -moz-linear-gradient(left, rgba(0,0,255,0.5), rgba(0,0,255,0.25));
+              background: linear-gradient(to left, rgba(0,0,255,0.5), rgba(0,0,255,0.25));
+}
+.registrationApproveButton{background:#0f0;}
+.registrationApproveButton:hover{background: -webkit-linear-gradient(right, rgba(0,255,0,1), rgba(255,255,255,1));
+                                 background: -o-linear-gradient(left, rgba(0,255,0,1), rgba(255,255,255,1));
+                                 background: -moz-linear-gradient(left, rgba(0,255,0,1), rgba(255,255,255,1));
+                                 background: linear-gradient(to left, rgba(0,255,0,1), rgba(255,255,255,1));
+                                 color:#000066;
+}
+.registrationRejectButton{background:#f00;}
+.registrationRejectButton:hover{background: -webkit-linear-gradient(right, rgba(255,0,0,1), rgba(255,255,255,1));
+                                background: -o-linear-gradient(left, rgba(255,0,0,1), rgba(255,255,255,1));
+                                background: -moz-linear-gradient(left, rgba(255,0,0,1), rgba(255,255,255,1));
+                                background: linear-gradient(to left, rgba(255,0,0,1), rgba(255,255,255,1));
+                                color:#000066;
+}
 /* FORMS */
 /*form{width: 300px;}*/
 #topHolderForm{width: 100%;}
@@ -346,6 +369,7 @@ body {min-height:100%;}
 .formOutputLabel{font-size:14px; height:14px; font-weight: bold;}
 .contactFormOutputLabel{font-size:12px; height:14px; color: #000000; font-weight: bold;}
 .formInputText{border-style: inset;}
+.formInputText:focus{background: rgba(0,0,255,0.25);}
 .noBorder{border:none;}
 .roundBorder{border:3px #000066; border-radius: 3px; border-style:groove;}
 .backgroundBlue{background-color:#ccccff;}
@@ -354,7 +378,8 @@ body {min-height:100%;}
 .topMenuLink{float:left; font-size: 0.9em; border-radius: 3px; padding: 1px; margin-bottom: 2px; margin-right:1px; font-weight: bold; text-decoration: none; color:#000066;}
 .topMenuLink:visited{color: #000066;}
 .topMenuLink:hover{background-color: red; color: #FFFFFF;}
-.topMenuLinkSeparator{float:left;}
+.topMenuLinkSeparator{float:left; cursor:default;}
+.bottomMenuLinkSeparator{cursor:default;}
 /* HOLDER ITEMS */
 .holderTitle{font-weight: bold; color:#000066; font-size: 1.2em; line-height:1.2em; width:100%; clear:both; float:left;}
 .holderItem{float:left; display: inline-block; height:120px; padding:2px; width:49%; border-bottom: dotted 1px #000066; text-align: justify;

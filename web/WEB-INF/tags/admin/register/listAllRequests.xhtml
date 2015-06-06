@@ -9,7 +9,8 @@
     <h:body>        
         <ui:composition>
             <h:form id="adminUserRegistrationListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
-                <p:dataTable value="#{registrationListBean.requests}" var="row" rendered="#{!registrationListBean.listEmpty}" class="tableFullWidth">
+                <p:dataTable value="#{registrationListBean.requests}" var="row" rendered="#{!registrationListBean.listEmpty}"
+                             class="tableFullWidth" rowStyleClass="#{row.approved?'blankRow':'highlightRow'}">
                     <p:column headerText="#{msgs.username}" sortBy="#{row.username}" filterBy="#{row.username}">
                         <h:outputText value="#{row.username}"/>
                     </p:column>
@@ -20,10 +21,10 @@
                         <h:outputText value="#{row.approved}"/>
                     </p:column>                  
                     <p:column headerText="#{msgs.action}">
-                        <h:commandLink value="#{msgs.approve}" action="#{registrationListBean.approveRequest}" styleClass="commandLink" rendered="#{!row.approved}">
+                        <h:commandLink value="#{msgs.approve}" action="#{registrationListBean.approveRequest}" styleClass="commandLink registrationApproveButton" rendered="#{!row.approved}">
                             <f:param name="requestId" value="#{row.id}"/>
                         </h:commandLink>
-                        <h:commandLink value="#{msgs.reject}" action="#{registrationListBean.rejectRequest}" styleClass="commandLink" rendered="#{!row.approved}">
+                        <h:commandLink value="#{msgs.reject}" action="#{registrationListBean.rejectRequest}" styleClass="commandLink registrationRejectButton" rendered="#{!row.approved}">
                             <f:param name="requestId" value="#{row.id}"/>
                         </h:commandLink>
                     </p:column>
