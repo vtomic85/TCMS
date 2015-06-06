@@ -30,18 +30,17 @@ $(document).ready(function() {
         $(this).css("background-color", "red");
         $(this).siblings().css("background-color", "black");
         $(this).parent().siblings().children(".indexFullPartItemListItem" + ord).css('display', 'block');
-        $(this).parent().siblings().children(".indexFullPartItemListItem" + ord).siblings().css('display', 'none')
+        $(this).parent().siblings().children(".indexFullPartItemListItem" + ord).siblings().css('display', 'none');
     });
 
     // Two-third parts
     $(".indexTwoThirdsPartTitleListItem").mouseover(function() {
         var ord = $(this).index();
-        console.log("Mouseover " + ord);
         $(this).css("background-color", "red");
         $(this).css("color", "white");
         $(this).siblings().css("background-color", "transparent");
         $(this).siblings().css("color", "#000066");
         $(this).parent().siblings().children(".indexTwoThirdsPartItemListItem" + ord).css('display', 'block');
-        $(this).parent().siblings().children(".indexTwoThirdsPartItemListItem" + ord).siblings().css('display', 'none')
+        $(this).parent().siblings().children(".indexTwoThirdsPartItemListItem" + ord).siblings().css('display', 'none');
     });
 });

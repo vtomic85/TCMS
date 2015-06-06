@@ -10,8 +10,7 @@
         <ui:composition>
             <h:form id="adminEventListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
                 <p:dataTable value="#{eventListBean.events}" var="row" class="tableFullWidth"
-                             paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                             rowsPerPageTemplate="5,10,15">
+                             paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15">
                     <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
                         <h:outputText value="#{row.id}" />
                     </p:column>

@@ -9,38 +9,28 @@
         <ui:composition>
             <h:form id="adminMenuForm" class="fullWidth" rendered="#{loginBean.isAdmin}">
                 <div class="adminHolder">
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.admin_home}" action="adminHome" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.items}" action="adminEditItem" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.pages}" action="adminPageList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.events}" action="adminEventList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.event_categories}" action="adminEventCategoryList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.news}" action="adminNewsList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.news_categories}" action="adminNewsCategoryList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.toplists}" action="adminTopListList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.registration_requests}" action="adminRegistrationList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.users}" action="adminUserList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.user_types}" action="adminUserTypeList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.countries}" action="adminCountryList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.regions}" action="adminRegionList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.parts}" action="adminPartList" /></div>
-                    <div class="adminButtonHolderDiv">
-                        <h:commandLink styleClass="commandLink fullWidth" value="#{msgs.region_parts}" action="adminRegionPartList" >
-                            <f:param name="regionId" value="0"/>
-                        </h:commandLink>
-                    </div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.user_part_configs}" action="adminUserPartConfigList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.user_parts}" action="adminUserPartList" /></div>                    
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.comments}" action="adminCommentList" /></div>
-                    <div class="adminButtonHolderDiv"><h:commandLink styleClass="commandLink fullWidth" value="#{msgs.galleries}" action="adminGalleryList" /></div>
+                    <h:commandLink styleClass="commandLink" value="#{msgs.admin_home}" action="adminHome" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.items}" action="adminEditItem" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.pages}" action="adminPageList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.events}" action="adminEventList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.event_categories}" action="adminEventCategoryList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.news}" action="adminNewsList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.news_categories}" action="adminNewsCategoryList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.registration_requests}" action="adminRegistrationList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.users}" action="adminUserList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.user_types}" action="adminUserTypeList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.countries}" action="adminCountryList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.regions}" action="adminRegionList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.parts}" action="adminPartList" />                    
+                    <h:commandLink styleClass="commandLink" value="#{msgs.region_parts}" action="adminRegionPartList" >
+                        <f:param name="regionId" value="0"/>
+                    </h:commandLink>                    
+                    <h:commandLink styleClass="commandLink" value="#{msgs.user_part_configs}" action="adminUserPartConfigList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.user_parts}" action="adminUserPartList" />                    
+                    <h:commandLink styleClass="commandLink" value="#{msgs.comments}" action="adminCommentList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.galleries}" action="adminGalleryList" />
                 </div>
             </h:form>
-            <h:form>
-                <h:selectOneMenu value="#{localeBean.language}" onchange="submit()">
-                    <f:selectItem itemValue="en" itemLabel="English" />
-                    <f:selectItem itemValue="sr" itemLabel="Srpski" />
-                </h:selectOneMenu>
-            </h:form>
-            <hr/>
         </ui:composition>
     </h:body>
 </html>

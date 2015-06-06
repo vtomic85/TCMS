@@ -9,7 +9,7 @@
     <h:body>        
         <ui:composition>
             <h:form id="adminNewsCategoryListForm" class="formFullWidth" rendered="#{loginBean.isAdmin}">
-                <p:dataTable value="#{newsCategoryListBean.ncList}" var="row">
+                <p:dataTable value="#{newsCategoryListBean.ncList}" var="row" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15">
                     <p:column headerText="ID" sortBy="#{row.id}" filterBy="#{row.id}">
                         <h:outputLabel value="#{row.id}"/>
                     </p:column>

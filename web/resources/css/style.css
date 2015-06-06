@@ -69,7 +69,7 @@ body {min-height:100%;}
 .singleEventHolder{width:80%; border:dotted; margin-top:10px; margin-bottom:10px; padding: 5px; border-radius: 5px; float:left;}
 .topMenuHolder{width:100%; float:left; margin:auto; clear:both; border-bottom: #000066 groove; text-align: center;}
 .topIndexMenuHolder{margin:auto; width:100%; clear:both; float:left;}
-.bottomMenuHolder{width:100%; float:left; clear:both; border-top: #000066 groove; text-align: center; color:#000066; font-weight: bold;}
+.bottomMenuHolder{width:100%; float:left; clear:both; border-top: #000066 groove; text-align: center; color:#fff; background:#000066; font-weight: bold;}
 .locationHolder{width:100%; float:left; clear:both; border-bottom: #006600 2px solid; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
 .locationHolderLogin{width:100%; float:left; clear:both; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
 .eventsHolder{border-bottom: #006600 2px solid; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
@@ -275,7 +275,7 @@ body {min-height:100%;}
     color:#000066;
     -o-text-overflow: clip;
     text-overflow: clip;
-    background: transparent;
+    background: #fff;
     -webkit-box-shadow: -2px -2px 2px 0 #000066 inset;
     box-shadow: -2px -2px 2px 0 #000066 inset;
     font-weight: bold;
@@ -293,6 +293,7 @@ body {min-height:100%;}
     -webkit-box-shadow: -2px -2px 2px 0 #000066 inset;
     box-shadow: -2px -2px 2px 0 #000066 inset;
 }
+
 .leftMenuHolder{width:100%; height:auto; float:left; padding:2px;}
 .leftMenuLink{width:95%;
               border-right: none;

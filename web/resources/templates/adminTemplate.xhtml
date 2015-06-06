@@ -12,15 +12,49 @@
         <h:head>
             <title><h:outputText value="#{msgs.site_title}"/></title>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <h:outputStylesheet library="css" name="style.css"/>
+            <h:outputScript library="js" name="indexScripts.js"/>
         </h:head>
         <h:body>
+            <f:facet name="last">
+                <h:outputStylesheet library="css" name="style.css" />
+                <h:outputScript library="js" name="jquery-2.1.3.min.js"/>
+            </f:facet>
             <div id="page">
-                <div id="header">
+                <div class="topHolder">
+                    <h:form id="topHolderForm" onkeypress="if (event.keyCode == 13) {
+                                document.getElementById('topHolderForm:loginButton').click();
+                                return false;
+                            }">
+                        <div class="adminHolder">                            
+                            <h:commandLink value="#{msgs.home}" action="home" styleClass="commandLink"/>
+                            <h:commandLink value="#{msgs.adminLink}" action="adminHome" styleClass="commandLink" rendered="#{loginBean.isAdmin}"/>
+                            <h:commandLink value="#{msgs.inbox}" action="inbox" styleClass="commandLink" rendered="#{loginBean.isLoginOk}"/>
+                            <h:selectOneMenu value="#{localeBean.language}" onchange="submit()">
+                                <f:selectItem itemValue="en" itemLabel="English"/>
+                                <f:selectItem itemValue="sr" itemLabel="Srpski"/>
+                            </h:selectOneMenu>
+                            <div class="loginDiv">
+                                <h:outputLabel value="#{msgs.username}:&nbsp;" styleClass="formOutputLabel" rendered="#{!loginBean.isLoginOk}"/>
+                                <p:inputText value="#{loginBean.username}" styleClass="formInputText" rendered="#{!loginBean.isLoginOk}"/>
+                                <h:outputLabel value="&nbsp;"/>
+                                <h:outputLabel value="#{msgs.password}:&nbsp;" styleClass="formOutputLabel" rendered="#{!loginBean.isLoginOk}"/>
+                                <p:password value="#{loginBean.password}" styleClass="formInputText" rendered="#{!loginBean.isLoginOk}"/>
+                                <p:commandLink id="loginButton" value="#{msgs.login}" action="#{loginBean.login}" styleClass="commandLink" update="@form" rendered="#{!loginBean.isLoginOk}"/>                                                            
+                                <h:commandLink styleClass="commandLink" value="#{msgs.signup}" action="userRegistration" rendered="#{!loginBean.isLoginOk}"/>
+                                <h:graphicImage url="#{loginBean.user.imgPath}" rendered="#{loginBean.isLoginOk}" styleClass="loginImg"/>
+                                <h:commandLink styleClass="commandLink" value="#{msgs.my_profile}" action="userProfilePage" rendered="#{loginBean.isLoginOk}"/>
+                                <p:commandLink value="#{msgs.logout}" action="#{loginBean.logout}" styleClass="commandLink" update="@form" rendered="#{loginBean.isLoginOk}"/>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="header">
                     <ui:insert name="header">
-                        <ui:include src="/resources/templates/header.xhtml"/>
+                        <h:link outcome="home">
+                            <h:graphicImage value="/resources/img/cms/header.png" styleClass="headerImage" />
+                        </h:link>
                     </ui:insert>
-                </div>    
+                </div>
                 <div id="adminHeader">
                     <ui:insert name="adminHeader">
                         <ui:include src="/resources/menus/adminMenu.xhtml"/>
