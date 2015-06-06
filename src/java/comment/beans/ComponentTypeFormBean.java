@@ -7,7 +7,6 @@ package comment.beans;
 
 import comment.dao.ComponentTypeDAO;
 import comment.model.ComponentType;
-import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 

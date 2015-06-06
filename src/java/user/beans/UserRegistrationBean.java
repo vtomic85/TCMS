@@ -14,7 +14,6 @@ import user.dao.UserDAO;
 import user.dao.UserRegistrationDAO;
 import user.model.User;
 import user.model.UserRegistration;
-import utils.Utils;
 
 /**
  *

@@ -192,9 +192,9 @@ body {min-height:100%;}
 
 /* INDEX 2/3 PARTS */
 .indexTwoThirdsPartTitleHolder{padding:2px; float:left; height:35px; width:100%; display:block;}
-.indexTwoThirdsPartTitleList{width:50%; height:165px; float:left;}
+.indexTwoThirdsPartTitleList{width:50%; height:165px; float:left;color:#000066;}
 .indexTwoThirdsPartItemList{width:50%; height:165px; float:left;}
-.indexTwoThirdsPartTitleListItem{width:100%; height:35px; font-size:1.1em; color:#000066; font-weight: bold; float:left; background-color:transparent; text-decoration: none;}
+.indexTwoThirdsPartTitleListItem{width:100%; height:35px; font-size:1.1em;  font-weight: bold; float:left; background-color:transparent; text-decoration: none;}
 .indexTwoThirdsPartTitleListItem:first-child{background-color:red; color:white;}
 .indexTwoThirdsPartTitleListItem:hover .indexTwoThirdsPartTitleText{color:white;}
 .indexTwoThirdsPartItemListItem{width:100%; float:left; height:165px; display:none;}
@@ -230,7 +230,12 @@ body {min-height:100%;}
 .fullPartLeadTextHolder{float:left; cursor:default; text-align: justify; height:180px; width:50%; color:white; background-color: black;}
 .indexFullPartLead{display:block; padding:2px 5px;}
 
-.indexPartName{background-color:#000066; cursor:default; color:white; text-decoration:none; font-weight:bold; font-size:20px; width:100%; clear:both; float:left; padding:2px; margin-top:1px; border-top-left-radius: 5px; border-top-right-radius: 5px;}
+.indexPartName{cursor:default; color:white; text-decoration:none; font-weight:bold; font-size:20px; width:100%; clear:both; float:left; padding:2px; margin-top:1px;
+               border-top-left-radius: 5px;
+               background: -webkit-linear-gradient(right, rgba(0,0,255,0), rgba(0,0,255,1));
+               background: -o-linear-gradient(left, rgba(0,0,255,0), rgba(0,0,255,1));
+               background: -moz-linear-gradient(left, rgba(0,0,255,0), rgba(0,0,255,1));
+               background: linear-gradient(to left, rgba(0,0,255,0), rgba(0,0,255,1));}
 .topPartFullForm{padding:0px;}
 .topPartHalfForm{padding:0px;}
 .topPartThirdForm{padding:0px;}
@@ -308,6 +313,7 @@ body {min-height:100%;}
     background: linear-gradient(to left, rgba(255,0,0,0), rgba(255,0,0,1));
     color:#fff;
 }
+.alsoInCategoryLabel{width:100%; font-weight: bold; color:#000066; clear: both; float:left; margin-top:10px; border-top: 2px dotted #000066;}
 
 /* FORMS */
 /*form{width: 300px;}*/
@@ -390,4 +396,11 @@ body {min-height:100%;}
 }
 .ui-inputfield{
     padding:0 !important;
+}
+.ui-inputfield:focus{background: rgba(0,0,255,0.25);}
+.ui-widget-content a {
+    color: #000066;
+}
+.ui-widget-content{
+    color:#000066;
 }

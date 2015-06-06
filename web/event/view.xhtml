@@ -12,6 +12,10 @@
             <f:viewParam name="itemTypeId" value="#{indexMenuBean.itemTypeId}"/>
             <f:viewParam name="holderId" value="#{indexMenuBean.holderId}"/>
             <f:viewParam name="itemId" value="#{eventViewBean.itemId}" />
+            <f:viewParam name="itemId" value="#{eventMenuBean.itemId}"/>
+            <f:viewParam name="itemTypeId" value="#{eventMenuBean.itemTypeId}"/>
+            <f:viewParam name="holderId" value="#{eventMenuBean.holderId}"/>
+            <f:viewAction action="#{eventMenuBean.init}"/>
             <f:viewAction action="#{eventViewBean.init}" />
             <f:viewAction action="#{indexMenuBean.init}" />
         </f:metadata>

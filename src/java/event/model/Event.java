@@ -6,7 +6,6 @@
 package event.model;
 
 import event.dao.EventCategoryDAO;
-import image.dao.ImageDAO;
 import item.dao.ItemDAO;
 import java.io.Serializable;
 import java.util.Date;

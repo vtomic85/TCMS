@@ -11,15 +11,12 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlSelectOneMenu;
-import javax.faces.event.AjaxBehaviorEvent;
 import platform.dao.CMSElementDAO;
 import toplist.dao.TopListDAO;
 import toplist.dao.TopListElementRelationDAO;
 import platform.model.CMSElement;
 import platform.model.Commons;
 import toplist.model.TopList;
-import toplist.model.TopListElementRelation;
 import utils.Utils;
 
 /**

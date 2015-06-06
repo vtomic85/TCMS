@@ -11,7 +11,6 @@ import image.dao.ImageDAO;
 import image.model.Image;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import news.dao.NewsDAO;
 import news.model.News;

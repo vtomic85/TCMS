@@ -7,22 +7,17 @@ package news.beans;
 
 import gallery.dao.GalleryDAO;
 import gallery.model.Gallery;
-import image.dao.ImageDAO;
 import item.dao.ItemDAO;
 import item.model.Item;
-import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import news.dao.NewsCategoryDAO;
 import news.dao.NewsDAO;
 import news.model.News;
 import news.model.NewsCategory;
-import org.primefaces.event.FileUploadEvent;
 
 /**
  *

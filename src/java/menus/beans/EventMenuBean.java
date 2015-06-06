@@ -7,8 +7,6 @@ package menus.beans;
 
 import event.dao.EventDAO;
 import event.model.Event;
-import item.dao.ItemDAO;
-import item.model.Item;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -21,9 +19,8 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class EventMenuBean {
 
-    private LinkedList<Item> leftSideMenuItems;
-    private LinkedList<Event> topMenuItems;
-    private Item currentItem;
+    private LinkedList<Event> leftSideMenuItems;
+    private Event currentItem;
     private long itemId;
     private long itemTypeId;
     private long holderId;
@@ -33,16 +30,9 @@ public class EventMenuBean {
     }
 
     public void init() {
-        if (itemId == 0) {
-            itemId = 1;
-        }
         leftSideMenuItems = new LinkedList<>();
-        topMenuItems = new LinkedList<>();
-        currentItem = ItemDAO.getById(holderId);
-        leftSideMenuItems.addAll(ItemDAO.getAllWhere("published=1 and primary_navigation=1 and parent_id=" + currentItem.getParentId()));
-        if (holderId > 0) {
-            topMenuItems.addAll(EventDAO.getAllWhere("published=1 and item_id=" + holderId + " and id<>" + itemId));
-        }
+        currentItem = EventDAO.getById(itemId);
+        leftSideMenuItems.addAll(EventDAO.getAllWhere("published=1 and item_id=" + holderId + " and id<>" + itemId));
     }
 
     public long getItemId() {
@@ -53,28 +43,20 @@ public class EventMenuBean {
         this.itemId = itemId;
     }
 
-    public LinkedList<Item> getLeftSideMenuItems() {
+    public LinkedList<Event> getLeftSideMenuItems() {
         return leftSideMenuItems;
     }
 
-    public void setLeftSideMenuItems(LinkedList<Item> leftSideMenuItems) {
+    public void setLeftSideMenuItems(LinkedList<Event> leftSideMenuItems) {
         this.leftSideMenuItems = leftSideMenuItems;
     }
 
-    public Item getCurrentItem() {
+    public Event getCurrentItem() {
         return currentItem;
     }
 
-    public void setCurrentItem(Item currentItem) {
+    public void setCurrentItem(Event currentItem) {
         this.currentItem = currentItem;
-    }
-
-    public LinkedList<Event> getTopMenuItems() {
-        return topMenuItems;
-    }
-
-    public void setTopMenuItems(LinkedList<Event> topMenuItems) {
-        this.topMenuItems = topMenuItems;
     }
 
     public long getHolderId() {

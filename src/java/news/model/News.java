@@ -5,7 +5,6 @@
  */
 package news.model;
 
-import image.dao.ImageDAO;
 import java.util.Date;
 import news.dao.NewsCategoryDAO;
 import platform.dao.CMSElementDAO;

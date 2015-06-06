@@ -7,8 +7,6 @@ package menus.beans;
 
 import news.dao.NewsDAO;
 import news.model.News;
-import item.dao.ItemDAO;
-import item.model.Item;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -21,9 +19,8 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class NewsMenuBean {
 
-    private LinkedList<Item> leftSideMenuItems;
-    private LinkedList<News> topMenuItems;
-    private Item currentItem;
+    private LinkedList<News> leftSideMenuItems;
+    private News currentItem;
     private long itemId;
     private long itemTypeId;
     private long holderId;
@@ -33,16 +30,9 @@ public class NewsMenuBean {
     }
 
     public void init() {
-        if (itemId == 0) {
-            itemId = 1;
-        }
         leftSideMenuItems = new LinkedList<>();
-        topMenuItems = new LinkedList<>();
-        currentItem = ItemDAO.getById(holderId);
-        leftSideMenuItems.addAll(ItemDAO.getAllWhere("published=1 and primary_navigation=1 and parent_id=" + currentItem.getParentId()));
-        if (holderId > 0) {
-            topMenuItems.addAll(NewsDAO.getAllWhere("published=1 and item_id=" + holderId + " and id<>" + currentItem.getId()));
-        }
+        currentItem = NewsDAO.getById(itemId);
+        leftSideMenuItems.addAll(NewsDAO.getAllWhere("published=1 and item_id=" + holderId + " and id<>" + itemId));
     }
 
     public long getItemId() {
@@ -53,28 +43,20 @@ public class NewsMenuBean {
         this.itemId = itemId;
     }
 
-    public LinkedList<Item> getLeftSideMenuItems() {
+    public LinkedList<News> getLeftSideMenuItems() {
         return leftSideMenuItems;
     }
 
-    public void setLeftSideMenuItems(LinkedList<Item> leftSideMenuItems) {
+    public void setLeftSideMenuItems(LinkedList<News> leftSideMenuItems) {
         this.leftSideMenuItems = leftSideMenuItems;
     }
 
-    public Item getCurrentItem() {
+    public News getCurrentItem() {
         return currentItem;
     }
 
-    public void setCurrentItem(Item currentItem) {
+    public void setCurrentItem(News currentItem) {
         this.currentItem = currentItem;
-    }
-
-    public LinkedList<News> getTopMenuItems() {
-        return topMenuItems;
-    }
-
-    public void setTopMenuItems(LinkedList<News> topMenuItems) {
-        this.topMenuItems = topMenuItems;
     }
 
     public long getHolderId() {

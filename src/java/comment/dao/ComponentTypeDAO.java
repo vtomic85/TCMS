@@ -5,7 +5,6 @@
  */
 package comment.dao;
 
-import comment.model.Comment;
 import comment.model.ComponentType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

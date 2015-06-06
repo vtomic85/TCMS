@@ -5,13 +5,11 @@
  */
 package menus.beans;
 
-import userpart.dao.UserPartDAO;
-import userpart.model.UserPart;
-import item.dao.ItemDAO;
-import item.model.Item;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import userpart.dao.UserPartDAO;
+import userpart.model.UserPart;
 
 /**
  *
@@ -21,9 +19,8 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class UserPartMenuBean {
 
-    private LinkedList<Item> leftSideMenuItems;
-    private LinkedList<UserPart> topMenuItems;
-    private Item currentItem;
+    private LinkedList<UserPart> leftSideMenuItems;
+    private UserPart currentItem;
     private long itemId;
     private long itemTypeId;
     private long holderId;
@@ -33,16 +30,9 @@ public class UserPartMenuBean {
     }
 
     public void init() {
-        if (itemId == 0) {
-            itemId = 1;
-        }
         leftSideMenuItems = new LinkedList<>();
-        topMenuItems = new LinkedList<>();
-        currentItem = ItemDAO.getById(holderId);
-        leftSideMenuItems.addAll(ItemDAO.getAllWhere("published=1 and primary_navigation=1 and parent_id=" + currentItem.getParentId()));
-        if (holderId > 0) {
-            topMenuItems.addAll(UserPartDAO.getAllWhere("published=1 and item_id=" + holderId + " and id<>" + itemId));
-        }
+        currentItem = UserPartDAO.getById(itemId);
+        leftSideMenuItems.addAll(UserPartDAO.getAllWhere("published=1 and item_id=" + holderId + " and id<>" + itemId));
     }
 
     public long getItemId() {
@@ -53,28 +43,20 @@ public class UserPartMenuBean {
         this.itemId = itemId;
     }
 
-    public LinkedList<Item> getLeftSideMenuItems() {
+    public LinkedList<UserPart> getLeftSideMenuItems() {
         return leftSideMenuItems;
     }
 
-    public void setLeftSideMenuItems(LinkedList<Item> leftSideMenuItems) {
+    public void setLeftSideMenuItems(LinkedList<UserPart> leftSideMenuItems) {
         this.leftSideMenuItems = leftSideMenuItems;
     }
 
-    public Item getCurrentItem() {
+    public UserPart getCurrentItem() {
         return currentItem;
     }
 
-    public void setCurrentItem(Item currentItem) {
+    public void setCurrentItem(UserPart currentItem) {
         this.currentItem = currentItem;
-    }
-
-    public LinkedList<UserPart> getTopMenuItems() {
-        return topMenuItems;
-    }
-
-    public void setTopMenuItems(LinkedList<UserPart> topMenuItems) {
-        this.topMenuItems = topMenuItems;
     }
 
     public long getHolderId() {

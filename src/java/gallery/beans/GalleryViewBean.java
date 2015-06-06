@@ -5,18 +5,13 @@
  */
 package gallery.beans;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import gallery.dao.GalleryDAO;
 import gallery.model.Gallery;
 import image.dao.ImageDAO;
 import image.model.Image;
-import item.model.Item;
 import java.util.LinkedList;
-import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import utils.Utils;
 
 /**
  *

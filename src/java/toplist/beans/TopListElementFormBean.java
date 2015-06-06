@@ -6,8 +6,6 @@
 package toplist.beans;
 
 import comment.beans.CommentFormBean;
-import item.dao.ItemTypeDAO;
-import item.model.ItemType;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,17 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import platform.dao.CMSElementDAO;
-import toplist.dao.TopListDAO;
 import toplist.dao.TopListElementRelationDAO;
 import platform.model.CMSElement;
-import platform.model.Commons;
-import toplist.model.TopList;
 import toplist.model.TopListElementRelation;
-import utils.Utils;
 
 /**
  *

@@ -5,12 +5,8 @@
  */
 package message.beans;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import message.dao.MessageDAO;
 import message.model.Message;
 

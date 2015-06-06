@@ -7,7 +7,6 @@ package comment.model;
 
 import comment.dao.ComponentTypeDAO;
 import java.util.Date;
-import user.dao.UserDAO;
 
 /**
  *

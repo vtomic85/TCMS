@@ -8,7 +8,6 @@ package region.model;
 import java.util.ArrayList;
 import part.dao.PartDAO;
 import part.model.Part;
-import toplist.dao.TopListDAO;
 import region.dao.RegionPartDAO;
 
 /**

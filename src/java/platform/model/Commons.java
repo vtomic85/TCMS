@@ -5,8 +5,6 @@
  */
 package platform.model;
 
-import java.io.File;
-
 /**
  *
  * @author Vladimir Tomic

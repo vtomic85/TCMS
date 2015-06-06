@@ -8,9 +8,7 @@ package menus.beans;
 import item.dao.ItemDAO;
 import item.model.Item;
 import java.util.LinkedList;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import platform.model.Commons;
 

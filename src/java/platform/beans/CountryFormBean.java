@@ -7,7 +7,6 @@ package platform.beans;
 
 import platform.dao.CountryDAO;
 import platform.model.Country;
-import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 

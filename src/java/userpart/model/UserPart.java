@@ -1,9 +1,6 @@
 package userpart.model;
 
 import java.util.Date;
-import platform.dao.CMSElementDAO;
-import platform.model.CMSElement;
-import platform.model.Commons;
 import userpart.dao.UserPartConfigDAO;
 
 /**

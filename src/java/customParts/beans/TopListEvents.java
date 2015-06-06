@@ -10,7 +10,6 @@ import event.model.Event;
 import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import platform.dao.CMSElementDAO;
@@ -18,7 +17,6 @@ import toplist.dao.TopListElementRelationDAO;
 import platform.model.CMSElement;
 import platform.model.Commons;
 import toplist.model.TopListElementRelation;
-import utils.Utils;
 
 /**
  *

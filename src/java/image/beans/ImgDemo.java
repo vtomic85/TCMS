@@ -5,7 +5,6 @@
  */
 package image.beans;
 
-import comment.beans.CommentFormBean;
 import event.dao.EventDAO;
 import event.model.Event;
 import image.dao.ImageDAO;

@@ -5,7 +5,6 @@
  */
 package user.dao;
 
-import comment.model.Comment;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

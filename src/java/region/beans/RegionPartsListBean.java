@@ -6,7 +6,6 @@
 package region.beans;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import region.dao.RegionDAO;

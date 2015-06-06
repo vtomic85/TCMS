@@ -10,15 +10,10 @@ import event.dao.EventDAO;
 import event.model.Event;
 import event.model.EventCategory;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.event.SelectEvent;
 import utils.Utils;
 
 /**

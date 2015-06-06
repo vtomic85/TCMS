@@ -1,6 +1,5 @@
 package message.model;
 
-import java.sql.Timestamp;
 import message.dao.MessageFolderDAO;
 import user.dao.UserDAO;
 import java.util.Date;

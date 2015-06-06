@@ -8,19 +8,22 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:body>        
         <ui:composition>
-            <h:form style="width:100%">
-                <h:outputLink value="../index.xhtml" title="#{msgs.home}" styleClass="commandLink leftMenuLink">
-                    <h:outputText value="#{msgs.home}"/>
-                </h:outputLink>
-                <ui:repeat value="#{newsMenuBean.leftSideMenuItems}" var="row">
-                    <h:outputLink value="list.xhtml?itemId=#{row.id}" title="#{row.name}" rendered="#{row.id>2}" styleClass="commandLink leftMenuLink">
-                        <h:outputText value="#{row.name}"/>
+            <f:view>
+                <h:form styleClass="leftMenuHolder">
+                    <h:outputLink value="../index.xhtml" title="#{msgs.home}" styleClass="commandLink leftMenuLink">
+                        <h:outputText value="#{msgs.home}"/>
                     </h:outputLink>
-                </ui:repeat>
-                <h:outputLink value="../contact.xhtml" title="#{msgs.contact}" styleClass="commandLink leftMenuLink">
-                    <h:outputText value="#{msgs.contact}"/>
-                </h:outputLink>
-            </h:form>
+                    <h:outputLink value="../contact.xhtml" title="#{msgs.contact}" styleClass="commandLink leftMenuLink">
+                        <h:outputText value="#{msgs.contact}"/>
+                    </h:outputLink>
+                    <h:outputLabel value="#{msgs.more_from_this_category}..." rendered="#{newsMenuBean.leftSideMenuItems.size()>0}" styleClass="alsoInCategoryLabel"/>
+                    <ui:repeat value="#{newsMenuBean.leftSideMenuItems}" var="row" rendered="#{newsMenuBean.leftSideMenuItems.size()>0}">
+                        <h:outputLink value="view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=8" title="#{row.title}" styleClass="commandLink leftMenuLink">
+                            <h:outputText value="#{row.title}"/>
+                        </h:outputLink>
+                    </ui:repeat>
+                </h:form>
+            </f:view>
         </ui:composition>
     </h:body>
 </html>

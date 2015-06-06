@@ -40,7 +40,7 @@ $(document).ready(function() {
         $(this).css("background-color", "red");
         $(this).css("color", "white");
         $(this).siblings().css("background-color", "transparent");
-        $(this).siblings().css("color", "black");
+        $(this).siblings().css("color", "#000066");
         $(this).parent().siblings().children(".indexTwoThirdsPartItemListItem" + ord).css('display', 'block');
         $(this).parent().siblings().children(".indexTwoThirdsPartItemListItem" + ord).siblings().css('display', 'none')
     });
