@@ -54,8 +54,8 @@
                     </div>
                     <hr/>
                     <div class="itemGallery">
-                        <h:outputLabel value="#{msgs.gallery}" styleClass="galleryLabel"/>
-                        <p:lightBox styleClass="imagebox" id="galleryLightBox">
+                        <h:outputLabel value="#{msgs.gallery}" styleClass="galleryLabel" rendered="#{eventViewBean.item.galleryId>0}"/>
+                        <p:lightBox styleClass="imagebox" id="galleryLightBox" rendered="#{eventViewBean.item.galleryId>0}">
                             <ui:repeat value="#{eventViewBean.galleryImages}" var="row" varStatus="status">
                                 <h:outputLink value="..#{row.imgPath}" title="#{row.title}">  
                                     <h:graphicImage url="..#{row.imgPath}" style="height: 77px; width: 100px; padding:1px;" />                                    
