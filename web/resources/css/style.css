@@ -53,10 +53,11 @@ body {min-height:100%;}
 .adminItemFormContainer{width:100%; margin: auto; float:left;}
 .adminItemChildrenLabel{clear:both; font-weight: bold; font-size: 13px; color:black;}
 .adminItemChildrenHolder{float:left; clear:both; text-decoration: none;}
-.adminItemChildrenHolder:hover{background-color: #ccffff; color:#000066;}
-.adminItemChildrenHolder:hover .adminItemChildrenText{color:#000066;}
-.adminItemChildrenText{text-decoration: none; color:white; font-weight: bold;}
-.adminItemChildrenText:hover{color:#000066;}
+.adminItemChildrenHolder:hover{background-color: #F00; color:#FFF;}
+.adminItemChildrenHolder:hover .adminItemChildrenText{color:#FFF;}
+.adminItemChildrenText{text-decoration: none; color:#000066; font-weight: bold;}
+.adminItemChildrenText:visited{color:#000066;}
+.adminItemChildrenText:hover{color:#FFF;}
 #adminRequestProcessingStatus{padding:5px; float:left; height:auto;}
 .adminRegistrationRequestIndicator{box-shadow: 1px 1px 1px 0 #000; margin-right:5px; padding:2px;}
 .adminRegistrationRequestIndicatorStatus{font-weight: bold; color:#F00; font-size: 1.1em;}

@@ -90,7 +90,7 @@
                             <ui:repeat value="#{treeBean.item.children}" var="row" rendered="#{!treeBean.item.childrenEmpty}">
                                 <br/>
                                 <h:outputLink value="#{row.adminUrl}" title="#{row.name}" styleClass="commandLink">
-                                    <h:outputText value="#{row.name}" styleClass="adminItemChildrenText"/>
+                                    <h:outputText value="#{row.name}"/>
                                 </h:outputLink> 
                             </ui:repeat>
                         </h:form>
