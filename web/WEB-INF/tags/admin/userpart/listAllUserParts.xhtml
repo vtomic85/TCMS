@@ -21,10 +21,10 @@
                     </p:column>
                     <p:column headerText="#{msgs.action}">
                         <h:link value="#{msgs.edit}" outcome="adminEditUserPart" styleClass="commandLink">
-                            <f:param name="upId" value="#{row.id}"/>
+                            <f:param name="userPartId" value="#{row.id}"/>
                         </h:link>
                         <h:commandLink value="#{msgs.delete}" action="#{userPartListBean.deleteUserPart}" styleClass="commandLink">
-                            <f:param name="upId" value="#{row.id}"/>
+                            <f:param name="userPartId" value="#{row.id}"/>
                         </h:commandLink>
                     </p:column>
                 </p:dataTable>                   

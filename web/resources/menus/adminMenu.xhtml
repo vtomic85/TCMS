@@ -15,7 +15,9 @@
                     <h:commandLink styleClass="commandLink" value="#{msgs.events}" action="adminEventList" />
                     <h:commandLink styleClass="commandLink" value="#{msgs.event_categories}" action="adminEventCategoryList" />
                     <h:commandLink styleClass="commandLink" value="#{msgs.news}" action="adminNewsList" />
-                    <h:commandLink styleClass="commandLink" value="#{msgs.news_categories}" action="adminNewsCategoryList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.news_categories}" action="adminNewsCategoryList" />   
+                    <h:commandLink styleClass="commandLink" value="#{msgs.user_part_configs}" action="adminUserPartConfigList" />
+                    <h:commandLink styleClass="commandLink" value="#{msgs.user_parts}" action="adminUserPartList" />            
                     <h:commandLink styleClass="commandLink" value="#{msgs.registration_requests}" action="adminRegistrationList" />
                     <h:commandLink styleClass="commandLink" value="#{msgs.users}" action="adminUserList" />
                     <h:commandLink styleClass="commandLink" value="#{msgs.user_types}" action="adminUserTypeList" />
@@ -24,9 +26,7 @@
                     <h:commandLink styleClass="commandLink" value="#{msgs.parts}" action="adminPartList" />                    
                     <h:commandLink styleClass="commandLink" value="#{msgs.region_parts}" action="adminRegionPartList" >
                         <f:param name="regionId" value="0"/>
-                    </h:commandLink>                    
-                    <h:commandLink styleClass="commandLink" value="#{msgs.user_part_configs}" action="adminUserPartConfigList" />
-                    <h:commandLink styleClass="commandLink" value="#{msgs.user_parts}" action="adminUserPartList" />                    
+                    </h:commandLink>                         
                     <h:commandLink styleClass="commandLink" value="#{msgs.comments}" action="adminCommentList" />
                     <h:commandLink styleClass="commandLink" value="#{msgs.galleries}" action="adminGalleryList" />
                 </div>

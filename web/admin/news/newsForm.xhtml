@@ -53,7 +53,7 @@
                         <h:panelGroup id="imageControlButtons" rendered="#{newsFormBean.news.id>0}">
                             <h:link value="#{msgs.upload_image}" outcome="uploadImageForm" styleClass="commandLink">
                                 <f:param name="objectType" value="news"/>
-                                <f:param name="objectId" value="#{newsFormBean.newsId}"/>
+                                <f:param name="objectId" value="#{newsFormBean.news.id}"/>
                             </h:link>
                         </h:panelGroup>
                     </h:panelGrid>

@@ -151,6 +151,13 @@ public class ImgDemo implements Serializable {
         }
         // backUrl should look like "../event/eventForm.xhtml?eventId=123"
         backUrl = "../" + objectType + "/" + objectType + "Form.xhtml?" + objectType + "Id=" + objectId;
+        // the only exception is UserPart, because of different case in the folder name and *Form.xhtml name
+        if ("userpart".equals(objectType)
+                || "userPart".equals(objectType)
+                || "UserPart".equals(objectType)
+                || "USERPART".equals(objectType)) {
+            backUrl = "../userpart/userPartForm.xhtml?userPartId=" + objectId;
+        }
         System.out.println("DEBUG ::: ImgDemo:uploadFile:REDIRECTING TO backUrl=" + backUrl);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(backUrl);

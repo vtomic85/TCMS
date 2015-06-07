@@ -29,8 +29,8 @@
                         <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasLead}"/>
                     </p:column>
                     <p:column headerText="#{msgs.body}" sortBy="#{row.hasBody}" filterBy="#{row.hasBody}">
-                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasLead}"/>
-                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasLead}"/>
+                        <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasBody}"/>
+                        <h:graphicImage value="/resources/img/cms/notok.png" height="24" rendered="#{!row.hasBody}"/>
                     </p:column>
                     <p:column headerText="#{msgs.date_created}" sortBy="#{row.hasDateCreated}" filterBy="#{row.hasDateCreated}">
                         <h:graphicImage value="/resources/img/cms/ok.png" height="24" rendered="#{row.hasDateCreated}"/>

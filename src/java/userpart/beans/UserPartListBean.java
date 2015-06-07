@@ -56,7 +56,7 @@ public class UserPartListBean {
     }
 
     public String deleteUserPart() {
-        long id = Long.parseLong(Utils.getParam("upId"));
+        long id = Long.parseLong(Utils.getParam("userPartId"));
         if (id <= 0) {
             return null;
         }
