@@ -32,7 +32,7 @@ public class IndexRegions {
         if (regions == null) {
             regions = new ArrayList<>();
         }
-        regions = RegionDAO.getAll();
+        regions = RegionDAO.getAllOrdBy("ord asc");
     }
 
     public boolean isListEmpty() {

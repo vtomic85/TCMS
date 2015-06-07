@@ -45,6 +45,24 @@
                             <p:calendar value="#{userProfileBean.user.dateOfBirth}"/>
                             <h:commandLink value="#{msgs.save}" action="#{userProfileBean.save()}" styleClass="commandLink"/>
                         </h:panelGrid>
+                        <h:panelGrid columns="3" title="#{msgs.password_change}">
+                            <h:outputLabel value="#{msgs.old_password}"/>
+                            <h:inputSecret id="newPassword" binding="#{userProfileBean.oldPasswordComponent}" value="#{userProfileBean.oldPassword}" required="true" requiredMessage="#{msgs.required_password}" validatorMessage="#{msgs.regex_password}">
+                                <f:validateRegex pattern=".{3,32}" />
+                            </h:inputSecret>
+                            <p:message for="oldPassword"/>
+                            <h:outputLabel value="#{msgs.new_password}"/>
+                            <h:inputSecret id="oldPassword" binding="#{userProfileBean.newPasswordComponent}" value="#{userProfileBean.newPassword}" required="true" requiredMessage="#{msgs.required_password}" validatorMessage="#{msgs.regex_password}">
+                                <f:validateRegex pattern=".{3,32}" />
+                            </h:inputSecret>
+                            <p:message for="newPassword"/>
+                            <h:outputLabel value="#{msgs.confirm_password}"/>
+                            <h:inputSecret id="confirmPassword" binding="#{userProfileBean.confirmPasswordComponent}" value="#{userProfileBean.confirmPassword}" required="true" requiredMessage="#{msgs.required_password}" validatorMessage="#{msgs.regex_password}">
+                                <f:validateRegex pattern=".{3,32}" />
+                            </h:inputSecret>
+                            <p:message for="confirmPassword"/>
+                            <h:commandLink value="#{msgs.save}" action="#{userProfileBean.changePass()}" styleClass="commandLink"/>
+                        </h:panelGrid>
                     </h:form>
                 </f:view>
             </ui:define>

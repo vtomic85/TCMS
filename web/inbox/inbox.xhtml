@@ -32,7 +32,7 @@
 
                     <h:form id="messageListForm" class="messageListForm">
                         <h:outputLabel value="#{messageListBean.folderName}" styleClass="msgFolderTitle"/>
-                        <h:dataTable value="#{messageListBean.messages}" var="row" rendered="#{!messageListBean.listEmpty}" class="tableFullWidth">
+                        <h:dataTable value="#{messageListBean.messages}" var="row" rendered="#{!messageListBean.listEmpty}" headerClass="inboxHeader" class="tableFullWidth inboxTable">
                             <h:column rendered="#{messageListBean.folderId==1}">
                                 <f:facet name="header">
                                 </f:facet>

@@ -80,7 +80,6 @@ public class UserRegistrationBean {
             }
         }
         registrationAttempted = true;
-        System.out.println("DEBUG ::: UserRegistrationBean:save:" + message);
         return null;
     }
 
@@ -88,7 +87,7 @@ public class UserRegistrationBean {
         UserRegistration ur = UserRegistrationDAO.getById(requestId);
         User u = new User(0, ur.getUsername(), ur.getPassword(), Commons.USERTYPE_USER, ur.getFirstName(), ur.getLastName(),
                 ur.getEmail(), ur.getAddress(), ur.getCity(), 190, ur.getDateOfBirth() == null ? new Date() : ur.getDateOfBirth(),
-                ur.getPhone(), true, null);
+                ur.getPhone(), true, "/resources/img/cms/user.png");
         UserDAO.addNoPassEnc(u);
         ur.setApproved(true);
         UserRegistrationDAO.update(ur);

@@ -7,6 +7,8 @@ package page.beans;
 
 import comment.dao.CommentDAO;
 import comment.model.Comment;
+import commentRates.dao.CommentRateDAO;
+import commentRates.model.CommentRate;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -56,6 +58,11 @@ public class PageViewBean {
         typeId = Commons.ITEMTYPE_PAGE;
     }
 
+    public boolean isAlreadyRated(long commentId) {
+        User u = ((User) ((HttpSession) (FacesContext.getCurrentInstance()).getExternalContext().getSession(false)).getAttribute("user"));
+        return CommentRateDAO.userRated(u.getId(), commentId);
+    }
+
     public String leaveComment() {
         Utils.setSessionAttribute("componentId", itemId);
         Utils.setSessionAttribute("componentTypeId", Commons.ITEMTYPE_PAGE);
@@ -70,6 +77,11 @@ public class PageViewBean {
         Comment comment = CommentDAO.getById(commentId);
         comment.setPositiveVotes(comment.getPositiveVotes() + 1);
         CommentDAO.update(comment);
+        CommentRate cr = new CommentRate(0,
+                ((User) ((HttpSession) (FacesContext.getCurrentInstance()).getExternalContext().getSession(false)).getAttribute("user")).getId(),
+                commentId,
+                true);
+        CommentRateDAO.add(cr);
         return null;
     }
 
@@ -78,6 +90,11 @@ public class PageViewBean {
         Comment comment = CommentDAO.getById(commentId);
         comment.setNegativeVotes(comment.getNegativeVotes() + 1);
         CommentDAO.update(comment);
+        CommentRate cr = new CommentRate(0,
+                ((User) ((HttpSession) (FacesContext.getCurrentInstance()).getExternalContext().getSession(false)).getAttribute("user")).getId(),
+                commentId,
+                false);
+        CommentRateDAO.add(cr);
         return null;
     }
 

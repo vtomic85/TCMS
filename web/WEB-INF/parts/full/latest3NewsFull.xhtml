@@ -12,7 +12,7 @@
                 <ul class="indexFullPartTitleList">
                     <ui:repeat value="#{latestNews.list}" var="row" varStatus="status" rendered="#{!latestNews.listEmpty}" size="3">
                         <li class="indexFullPartTitleListItem indexFullPartTitleListItem#{status.index}">
-                            <h:outputLink value="event/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=8" title="#{row.title}" styleClass="indexFullPartTitleHolder">
+                            <h:outputLink value="news/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=8" title="#{row.title}" styleClass="indexFullPartTitleHolder">
                                 <h:outputText value="#{row.title}" styleClass="indexFullPartTitleText"/>
                             </h:outputLink>
                         </li>

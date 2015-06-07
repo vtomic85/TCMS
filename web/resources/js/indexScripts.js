@@ -43,4 +43,12 @@ $(document).ready(function() {
         $(this).parent().siblings().children(".indexTwoThirdsPartItemListItem" + ord).css('display', 'block');
         $(this).parent().siblings().children(".indexTwoThirdsPartItemListItem" + ord).siblings().css('display', 'none');
     });
+
+    // Text area character count
+    $('.commentTextArea').keypress(function() {
+        if (this.value.length > 1000) {
+            return false;
+        }
+        $("#remainingCommentChars").html("Remaining characters : " + (1000 - this.value.length));
+    });
 });

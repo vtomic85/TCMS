@@ -7,14 +7,19 @@ package news.beans;
 
 import comment.dao.CommentDAO;
 import comment.model.Comment;
+import commentRates.dao.CommentRateDAO;
+import commentRates.model.CommentRate;
 import image.dao.ImageDAO;
 import image.model.Image;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import news.dao.NewsDAO;
 import news.model.News;
 import platform.model.Commons;
+import user.model.User;
 import utils.Utils;
 
 /**
@@ -55,7 +60,17 @@ public class NewsViewBean {
         typeId = Commons.ITEMTYPE_NEWS;
     }
 
+    public boolean isAlreadyRated(long commentId) {
+        User u = ((User) ((HttpSession) (FacesContext.getCurrentInstance()).getExternalContext().getSession(false)).getAttribute("user"));
+        return CommentRateDAO.userRated(u.getId(), commentId);
+    }
+
     public String leaveComment() {
+        Utils.setSessionAttribute("componentId", itemId);
+        Utils.setSessionAttribute("componentTypeId", Commons.ITEMTYPE_NEWS);
+        Utils.setSessionAttribute("holderId", item.getItemId());
+        User u = ((User) ((HttpSession) (FacesContext.getCurrentInstance()).getExternalContext().getSession(false)).getAttribute("user"));
+        Utils.setSessionAttribute("isLoginOk", u != null);
         return "leaveComment";
     }
 
@@ -64,6 +79,11 @@ public class NewsViewBean {
         Comment comment = CommentDAO.getById(commentId);
         comment.setPositiveVotes(comment.getPositiveVotes() + 1);
         CommentDAO.update(comment);
+        CommentRate cr = new CommentRate(0,
+                ((User) ((HttpSession) (FacesContext.getCurrentInstance()).getExternalContext().getSession(false)).getAttribute("user")).getId(),
+                commentId,
+                true);
+        CommentRateDAO.add(cr);
         return null;
     }
 
@@ -72,6 +92,11 @@ public class NewsViewBean {
         Comment comment = CommentDAO.getById(commentId);
         comment.setNegativeVotes(comment.getNegativeVotes() + 1);
         CommentDAO.update(comment);
+        CommentRate cr = new CommentRate(0,
+                ((User) ((HttpSession) (FacesContext.getCurrentInstance()).getExternalContext().getSession(false)).getAttribute("user")).getId(),
+                commentId,
+                false);
+        CommentRateDAO.add(cr);
         return null;
     }
 

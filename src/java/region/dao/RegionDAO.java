@@ -71,6 +71,26 @@ public class RegionDAO {
         return regions;
     }
 
+    public static ArrayList<Region> getAllOrdBy(String ord) {
+        ArrayList<Region> regions = new ArrayList<>();
+        try {
+            genericQuery = "SELECT * FROM region ORDER BY " + ord;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                regions.add(new Region(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getInt("ord"),
+                        rs.getInt("width"),
+                        rs.getBoolean("right_aligned")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Region.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return regions;
+    }
+
     public static Region getById(long id) {
         return getWhere("id=" + id);
     }

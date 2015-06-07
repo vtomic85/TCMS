@@ -5,6 +5,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import message.dao.MessageDAO;
+import platform.model.Commons;
 import user.dao.UserDAO;
 import user.model.User;
 
@@ -27,7 +29,7 @@ public class LoginBean {
     private String password;
 
     private User user;
-
+    
     public LoginBean() {
         isLoginOk = false;
         isAdmin = false;
@@ -59,7 +61,7 @@ public class LoginBean {
         isAdmin = (user.getTypeId() == ADMIN);
         isModerator = (user.getTypeId() == MODERATOR);
         session.setAttribute("user", user);
-        isLoginOk = true;
+        isLoginOk = true;        
         FacesMessage message = new FacesMessage("Login OK!");
         context.addMessage(null, message);
         return null;

@@ -6,11 +6,14 @@
 package region.beans;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import region.dao.RegionDAO;
+import region.dao.RegionPartDAO;
 import region.model.Region;
+import region.model.RegionPart;
 import utils.Utils;
 
 /**
@@ -33,12 +36,10 @@ public class RegionListBean {
         if (regions == null) {
             regions = new ArrayList<>();
         }
-        regions = RegionDAO.getAll();
+        regions = RegionDAO.getAllOrdBy("ord asc");
         if (regions == null) {
-            System.out.println("DEBUG ::: RegionListBean:refresh:regions=null");
         }
         lastOrd = regions.size();
-        System.out.println("DEBUG ::: RegionListBean:refresh:lastOrd=" + lastOrd);
     }
 
     public Region findByOrd(int ord) {
@@ -90,8 +91,10 @@ public class RegionListBean {
 
     public String deleteRegion() {
         long regId = Long.parseLong(Utils.getParam("regionId"));
+        RegionPartDAO.deleteWhere("region_id=" + regId); // first of all, delete all the parts which are connected with this region
         int oldOrd = RegionDAO.getById(regId).getOrd();
         RegionDAO.delete(regId);
+        // If the deleted region wasn't the last one, some regions will have to move up
         if (oldOrd < regions.size()) {
             for (Region r : regions) {
                 if (r.getId() != regId && r.getOrd() > oldOrd) {

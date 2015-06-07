@@ -39,13 +39,9 @@ public class RegionPartsListBean {
         } else {
             regions.clear();
         }
-        regions = RegionDAO.getAll();
-//        if (regionId == 0) {
+        regions = RegionDAO.getAllOrdBy("ord asc");
         regionId = RegionDAO.getMinOrd();
-        System.out.println("DEBUG ::: RegionPartsListBean:init:regionId=" + regionId);
-//        }
         regionName = RegionDAO.getById(regionId).getName();
-        System.out.println("DEBUG ::: RegionPartsListBean:init:regionName=" + regionName);
         refreshRegionParts();
     }
 
@@ -55,7 +51,6 @@ public class RegionPartsListBean {
         } else {
             regionParts.clear();
         }
-        System.out.println("DEBUG ::: RegionPartsListBean:refreshRegionParts:regionId=" + regionId);
         regionParts = RegionPartDAO.getAllWhere("region_id=" + regionId);
     }
 

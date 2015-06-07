@@ -26,7 +26,7 @@
                             
                             <h:outputLabel value="#{msgs.password}*" style="font-weight: bold"/>
                             <h:inputSecret id="password" value="#{userRegistrationBean.password}" required="true" requiredMessage="#{msgs.required_password}" validatorMessage="#{msgs.regex_password}">
-                                <f:validateRegex pattern=".{3,16}" />
+                                <f:validateRegex pattern=".{3,32}" />
                             </h:inputSecret>
                             <p:message for="password"/>
                             

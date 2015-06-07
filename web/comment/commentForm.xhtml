@@ -24,9 +24,10 @@
                             <h:inputText value="#{commentFormBean.comment.userName}" rendered="#{!commentFormBean.isLoginOk}"/>
                             <h:outputText value="#{commentFormBean.comment.userName}" rendered="#{commentFormBean.isLoginOk}"/>
                             <h:outputLabel value="#{msgs.comment}"/>
-                            <h:inputTextarea value="#{commentFormBean.comment.body}"/>
-                            <h:commandLink action="#{commentFormBean.save}" value="#{msgs.save}" styleClass="commandLink"/>
+                            <h:inputTextarea value="#{commentFormBean.comment.body}" rows="20" cols="100" styleClass="commentTextArea"/>                            
                         </h:panelGrid>
+                        <span id="remainingCommentChars"/>
+                        <h:commandLink action="#{commentFormBean.save}" value="#{msgs.save}" styleClass="commandLink"/>
                     </h:form>
                 </f:view>
             </ui:define>

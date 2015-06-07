@@ -13,7 +13,7 @@ ul {padding:0; margin:0; list-style-type: none;}
 li {padding:0; margin:0; list-style-type: none;}
 /*html{background:url('../resources/img/cms/back.png') repeat;}*/
 body {min-height:100%;}
-.container{min-height:100%;}
+.container{min-height:100%; }
 .mainStripe{width:70%; float:left; margin: auto; height: 100%;}
 .leftStripe{width:15%; float:left; height:100%;}
 .rightStripe{width:14%; float:right; height:100%;}
@@ -45,7 +45,7 @@ body {min-height:100%;}
 #adminForm{width:100%; float:left;}
 #adminLoginForm{width:100%; float:left; clear:both; display:inline-block;}
 .loginDiv{margin:0 2px 0 2px; float:right; display:block; height:30px;}
-.loginImg{height:30px; float:left; display:block;}
+.loginImg{height:30px; float:left; display:block; padding-right: 5px;}
 #treeForm{float:left; width:25%;}
 #adminItemFormForm{float:left; width:49%; }
 #adminItemChildrenForm{float:left; width:25%;}
@@ -66,13 +66,18 @@ body {min-height:100%;}
 .unreadMsg{height:32px; width:32px; display:block; float:left; background:url('../resources/img/cms/unread.png') no-repeat;}
 .msgTitle{float:left; width:100px; font-weight: bold; border: white 1px solid; padding-left: 2px;}
 .msgContent{padding-bottom: 3px; float:left; width:500px; border:white 1px solid; padding-left:5px; padding-top:2px;}
+.messageFolderListForm{padding:10px 0; border-top:2px ridge #000066;}
+.msgFolderTitle{font-weight: bold; font-size: 1.2em; width:100%; clear:both; float:left; color:#000066;}
+.messageActionsForm {width:100%; clear:both; float:left; padding:10px 0;}
+.inboxTable{width:100%; float:left; clear:both; padding:10px 0;}
+.inboxHeader{text-align: left;}
 
 /* HOLDERS */
 .topHolder{width:100%; margin:auto;}
 .singleEventHolder{width:80%; border:dotted; margin-top:10px; margin-bottom:10px; padding: 5px; border-radius: 5px; float:left;}
 .topMenuHolder{width:100%; float:left; margin:auto; clear:both; border-bottom: #000066 groove; text-align: center;}
 .topIndexMenuHolder{margin:auto; width:100%; clear:both; float:left;}
-.bottomMenuHolder{width:100%; float:left; clear:both; border-top: #000066 groove; text-align: center; color:#fff; background:#000066; font-weight: bold;}
+.bottomMenuHolder{width:100%; float:left; clear:both; border-top: #000066 groove; text-align: center; color:#fff; background:#000066; font-weight: bold; margin-top:5px;}
 .locationHolder{width:100%; float:left; clear:both; border-bottom: #006600 2px solid; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
 .locationHolderLogin{width:100%; float:left; clear:both; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
 .eventsHolder{border-bottom: #006600 2px solid; margin-top: 15px; margin-bottom: 15px; padding-top:10px;}
@@ -105,6 +110,9 @@ body {min-height:100%;}
 .commentNegativeVote{background-color:red;}
 .commentPositiveVotes{font-weight: bold; color:green; font-size: 1.1em;}
 .commentNegativeVotes{font-weight: bold; color:red; font-size: 1.1em;}
+.commentRateHolder{float:left; clear:both; width:100%;}
+.commentBody{float:left; clear:both; width:100%;}
+#remainingCommentChars{float:left; clear:both; width:100%; font-size: 0.8em;}
 
 .star {float:left; width:20px; height: 20px;}
 .rated{background:url('../resources/images/cms/rated-star.png');}
@@ -233,7 +241,8 @@ body {min-height:100%;}
 .fullPartLeadTextHolder{float:left; cursor:default; text-align: justify; height:180px; width:50%; color:white; background-color: black;}
 .indexFullPartLead{display:block; padding:2px 5px;}
 
-.indexPartName{cursor:default; color:white; text-decoration:none; font-weight:bold; font-size:20px; width:100%; clear:both; float:left; padding:2px; margin-top:1px;
+.indexPartName{cursor:default; color:white; text-decoration:none; font-weight:bold; font-size:20px;
+               width:100%; clear:both; float:left; padding:2px; margin-top:10px;
                border-top-left-radius: 5px;
                background: -webkit-linear-gradient(right, rgba(0,0,255,0), rgba(0,0,255,1));
                background: -o-linear-gradient(left, rgba(0,0,255,0), rgba(0,0,255,1));
@@ -297,6 +306,12 @@ body {min-height:100%;}
     -webkit-box-shadow: -2px -2px 2px 0 #000066 inset;
     box-shadow: -2px -2px 2px 0 #000066 inset;
 }
+.commandLink:visited{
+    background: white;
+    color:#000066;
+}
+
+.commandLinkUnreadMsgs{background:yellow;}
 
 .leftMenuHolder{width:100%; height:auto; float:left; padding:2px;}
 .leftMenuLink{width:95%;
@@ -388,7 +403,12 @@ body {min-height:100%;}
 .holderItemTitle{float:left; font-size:14px; font-weight: bold; text-decoration: none; clear:both; width:100%;}
 .holderItemLead{font-size: 11px; padding:2px;}
 .galleryLabel{font-weight: bold; font-size:1.1em; clear:both; float:left; width:100%; color:#000066;}
-
+.userProfileUsername{font-weight: bold; font-size:1.1em; clear:both; float:left; width:100%; color:#000066;}
+.welcomeMessageWelcome{float:left;}
+.welcomeMessageUsername{float:left; font-weight:bold; padding-right: 5px;}
+.welcomeMessageUsername:hover{color:#F00;}
+.floatRight{float:right;}
+.floatLeft{float:left;}
 /* PRIMEFACES CSS OVERWRITE */
 .ui-widget {
     font-family: inherit;

@@ -50,7 +50,7 @@
                         <h:outputText value="#{pageViewBean.item.body}" escape="false"/>
                     </div>
                     <h:form>
-                        <h:link styleClass="commandLink" value="#{msgs.leave_comment}" outcome="leaveComment" >
+                        <h:link styleClass="commandLink" value="#{msgs.leave_comment}" outcome="leaveComment" rendered="#{loginBean.isLoginOk}">
                             <f:param name="componentTypeId" value="#{pageViewBean.typeId}"/>
                             <f:param name="componentId" value="#{pageViewBean.item.id}"/>
                             <f:param name="holderId" value="#{pageViewBean.item.itemId}"/>
@@ -67,17 +67,17 @@
                                     <h:outputText value="#{row.dateCreated}" styleClass="commentDate">
                                         <f:convertDateTime pattern="dd.MM.yyyy."/>
                                     </h:outputText>
-                                    <br/>
-                                    <h:commandLink value="#{row.positiveVotes}&nbsp;&uArr;" action="#{pageViewBean.upvote}" styleClass="commentVoteButton commentPositiveVote">
-                                        <f:param name="commentId" value="#{row.id}"/>
-                                        <f:ajax render="@form"/>
-                                    </h:commandLink>
-                                    <h:commandLink value="#{row.negativeVotes}&nbsp;&dArr;" action="#{pageViewBean.downvote}" styleClass="commentVoteButton commentNegativeVote">
-                                        <f:param name="commentId" value="#{row.id}"/>
-                                        <f:ajax render="@form"/>
-                                    </h:commandLink>
-                                    <br/>
-                                    <h:outputText value="#{row.body}"/>
+                                    <div class="commentRateHolder">
+                                        <h:commandLink value="#{row.positiveVotes}&nbsp;&uArr;" action="#{pageViewBean.upvote}" styleClass="commentVoteButton commentPositiveVote" rendered="#{loginBean.isLoginOk and !pageViewBean.isAlreadyRated(row.id)}">
+                                            <f:param name="commentId" value="#{row.id}"/>
+                                            <f:ajax render="@form"/>
+                                        </h:commandLink>
+                                        <h:commandLink value="#{row.negativeVotes}&nbsp;&dArr;" action="#{pageViewBean.downvote}" styleClass="commentVoteButton commentNegativeVote" rendered="#{loginBean.isLoginOk and !pageViewBean.isAlreadyRated(row.id)}">
+                                            <f:param name="commentId" value="#{row.id}"/>
+                                            <f:ajax render="@form"/>
+                                        </h:commandLink>
+                                    </div>
+                                    <h:outputText value="#{row.body}" styleClass="commentBody"/>
                                 </h:panelGroup>
                             </ui:repeat>
                         </h:form>
