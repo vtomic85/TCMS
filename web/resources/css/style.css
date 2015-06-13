@@ -142,6 +142,7 @@ body {min-height:100%;}
 .itemAuthor{float:left; font-size:10px; clear:both; width:100%;}
 .itemDate{float:left; font-size:10px; font-weight: bold; clear:left; font-size: 0.8em;}
 .itemTitle{float:left; font-weight: bold; font-size: 1.2em; color:#000066; text-decoration: none; clear:both; width: 100%; line-height: 1.5;}
+.itemTitle:hover{color:#F00;}
 .itemCategory{float:left; font-size:10px; font-weight: bold; clear:both; color: white; background-color: red; padding:1px; text-transform: uppercase; border-bottom-right-radius: 5px; border-top-left-radius: 5px;}
 .itemLead{float:left; width:100%; clear:both; font-style: italic; text-align: justify;}
 .itemSubtitle{float:left; width:100%; clear:both; font-style: italic; text-align: justify;}

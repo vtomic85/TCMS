@@ -29,31 +29,22 @@ public class TopListViewBean extends UIComponentBase {
     private long topListId;
 
     public TopListViewBean() {
-        System.out.println("DEBUG ::: TopListViewBean:constructor");
         elements = new LinkedList<>();
     }
 
     @PostConstruct
     public void init() {
-        System.out.println("DEBUG ::: TopListViewBean:init");
         long topListId1 = Long.parseLong(Utils.getParam("topListId"));
         long topListId2 = Long.parseLong(Utils.getSessionAttribute("topListId").toString());
-        System.out.println("DEBUG ::: TopListViewBean:init:topListId1="+topListId1);
-        System.out.println("DEBUG ::: TopListViewBean:init:topListId2="+topListId2);
-        System.out.println("DEBUG ::: TopListViewBean:init:toplistId=" + topListId);
         TopList topList = TopListDAO.getById(topListId);
         elements = topList.getList();
-//        System.out.println("DEBUG ::: TopListViewBean:init:topList size=" + elements.size());
     }
 
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
-        System.out.println("DEBUG ::: TopListViewBean:encodeBegin");
         long topListId = (long) getAttributes().get("topListId");
-        System.out.println("DEBUG ::: TopListViewBean:encodeBegin:toplistId=" + topListId);
         TopList topList = TopListDAO.getById(topListId);
         elements = topList.getList();
-        System.out.println("DEBUG ::: TopListViewBean:encodeBegin:topList size=" + elements.size());
         super.encodeBegin(context);
     }
 
@@ -63,7 +54,6 @@ public class TopListViewBean extends UIComponentBase {
         }
         elements.clear();
         topListId = (long) getAttributes().get("topListId");
-        System.out.println("DEBUG ::: TopListViewBean:refreshElements:toplistId=" + topListId);
         elements = TopListDAO.getById(topListId).getList();
     }
 

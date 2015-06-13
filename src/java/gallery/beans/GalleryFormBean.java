@@ -31,7 +31,6 @@ public class GalleryFormBean {
     }
 
     public void init() {
-        System.out.println("DEBUG ::: GalleryFormBean: galleryId=" + galleryId);
         if (galleryId > 0) {
             gallery = GalleryDAO.getById(galleryId);
             refreshImageList();

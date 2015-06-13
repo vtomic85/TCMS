@@ -69,25 +69,17 @@ public class CommentListBean {
     }
 
     public String publishComment() {
-        System.out.println("DEBUG ::: CommentListBean ::: publishComment");
         Comment c = CommentDAO.getById(Long.parseLong(Utils.getParam("commentId")));
         c.setPublished(true);
         CommentDAO.update(c);
-        System.out.println("DEBUG ::: CommentListBean ::: comment updated");
         // Increment the number of comments
         int compTypeId = c.getComponentTypeId();
         long compId = c.getComponentId();
-        System.out.println("DEBUG ::: CommentListBean ::: compId=" + compId);
-        System.out.println("DEBUG ::: CommentListBean ::: compTypeId=" + compTypeId);
         switch (compTypeId) {
             case Commons.ITEMTYPE_EVENT:
-                System.out.println("DEBUG ::: CommentListBean ::: EVENT");
                 Event e = EventDAO.getById(compId);
-                System.out.println("DEBUG ::: CommentListBean ::: event old comments=" + e.getComments());
                 e.setComments(e.getComments() + 1);
-                System.out.println("DEBUG ::: CommentListBean ::: event new comments=" + e.getComments());
                 EventDAO.update(e);
-                System.out.println("DEBUG ::: CommentListBean ::: Event updated");
                 break;
             case Commons.ITEMTYPE_NEWS:
                 News n = NewsDAO.getById(compId);

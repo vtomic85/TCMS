@@ -54,7 +54,6 @@ public class ImgDemo implements Serializable {
     }
 
     public void init() {
-        System.out.println("DEBUG ::: ImgDemo:Init: objectType=" + objectType + ", objectId=" + objectId + ", backUrl=" + backUrl);
     }
 
     public void uploadFile() throws IOException {
@@ -82,7 +81,6 @@ public class ImgDemo implements Serializable {
                 inputStream.close();
             }
             String fullPath = "/resources/img/" + objectType + "/" + objectType + "_" + objectId + date + fileName;
-            System.out.println("DEBUG ::: ImgDemo: upload: image uploaded to " + fullPath);
             switch (objectType) {
                 case "event":
                 case "EVENT":
@@ -90,7 +88,6 @@ public class ImgDemo implements Serializable {
                     Event e = EventDAO.getById(objectId);
                     e.setImgPath(fullPath);
                     EventDAO.update(e);
-                    System.out.println("DEBUG ::: ImgDemo:uploadFile:event updated");
                     break;
                 case "news":
                 case "NEWS":
@@ -98,7 +95,6 @@ public class ImgDemo implements Serializable {
                     News n = NewsDAO.getById(objectId);
                     n.setImgPath(fullPath);
                     NewsDAO.update(n);
-                    System.out.println("DEBUG ::: ImgDemo:uploadFile:news updated");
                     break;
                 case "page":
                 case "PAGE":
@@ -106,7 +102,6 @@ public class ImgDemo implements Serializable {
                     Page p = PageDAO.getById(objectId);
                     p.setImgPath(fullPath);
                     PageDAO.update(p);
-                    System.out.println("DEBUG ::: ImgDemo:uploadFile:page updated");
                     break;
                 case "user":
                 case "USER":
@@ -115,8 +110,6 @@ public class ImgDemo implements Serializable {
                     u.setImgPath(fullPath);
                     UserDAO.updateNoPassEnc(u);
                     Utils.setSessionAttribute("user", u);
-                    System.out.println("DEBUG ::: ImgDemo:uploadFile:user updated");
-                    System.out.println("DEBUG ::: ImgDemo:uploadFile:imgPath=" + u.getImgPath());
                     break;
                 case "userPart":
                 case "userpart":
@@ -125,7 +118,6 @@ public class ImgDemo implements Serializable {
                     UserPart up = UserPartDAO.getById(objectId);
                     up.setImgPath(fullPath);
                     UserPartDAO.update(up);
-                    System.out.println("DEBUG ::: ImgDemo:uploadFile:userpart updated");
                     break;
                 case "gallery":
                 case "GALLERY":
@@ -135,7 +127,6 @@ public class ImgDemo implements Serializable {
                     img.setTitle("");
                     img.setGalleryId(objectId);
                     ImageDAO.add(img);
-                    System.out.println("DEBUG ::: ImgDemo:uploadFile:gallery updated");
                     break;
                 case "item":
                 case "ITEM":
@@ -143,7 +134,6 @@ public class ImgDemo implements Serializable {
                     Item item = ItemDAO.getById(objectId);
                     item.setImgPath(fullPath);
                     ItemDAO.update(item);
-                    System.out.println("DEBUG ::: ImgDemo:uploadFile:item updated");
                     break;
                 default:
                     break;
@@ -158,7 +148,6 @@ public class ImgDemo implements Serializable {
                 || "USERPART".equals(objectType)) {
             backUrl = "../userpart/userPartForm.xhtml?userPartId=" + objectId;
         }
-        System.out.println("DEBUG ::: ImgDemo:uploadFile:REDIRECTING TO backUrl=" + backUrl);
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(backUrl);
         } catch (IOException ex) {

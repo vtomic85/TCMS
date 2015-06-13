@@ -113,7 +113,6 @@ public class RegionListBean {
 
     public int getLastOrd() {
         if (regions == null) {
-            System.out.println("DEBUG ::: RegionListBean:getLastOrd:regions=null");
         }
         lastOrd = regions.size();
         return lastOrd;

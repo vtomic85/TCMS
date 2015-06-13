@@ -48,9 +48,7 @@ public class TopList {
                 for (TopListElementRelation tlre : tlreList) {
                     sb.append(tlre.getId()).append(",");
                 }
-                System.out.println("DEBUG ::: TopList query:" + sb);
                 sb.replace(sb.length() - 1, sb.length(), ")");
-                System.out.println("DEBUG ::: TopList query:" + sb);
                 list = CMSElementDAO.getAllWhere(" id in " + sb);
                 listSize = list.size();
             } else {
@@ -91,7 +89,6 @@ public class TopList {
         }
         if (sb.length() > 1) {
             sb.replace(sb.length() - 1, sb.length(), ")");
-            System.out.println("DEBUG ::: TopList query:" + sb);
             list = CMSElementDAO.getAllWhere(" id in " + sb);
             return list;
         } else {

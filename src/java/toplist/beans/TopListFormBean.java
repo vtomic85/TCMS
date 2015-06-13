@@ -49,7 +49,6 @@ public class TopListFormBean {
             topList = TopListDAO.getById(topListId);
             elementList = CMSElementDAO.getForTopList(topListId);
             typeId = topList.getTypeId();
-            System.out.println("DEBUG ::: TopListFormBean:init:topList typeId=" + typeId);
         } else {
             topList = new TopList();
             elementList = new LinkedList<>();
@@ -62,10 +61,8 @@ public class TopListFormBean {
     }
 
 //    public void changeCMSElement(AjaxBehaviorEvent event) {
-//        System.out.println("DEBUG ::: TopListFormBean:changeCMSElement id=" + ((HtmlSelectOneMenu) event.getComponent()).getSubmittedValue());
 //    }
 //    public String addNewElement() {
-//        System.out.println("DEBUG ::: TopListFormBean:addNewElement");
 //        isAddingElement = true;
 //        return null;
 //    }
@@ -80,12 +77,10 @@ public class TopListFormBean {
 //
 //    public String saveNewElement() {
 //        if (!contains(newElementId)) {
-//            System.out.println("DEBUG ::: SAVING ELEMENT ID=" + newElementId);
 //            TopListElementRelation tlre = new TopListElementRelation(0, topListId, newElementId);
 //            TopListElementRelationDAO.insert(tlre);
 //            newElement = CMSElementDAO.getById(newElementId);
 //            elementList.add(newElement);
-//            System.out.println("DEBUG ::: TopListFormBean:saveNewElement:element added");
 //        } else {
 //            System.out.println("Element " + newElementId + " already in the list!");
 //        }
@@ -138,7 +133,6 @@ public class TopListFormBean {
 //    }
 //
 //    public void setIsAddingElement(boolean isAddingElement) {
-//        System.out.println("DEBUG ::: TopListFormBean:isAddingElement=" + isAddingElement);
 //        this.isAddingElement = isAddingElement;
 //    }
     public long getTypeId() {

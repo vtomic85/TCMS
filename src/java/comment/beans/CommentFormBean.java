@@ -54,7 +54,6 @@ public class CommentFormBean {
         }
         comment.setComponentId(componentId);
         comment.setComponentTypeId(componentTypeId);
-        System.out.println("DEBUG ::: CommentFormBean:init:comment componentId=" + comment.getComponentId() + ", comment compTypeId=" + comment.getComponentTypeId());
         componentTypeName = ComponentTypeDAO.getById(componentTypeId).getName().toLowerCase();
         backUrl = "../" + componentTypeName + "/view.xhtml?itemId=" + componentId + "&amp;holderId=" + holderId;
     }

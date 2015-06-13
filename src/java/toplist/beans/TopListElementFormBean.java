@@ -41,14 +41,11 @@ public class TopListElementFormBean {
         itemsList = new LinkedList<>();
         itemsList = CMSElementDAO.getAllByType(typeId);
         backUrl = "topListForm.xhtml?topListId=" + topListId;
-        System.out.println("DEBUG ::: TopListElementFormBean init:topListId=" + topListId + ", typeId=" + typeId + ",backUrl=" + backUrl);
     }
 
     public void saveNewElement() {
-        System.out.println("DEBUG ::: SAVING ELEMENT ID=" + newElementId);
         TopListElementRelation tlre = new TopListElementRelation(0, topListId, newElementId);
         TopListElementRelationDAO.add(tlre);
-        System.out.println("DEBUG ::: TopListFormBean:saveNewElement:element added");
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect(backUrl);
         } catch (IOException ex) {

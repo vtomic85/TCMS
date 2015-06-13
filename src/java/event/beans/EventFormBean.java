@@ -39,7 +39,6 @@ public class EventFormBean {
     }
 
     public void init() {
-        System.out.println("DEBUG ::: EventFormBean: eventId=" + eventId);
         holderList = new LinkedList<>();
         categoryList = new LinkedList<>();
         galleryList = new LinkedList<>();

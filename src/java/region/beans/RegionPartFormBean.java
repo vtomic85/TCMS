@@ -41,7 +41,6 @@ public class RegionPartFormBean {
 
     public void init() {
         regionWidth = RegionDAO.getById(regionId).getWidth();
-        System.out.println("DEBUG ::: RefionPartFormBean:init:regionWidth=" + regionWidth);
         if (regionPartId > 0) {
             regionPart = RegionPartDAO.getById(regionPartId);
             partId = regionPart.getPartId();
@@ -67,33 +66,25 @@ public class RegionPartFormBean {
         if (regionPart != null) {
             partId = regionPart.getPartId();
         }
-        System.out.println("DEBUG ::: RefionPartFormBean:refreshParts:parts.size=" + parts.size());
     }
 
     public String save() {
-        System.out.println("DEBUG ::: RegionPartFormBean:save:begin");
         topListNeeded = PartDAO.getById(partId).isTopListNeeded();
         if (topListNeeded && topListId > 0) {
-            System.out.println("DEBUG ::: RegionPartFormBean:save:topListNeeded");
             Part currentPart = PartDAO.getById(partId);
             Part newPart = new Part(currentPart, topListId);
             partId = PartDAO.add(newPart);
-            System.out.println("DEBUG ::: RegionPartFormBean:save:new part id=" + partId + ", topListId=" + topListId + ", fullpath=" + newPart.getFullPath());
         }
-        System.out.println("DEBUG ::: RegionPartFormBean:save:topListNeeded done");
         regionPart.setRegionId(regionId);
         regionPart.setPartId(partId);
         regionPart.setTopListId(topListId);
         regionPart.setOrd(RegionPartDAO.getAll().size() + 1);
-        System.out.println("DEBUG ::: RegionPartFormBean:save:regionPart set, partId=" + regionPart.getPartId());
         if (regionPartId == 0) {
             int newId = RegionPartDAO.add(regionPart);
             regionPart.setId(newId);
             regionPartId=newId;
-            System.out.println("DEBUG ::: RegionPartFormBean:save:regionPart added");
         } else {
             RegionPartDAO.update(regionPart);
-            System.out.println("DEBUG ::: RegionPartFormBean:save:regionpart updated");
         }
         return null;
     }

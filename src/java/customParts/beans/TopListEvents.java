@@ -31,15 +31,12 @@ public class TopListEvents {
     private long topListId;
 
     public TopListEvents() {
-        System.out.println("DEBUG ::: TopListEvents:constructor, topListId=" + topListId);
         init();
     }
 
     @PostConstruct
     public void init() {
-        System.out.println("DEBUG ::: TopListEvents:init:begin, topListId=" + topListId);
         topListId = Long.parseLong(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("topListId"));
-        System.out.println("DEBUG ::: TopListEvents:init:topListId=" + topListId);
         if (list == null) {
             list = new LinkedList<>();
         } else {

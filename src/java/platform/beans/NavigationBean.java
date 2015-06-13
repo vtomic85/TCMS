@@ -26,24 +26,19 @@ public class NavigationBean {
     }
 
     public NavigationBean(long itemId, long holderId, String typeName) {
-        System.out.println("DEBUG ::: NavBean construct");
         this.itemId = itemId;
         this.holderId = holderId;
         this.typeName = typeName;
-        System.out.println("DEBUG ::: construct params: " + itemId + " " + holderId + " " + typeName);
     }
 
     public void init() {
     }
 
     public String redirect() {
-        System.out.println("DEBUG ::: Redirect start");
         itemId = Long.parseLong(Utils.getParam("itemId"));
         holderId = Long.parseLong(Utils.getParam("holderId"));
         typeName = Utils.getParam("typeName");
-        System.out.println("DEBUG ::: Params: " + itemId + " " + holderId + " " + typeName);
         String address = typeName + "/view.xhtml?itemId=" + itemId + "&amp;holderId=" + holderId;
-        System.out.println("DEBUG ::: redirecting to " + address);
         return address;
     }
 
