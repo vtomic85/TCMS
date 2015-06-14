@@ -8,19 +8,23 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition>
-            <h:form style="border:1px solid black; float:left; width:100%;">
-                <ul class="indexTwoThirdsPartList">
-                    <ui:repeat value="#{latestEvents.list}" var="row" rendered="#{!latestEvents.listEmpty}" size="5">
-                        <li>
-                            <h:outputLink value="event/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=9" title="#{row.title}" styleClass="indexPartTitleHolder">
-                                <h:outputText value="#{row.title}" styleClass="indexPartTitleText"/>
-                                <h:outputText value="#{row.dateCreated}" styleClass="indexPartDateText">
-                                    <f:convertDateTime type="date" pattern="dd.MM.yyyy"/>
-                                </h:outputText>
-                            </h:outputLink> 
+            <h:form style=" float:left; width:100%;">
+                <ul class="indexTwoThirdsPartTitleList">
+                    <ui:repeat value="#{latestEvents.list}" var="row" varStatus="status" rendered="#{!latestEvents.listEmpty}" size="5">
+                        <li class="indexTwoThirdsPartTitleListItem indexTwoThirdsPartTitleListItem#{status.index}">
+                            <h:outputLink value="event/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=9" title="#{row.title}" styleClass="indexTwoThirdsPartTitleHolder">
+                                <h:outputText value="#{row.title}"/>
+                            </h:outputLink>
                         </li>
                     </ui:repeat>
                 </ul>
+                <ul class="indexTwoThirdsPartItemList">
+                    <ui:repeat value="#{latestEvents.list}" var="row" varStatus="status" rendered="#{!latestEvents.listEmpty}" size="5">
+                        <li class="indexTwoThirdsPartItemListItem indexTwoThirdsPartItemListItem#{status.index}">                            
+                            <h:graphicImage value="#{row.imgPath}" styleClass="indexTwoThirdsPartImage"/>
+                        </li>
+                    </ui:repeat>
+                </ul>                
             </h:form>
         </ui:composition>
     </h:body>

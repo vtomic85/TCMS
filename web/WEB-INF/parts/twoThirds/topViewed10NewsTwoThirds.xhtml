@@ -8,13 +8,13 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>        
         <ui:composition>
-            <h:form style="border:1px solid black; float:left; width:100%;">
+            <h:form style=" float:left; width:100%;">
                 <ul class="indexPartList">
                     <ui:repeat value="#{topViewedNews.list}" var="row" rendered="#{!topViewedNews.listEmpty}" size="10">
                         <li>
                             <h:outputLink value="news/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=8" title="#{row.title}" styleClass="indexPartTitleHolder">
                                 <h:outputText value="#{row.title}" styleClass="indexPartTitleText"/>
-                                <h:outputText value="#{row.views}" styleClass="indexPartDateText"/>
+                                <h:outputText value="#{msgs.num_of_views}: #{row.views}" styleClass="indexPartDateText"/>
                             </h:outputLink> 
                         </li>
                     </ui:repeat>
