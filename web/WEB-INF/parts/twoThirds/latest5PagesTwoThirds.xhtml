@@ -10,18 +10,18 @@
         <ui:composition>
             <h:form style=" float:left; width:100%;">
                 <ul class="indexTwoThirdsPartTitleList">
-                    <ui:repeat value="#{latestPages.list}" var="row" varStatus="status" rendered="#{!latestPages.listEmpty}" size="5">
-                        <li class="indexTwoThirdsPartTitleListItem indexTwoThirdsPartTitleListItem#{status.index}">
-                            <h:outputLink value="page/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=7" title="#{row.title}" styleClass="indexTwoThirdsPartTitleHolder">
-                                <h:outputText value="#{row.title}"/>
+                    <ui:repeat value="#{latestPages.list}" var="lp5row" varStatus="lp5status" rendered="#{!latestPages.listEmpty}" size="5">
+                        <li class="indexTwoThirdsPartTitleListItem indexTwoThirdsPartTitleListItem#{lp5status.index}">
+                            <h:outputLink value="page/view.xhtml?itemId=#{lp5row.id}&amp;holderId=#{lp5row.itemId}&amp;itemTypeId=7" title="#{lp5row.title}" styleClass="indexTwoThirdsPartTitleHolder">
+                                <h:outputText value="#{lp5row.title}"/>
                             </h:outputLink>
                         </li>
                     </ui:repeat>
                 </ul>
                 <ul class="indexTwoThirdsPartItemList">
-                    <ui:repeat value="#{latestPages.list}" var="row" varStatus="status" rendered="#{!latestPages.listEmpty}" size="5">
-                        <li class="indexTwoThirdsPartItemListItem indexTwoThirdsPartItemListItem#{status.index}">                            
-                            <h:graphicImage value="#{row.imgPath}" styleClass="indexTwoThirdsPartImage"/>
+                    <ui:repeat value="#{latestPages.list}" var="lp5prow" varStatus="lp5pstatus" rendered="#{!latestPages.listEmpty}" size="5">
+                        <li class="indexTwoThirdsPartItemListItem indexTwoThirdsPartItemListItem#{lp5pstatus.index}">                            
+                            <h:graphicImage value="#{lp5prow.imgPath}" styleClass="indexTwoThirdsPartImage"/>
                         </li>
                     </ui:repeat>
                 </ul>                
