@@ -8,14 +8,15 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>        
         <ui:composition>
-            <h:form style="border:1px solid black; float:left; width:100%;">
+            <h:form style="float:left; width:100%;">
                 <ul class="indexHalfPartList">
                     <ui:repeat value="#{latestUserParts.list}" var="row" rendered="#{!latestUserParts.listEmpty}" size="3">
                         <li>                            
                             <h:outputLink value="userpart/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=20" title="#{row.title}" styleClass="indexHalfPartTitleHolder">
                                 <div class="indexHalfPartContentHolder">
                                     <p class="indexHalfPartParagraph">
-                                        <h:graphicImage url="#{row.imgPath}" styleClass="indexHalfPartImage"/>
+                                        <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="indexHalfPartImage"/>
+                                    <h:graphicImage value="resources/img/cms/tcms_noimg_154090.png" rendered="#{row.imgPath==null}" styleClass="indexHalfPartImage"/>
                                         <h:outputText value="#{row.title}" styleClass="indexHalfPartTitleText"/><br/>
                                         <h:outputText value="#{row.dateCreated}" styleClass="indexHalfPartDateText">
                                             <f:convertDateTime type="date" pattern="dd.MM.yyyy"/>

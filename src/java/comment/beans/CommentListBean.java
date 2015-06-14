@@ -18,6 +18,8 @@ import news.model.News;
 import page.dao.PageDAO;
 import page.model.Page;
 import platform.model.Commons;
+import userpart.dao.UserPartDAO;
+import userpart.model.UserPart;
 import utils.Utils;
 
 /**
@@ -90,6 +92,11 @@ public class CommentListBean {
                 Page p = PageDAO.getById(compId);
                 p.setComments(p.getComments() + 1);
                 PageDAO.update(p);
+                break;
+            case Commons.ITEMTYPE_USER_PART:
+                UserPart up = UserPartDAO.getById(compId);
+                up.setComments(up.getComments() + 1);
+                UserPartDAO.update(up);
                 break;
             default:
                 break;

@@ -196,7 +196,7 @@ li {padding:0; margin:0; list-style-type: none;}
 .indexHalfPartListItem:first-child .indexHalfPartTitleText .indexHalfPartContentHolder{display:block;}
 .indexHalfPartListItem .indexHalfPartTitleText{color:#000066;}
 .indexHalfPartListItem:first-child .indexHalfPartTitleText{color:red;}
-.indexHalfPartContentHolder{float:left; clear:both; height:100px; width:100%; padding:2px; text-decoration: none; color:black; padding-bottom: 2px;}
+.indexHalfPartContentHolder{float:left; clear:both; height:100px; width:100%; text-decoration: none; color:black; padding-bottom: 2px;}
 .indexHalfPartImage {height:100px; width:170px; float:left; clear:left; display: inline; padding:1px; padding-right:3px;}
 .indexHalfPartLead {padding:1px; font-weight: normal; font-size:0.9em;}
 .indexHalfPartMoreLink{text-decoration: none; font-size: 0.9em;}
@@ -205,6 +205,9 @@ li {padding:0; margin:0; list-style-type: none;}
 .indexHalfPartTitleText:hover{color:red;}
 .indexHalfPartDateText{font-size: 0.8em; color:black;}
 .indexHalfPartCategoryText{float:right; font-size: 0.8em; background-color: red; color:white; padding-right:5px;}
+.indexPartTitleText{font-size:1.1em; color:#000066; text-decoration: none; font-weight: bold; width:100%; clear:both; float:left;}
+.indexPartTitleText:hover{color:#f00;}
+.indexPartDateText{font-size:0.8em;float:left;width:100%;clear:both;}
 
 /* INDEX 2/3 PARTS */
 .indexTwoThirdsPartTitleHolder{padding:2px; float:left; height:35px; width:100%; display:block;}
@@ -479,7 +482,7 @@ li {padding:0; margin:0; list-style-type: none;}
     .commandLink{font-size:0.7em;}
     .indexGeneralPart{width:100% !important; display:block; float:left; clear:both; min-height:0px !important;}
     .bottomMenuHolder{font-weight:normal;}
-    
+
     /* INBOX */
     .inboxMarkAsRead,.inboxMarkAsUnread,.inboxReply,.inboxDelete,.inboxDiscard,.inboxPermanentlyDelete,.inboxEdit{display:none;}
     .inboxMarkAsReadSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/markasread.png') center center no-repeat;}
@@ -489,7 +492,7 @@ li {padding:0; margin:0; list-style-type: none;}
     .inboxDiscardSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/discard.png') center center no-repeat;}
     .inboxPermanentlyDeleteSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/permdelete.png') center center no-repeat;}
     .inboxEditSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/edit.png') center center no-repeat;}
-    
+
     .itemPicture{height:100px; width:100%; display:block; float:left;}
     .itemBody{float:left; display:block; width:100%;}
     .commentTextArea{width:100%;}
@@ -525,7 +528,7 @@ li {padding:0; margin:0; list-style-type: none;}
     .holderItem{width:100%;}
     .itemTitle{font-size:1em;}
     #footerHolder{display:none;}
-    
+
     /* INBOX */
     .inboxMarkAsRead,.inboxMarkAsUnread,.inboxReply,.inboxDelete,.inboxDiscard,.inboxPermanentlyDelete,.inboxEdit{display:none;}
     .inboxMarkAsReadSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/markasread.png') center center no-repeat;}
@@ -535,6 +538,6 @@ li {padding:0; margin:0; list-style-type: none;}
     .inboxDiscardSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/discard.png') center center no-repeat;}
     .inboxPermanentlyDeleteSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/permdelete.png') center center no-repeat;}
     .inboxEditSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/edit.png') center center no-repeat;}
-    
+
     .commentTextArea{width:100%;}
 }

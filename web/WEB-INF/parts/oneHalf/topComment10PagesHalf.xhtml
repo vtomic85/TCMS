@@ -8,14 +8,14 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>        
         <ui:composition>
-            <h:form style="border:1px solid black; float:left; width:100%;">
+            <h:form style="float:left; width:100%;">
                 <ul class="indexPartList">
                     <ui:repeat value="#{topCommentedPages.list}" var="row" rendered="#{!topCommentedPages.listEmpty}" size="10">
                         <li>
                             <h:outputLink value="page/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=7" title="#{row.title}" styleClass="indexPartTitleHolder">
                                 <h:outputText value="#{row.title}" styleClass="indexPartTitleText"/>
-                                <h:outputText value="#{row.comments}" styleClass="indexPartDateText"/>
                             </h:outputLink> 
+                            <h:outputText value="#{msgs.num_of_comments}: #{row.comments}" styleClass="indexPartDateText"/>
                         </li>
                     </ui:repeat>
                 </ul>

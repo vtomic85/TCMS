@@ -41,9 +41,9 @@
                     <div class="itemSubtitle">
                         <h:outputLabel value="#{userPartViewBean.item.subtitle}" rendered="#{userPartViewBean.item.myConfig.hasSubtitle}"/>
                     </div>  
-                    <div class="itemPicture">
-                        <h:graphicImage value="#{userPartViewBean.item.imgPath}" rendered="#{userPartViewBean.item.imgPath!=null}" height="100%"/>
-                    </div>
+                    <h:panelGroup styleClass="itemPicture" rendered="#{userPartViewBean.item.myConfig.hasImage and userPartViewBean.item.imgPath!=null}">
+                        <h:graphicImage value="#{userPartViewBean.item.imgPath}" rendered="#{userPartViewBean.item.myConfig.hasImage and userPartViewBean.item.imgPath!=null}" height="100%"/>
+                    </h:panelGroup>
                     <div class="itemBody">
                         <h:outputText value="#{userPartViewBean.item.body}" rendered="#{userPartViewBean.item.myConfig.hasBody}" escape="false"/>
                     </div>   

@@ -21,7 +21,8 @@
                 <ul class="indexFullPartItemList">
                     <ui:repeat value="#{latestUserParts.list}" var="row" varStatus="status" rendered="#{!latestUserParts.listEmpty}" size="3">
                         <li class="indexFullPartItemListItem indexFullPartItemListItem#{status.index}">                            
-                            <h:graphicImage value="#{row.imgPath}" styleClass="indexFullPartImage"/>
+                            <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="indexFullPartImage"/>
+                            <h:graphicImage value="resources/img/cms/tcms_noimg_154090.png" rendered="#{row.imgPath==null}" styleClass="indexFullPartImage"/>
                             <div class="fullPartLeadTextHolder">
                                 <h:outputText value="#{row.lead.length() gt 160 ? row.lead.substring(0,160).concat('...') : row.lead}" styleClass="indexFullPartLead"/>
                             </div>

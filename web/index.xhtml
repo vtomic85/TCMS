@@ -20,15 +20,15 @@
             <ui:define name="mainStripe">
                 <f:view>
                     <tcms:topMainIndexMenu/>                    
-                    <c:forEach items="#{indexRegions.regions}" var="region" rendered="#{!indexRegions.listEmpty}">
-                        <h:form style="min-height: 200px; float:#{region.positionName}; width:#{region.width}%;" styleClass="indexGeneralPart">
-                            <c:forEach items="#{region.myParts}" var="part" rendered="#{!region.myPartListEmpty}">
-                                <h:outputText value="#{region.getTitleForPart(part.id)}" styleClass="indexPartName"/>
+                    <c:forEach items="#{indexRegions.regions}" var="region" rendered="#{!indexRegions.listEmpty}" varStatus="status">
+                        <h:panelGroup id="indexRegionPanel#{status.index}" style="min-height: 200px; float:#{region.positionName}; width:#{region.width}%;" styleClass="indexGeneralPart">
+                            <c:forEach items="#{region.myParts}" var="part" rendered="#{!region.myPartListEmpty}" varStatus="statusPart">
+                                <h:outputText id="indexRegionPart#{status.index}#{statusPart.index}" value="#{region.getTitleForPart(part.id)}" styleClass="indexPartName"/>
                                 <ui:include src="#{part.fullPath}">
                                     <ui:param name="topListId" value="#{part.topListId}"/>
                                 </ui:include>
                             </c:forEach>
-                        </h:form>
+                        </h:panelGroup>
                     </c:forEach>
                 </f:view>
             </ui:define>
