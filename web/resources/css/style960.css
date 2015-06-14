@@ -2,9 +2,9 @@
 * {text-decoration: none;}
 html,
 body {
-    margin:0;
-    padding:0;
-    height:100%;
+   margin:0;
+   padding:0;
+   height:100%;
 }
 a{color:inherit;}
 a:visited{color:inherit;}
@@ -18,8 +18,8 @@ li {padding:0; margin:0; list-style-type: none;}
 .header{width:100%; height:auto; margin-bottom:20px;}
 .headerImage{width:100%; height:auto;}
 .footer{width:100%; height:30px;
-        position:absolute;
-        bottom:0;}
+	position:absolute;
+	bottom:0;}
 .fullWidth{width:100%;}
 .boldText{font-weight: bold;}
 .redText{font-weight: bold; color:red;}
@@ -72,8 +72,6 @@ li {padding:0; margin:0; list-style-type: none;}
 .messageActionsForm {width:100%; clear:both; float:left; padding:10px 0;}
 .inboxTable{width:100%; float:left; clear:both; padding:10px 0;}
 .inboxHeader{text-align: left;}
-.msgInboxOutputLabel{font-weight: bold;}
-.msgBody{float:left; display:block; min-height:100px; width:600px; border:1px inset #000066;}
 
 /* HOLDERS */
 .topHolder{width:100%; margin:auto;}
@@ -184,7 +182,7 @@ li {padding:0; margin:0; list-style-type: none;}
 .indexThirdPartLead {padding:1px; font-weight: normal;}
 .indexThirdPartMoreLink{text-decoration: none; font-size: 0.9em;}
 .indexThirdPartParagraph{text-align: justify;}
-.indexThirdPartTitleText{width:100%; text-decoration: none; float:left; font-size: 0.9em; font-weight: bold; color:#000066; clear:both;}
+.indexThirdPartTitleText{width:100%; text-decoration: none; float:left; font-size:1.2em; font-weight: bold; color:#000066; clear:both;}
 .indexThirdPartTitleText:hover{color:red;}
 .indexThirdPartDateText{display:block; float:left; font-size: 0.8em; color:black; clear:both;}
 .indexThirdPartCategoryText{float:right; font-size: 0.8em; background-color: red; color:white; padding-right:5px;}
@@ -198,10 +196,10 @@ li {padding:0; margin:0; list-style-type: none;}
 .indexHalfPartListItem:first-child .indexHalfPartTitleText{color:red;}
 .indexHalfPartContentHolder{float:left; clear:both; height:100px; width:100%; padding:2px; text-decoration: none; color:black; padding-bottom: 2px;}
 .indexHalfPartImage {height:100px; width:170px; float:left; clear:left; display: inline; padding:1px; padding-right:3px;}
-.indexHalfPartLead {padding:1px; font-weight: normal; font-size:0.9em;}
+.indexHalfPartLead {padding:1px; font-weight: normal;}
 .indexHalfPartMoreLink{text-decoration: none; font-size: 0.9em;}
 .indexHalfPartParagraph{text-align: justify;}
-.indexHalfPartTitleText{width:100%; text-decoration: none; font-size: 1em; font-weight: bold; color:#000066;}
+.indexHalfPartTitleText{width:100%; text-decoration: none; font-size:1.2em; font-weight: bold; color:#000066;}
 .indexHalfPartTitleText:hover{color:red;}
 .indexHalfPartDateText{font-size: 0.8em; color:black;}
 .indexHalfPartCategoryText{float:right; font-size: 0.8em; background-color: red; color:white; padding-right:5px;}
@@ -226,7 +224,7 @@ li {padding:0; margin:0; list-style-type: none;}
 .indexTwoThirdsPartLead {padding:1px; font-weight: normal;}
 .indexTwoThirdsPartMoreLink{text-decoration: none;}
 .indexTwoThirdsPartParagraph{text-align: justify;}
-.indexTwoThirdsPartTitleText{width:100%; text-decoration: none; float:left; font-size: 0.9em; font-weight: bold; color:#000066; clear:both;}
+.indexTwoThirdsPartTitleText{width:100%; text-decoration: none; float:left; font-size:1.2em; font-weight: bold; color:#000066; clear:both;}
 .indexTwoThirdsPartDateText{display:block; float:left; font-size: 0.8em; color:black; clear:both;}
 .indexTwoThirdsPartCategoryText{float:right; font-size: 0.8em; background-color: red; color:white; padding-right:5px;}
 
@@ -238,12 +236,12 @@ li {padding:0; margin:0; list-style-type: none;}
 .indexFullPartItemListItem{width:100%; float:left; height:180px; display:none;}
 .indexFullPartItemListItem:first-child{display:block;}
 .indexFullPartTitleHolder{color:white; text-decoration: none; padding:2px; float:left; height:60px; width:100%; display:block;}
-.indexFullPartTitleText{color:white; text-decoration: none; font-size: 0.9em;}
+.indexFullPartTitleText{color:white; text-decoration: none;}
 .indexFullPartImageLeadList{width:66%; height:180px; background-color:black; float:left;}
 .indexFullPartImageLeadListItem{width:100%; height:180px; display:none;}
 .indexFullPartImageLeadListItem:first-child{display:block;}
 .indexFullPartImage{float:left; height:180px; width:50%;}
-.fullPartLeadTextHolder{float:left; cursor:default; text-align: justify; height:180px; width:50%;}
+.fullPartLeadTextHolder{float:left; cursor:default; text-align: justify; height:180px; width:50%; color:white; background-color: black;}
 .indexFullPartLead{display:block; padding:2px 5px;}
 
 .indexPartName{cursor:default; color:white; text-decoration:none; font-weight:bold; font-size:1.3em;
@@ -414,11 +412,6 @@ li {padding:0; margin:0; list-style-type: none;}
 .welcomeMessageUsername:hover{color:#F00;}
 .floatRight{float:right;}
 .floatLeft{float:left;}
-.inboxMarkAsReadSmall,.inboxMarkAsUnreadSmall,.inboxReplySmall,.inboxDeleteSmall,.inboxDiscardSmall,.inboxPermanentlyDeleteSmall,.inboxEditSmall{display:none;}
-.itemCategory{display:block; float:left;}
-.itemTitle,.itemDateCreated,.itemAuthor,.itemLead,.itemSubtitle,.itemGallery,.commentsHolder{width:100%; float:left; display:block;}
-.itemPicture{height:300px; float:left; display:block;}
-.itemBody{float:left; display:block;}
 /* PRIMEFACES CSS OVERWRITE */
 .ui-widget {
     font-family: inherit;
@@ -459,82 +452,4 @@ li {padding:0; margin:0; list-style-type: none;}
 }
 .ui-widget-content{
     color:#000066;
-}
-@media screen and (max-width: 1030px){
-    /* INDEX */
-    .topIndexMenuHolder .topMenuLinkSeparator,.indexFullPartLead{display:none;}
-    .indexFullPartTitleList,.indexFullPartItemList{width:50%;}
-    .indexFullPartImage{width:100%;}
-    .indexPartName{font-size: 1.1em;}
-    .indexTwoThirdsPartTitleHolder{font-size: 0.9em;}
-    .indexFullPartTitleHolder{font-size: 0.9em;}
-    .indexFullPartTitleHolder,.indexTwoThirdsPartTitleHolder,.indexTwoThirdsPartTitleListItem,indexFullPartTitleListItem,
-    .indexTwoThirdsPartItemList,.indexFullPartItemList,.indexTwoThirdsPartTitleList{height:auto;}
-    .topIndexMenuHolder .topMenuLink{border-radius: 3px; background: #F00; color:#FFF; width:30%; padding-left:2px;}
-    .formOutputLabel{font-size:0.8em; height:11px;}
-    .formInputText{font-size:0.8em;}
-    .loginDiv,.indexHalfPartContentHolder,.indexHalfPartLead{height:auto;}
-    .indexHalfPartLead{display:table-cell;}
-    #loginButton{font-size:0.7em;}
-    .commandLink{font-size:0.7em;}
-    .indexGeneralPart{width:100% !important; display:block; float:left; clear:both; min-height:0px !important;}
-    .bottomMenuHolder{font-weight:normal;}
-    
-    /* INBOX */
-    .inboxMarkAsRead,.inboxMarkAsUnread,.inboxReply,.inboxDelete,.inboxDiscard,.inboxPermanentlyDelete,.inboxEdit{display:none;}
-    .inboxMarkAsReadSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/markasread.png') center center no-repeat;}
-    .inboxMarkAsUnreadSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/markasunread.png') center center no-repeat;}
-    .inboxReplySmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/reply.png') center center no-repeat;}
-    .inboxDeleteSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/delete.png') center center no-repeat;}
-    .inboxDiscardSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/discard.png') center center no-repeat;}
-    .inboxPermanentlyDeleteSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/permdelete.png') center center no-repeat;}
-    .inboxEditSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/edit.png') center center no-repeat;}
-    
-    .itemPicture{height:100px; width:100%; display:block; float:left;}
-    .itemBody{float:left; display:block; width:100%;}
-    .commentTextArea{width:100%;}
-}
-
-@media screen and (max-width: 640px){
-    /* INDEX */
-    .leftStripe,.rightStripe{display:none;}
-    .mainStripe{width:95%;}
-    .formOutputLabel{font-size:0.8em; height:11px;}
-    .formInputText{font-size:0.8em;}
-    .topInputLabel,.topLoginLabel{clear:both; float:left; height:auto;}
-    .loginDiv{height:auto; width:90%;}
-    #loginButton{font-size:0.7em;}
-    .commandLink{font-size:0.7em;}
-    .adminHolder .homeCommandLink100{clear:both; float:left; height:auto; text-align: center; width:80%;}
-    .adminHolder .homeCommandLink50{clear:both; float:left; height:auto;}
-    .topIndexMenuHolder .topMenuLink {width:45%; border-radius: 2px; border:1px #000066 solid; font-size:0.8em; text-align: center;}
-    .indexPartName{font-size: 0.9em;}
-    .indexFullPartLead,.indexHalfPartLead,.indexThirdPartLead,.indexTwoThirdsPartLead,.indexHalfPartDateText,.indexThirdPartDateText,.indexTwoThirdsPartDateText,
-    .indexHalfPartImage,.indexFullPartImage,.indexThirdPartImage,.indexTwoThirdsPartImage,.indexTwoThirdsPartItemList,.loginImg,.headerImage,
-    .indexFullPartItemList,.fullPartLeadTextHolder,.holderItemImg,.topIndexMenuHolder .topMenuLinkSeparator,.adminHolder .languageSelector,
-    .indexHalfPartList .indexHalfPartTitleHolder .indexHalfPartContentHolder .indexHalfPartParagraph br{display:none;}
-    .indexHalfPartContentHolder,.indexThirdPartContentHolder,.indexTwoThirdsPartContentHolder,.indexTwoThirdsPartTitleHolder{height:auto; padding:0;}
-    .indexFullPartTitleList{width:100%; height:auto;}
-    .indexFullPartTitleListItem{width:100%; height:auto;}
-    .indexTwoThirdsPartTitleList{width:100%; height:auto;}
-    .indexTwoThirdsPartTitleListItem{width:100%; height:auto;}    
-    .indexFullPartTitleHolder{width:100%; height:auto;}
-    .indexTwoThirdsPartTitleListItem,.indexTwoThirdsPartTitleHolder,.indexFullPartTitleListItem,.indexFullPartTitleText{font-size:1em;}
-    .indexHalfPartParagraph{text-align:left;}
-    .indexGeneralPart{width:100% !important; display:block; float:left; clear:both; min-height:0px !important;}
-    .holderItem{width:100%;}
-    .itemTitle{font-size:1em;}
-    #footerHolder{display:none;}
-    
-    /* INBOX */
-    .inboxMarkAsRead,.inboxMarkAsUnread,.inboxReply,.inboxDelete,.inboxDiscard,.inboxPermanentlyDelete,.inboxEdit{display:none;}
-    .inboxMarkAsReadSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/markasread.png') center center no-repeat;}
-    .inboxMarkAsUnreadSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/markasunread.png') center center no-repeat;}
-    .inboxReplySmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/reply.png') center center no-repeat;}
-    .inboxDeleteSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/delete.png') center center no-repeat;}
-    .inboxDiscardSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/discard.png') center center no-repeat;}
-    .inboxPermanentlyDeleteSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/permdelete.png') center center no-repeat;}
-    .inboxEditSmall{float:left; display:block; width:24px; height:24px; background: url('../resources/img/cms/edit.png') center center no-repeat;}
-    
-    .commentTextArea{width:100%;}
 }

@@ -29,9 +29,9 @@
                             <h:outputLabel value="#{msgs.title}" rendered="#{userPartFormBean.up.myConfig.hasTitle and userPartFormBean.up.id>0}"/>
                             <h:inputText value="#{userPartFormBean.up.title}" rendered="#{userPartFormBean.up.myConfig.hasTitle and userPartFormBean.up.id>0}"/>
                             <h:outputLabel value="#{msgs.subtitle}" rendered="#{userPartFormBean.up.myConfig.hasSubtitle and userPartFormBean.up.id>0}"/>
-                            <h:inputText value="#{userPartFormBean.up.subtitle}" rendered="#{userPartFormBean.up.myConfig.hasSubtitle and userPartFormBean.up.id>0}"/>
+                            <h:inputTextarea value="#{userPartFormBean.up.subtitle}" rendered="#{userPartFormBean.up.myConfig.hasSubtitle and userPartFormBean.up.id>0}" cols="100" rows="3"/>
                             <h:outputLabel value="#{msgs.lead}" rendered="#{userPartFormBean.up.myConfig.hasLead and userPartFormBean.up.id>0}"/>
-                            <h:inputText value="#{userPartFormBean.up.lead}" rendered="#{userPartFormBean.up.myConfig.hasLead and userPartFormBean.up.id>0}"/>
+                            <h:inputTextarea value="#{userPartFormBean.up.lead}" rendered="#{userPartFormBean.up.myConfig.hasLead and userPartFormBean.up.id>0}" cols="100" rows="3"/>
                             <h:outputLabel value="#{msgs.body}" rendered="#{userPartFormBean.up.myConfig.hasBody and userPartFormBean.up.id>0}"/>
                             <p:editor value="#{userPartFormBean.up.body}" rendered="#{userPartFormBean.up.myConfig.hasBody and userPartFormBean.up.id>0}"/>
                             <h:outputLabel value="#{msgs.author}" rendered="#{userPartFormBean.up.myConfig.hasAuthor and userPartFormBean.up.id>0}"/>

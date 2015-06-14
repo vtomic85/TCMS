@@ -63,39 +63,78 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{msgs.action}"/>
                                 </f:facet>
-                                <h:commandLink value="#{msgs.mark_as_read}" action="#{messageListBean.markAsReadOrUnread}" styleClass="commandLink"
+                                <h:commandLink value="#{msgs.mark_as_read}" action="#{messageListBean.markAsReadOrUnread}" styleClass="commandLink inboxMarkAsRead"
                                                rendered="#{messageListBean.folderId==1}">
                                     <f:param name="messageId" value="#{row.id}"/>
                                     <f:param name="ownerId" value="#{row.ownerId}"/>
                                     <f:param name="isRead" value="TRUE"/>
                                     <f:ajax render="@form"/>
                                 </h:commandLink>
-                                <h:commandLink value="#{msgs.mark_as_unread}" action="#{messageListBean.markAsReadOrUnread}" styleClass="commandLink"
+                                <h:commandLink value="#{msgs.mark_as_unread}" action="#{messageListBean.markAsReadOrUnread}" styleClass="commandLink inboxMarkAsUnread"
                                                rendered="#{messageListBean.folderId==1}">
                                     <f:param name="messageId" value="#{row.id}"/>
                                     <f:param name="ownerId" value="#{row.ownerId}"/>
                                     <f:param name="isRead" value="FALSE"/>
                                     <f:ajax render="@form"/>
                                 </h:commandLink>
-                                <h:link value="#{msgs.reply}" outcome="editMessage" styleClass="commandLink"
+                                <h:link value="#{msgs.reply}" outcome="editMessage" styleClass="commandLink inboxReply"
                                         rendered="#{messageListBean.folderId==1}">
                                     <f:param name="messageId" value="#{row.id}"/>
                                 </h:link>
-                                <h:link value="#{msgs.edit}" outcome="editMessage" styleClass="commandLink"
+                                <h:link value="#{msgs.edit}" outcome="editMessage" styleClass="commandLink inboxEdit"
                                         rendered="#{messageListBean.folderId==2}">
                                     <f:param name="messageId" value="#{row.id}"/>
                                 </h:link>
-                                <h:commandLink value="#{msgs.discard}" action="#{messageListBean.discard}" styleClass="commandLink"
+                                <h:commandLink value="#{msgs.discard}" action="#{messageListBean.discard}" styleClass="commandLink inboxDiscard"
                                                rendered="#{messageListBean.folderId==2}">
                                     <f:param name="messageId" value="#{row.id}"/>
                                     <f:ajax render="@form"/>
                                 </h:commandLink>
-                                <h:commandLink value="#{msgs.delete}" action="#{messageListBean.deleteMessage}" styleClass="commandLink"
+                                <h:commandLink value="#{msgs.delete}" action="#{messageListBean.deleteMessage}" styleClass="commandLink inboxDelete"
                                                rendered="#{messageListBean.folderId!=4}">
                                     <f:param name="messageId" value="#{row.id}"/>
                                     <f:ajax render="@form"/>
                                 </h:commandLink>
-                                <h:commandLink value="#{msgs.permanently_delete}" action="#{messageListBean.permanentlyDeleteMessage}" styleClass="commandLink"
+                                <h:commandLink value="#{msgs.permanently_delete}" action="#{messageListBean.permanentlyDeleteMessage}" styleClass="commandLink inboxPermanentlyDelete"
+                                               rendered="#{messageListBean.folderId==4}">
+                                    <f:param name="messageId" value="#{row.id}"/>
+                                    <f:ajax render="@form"/>
+                                </h:commandLink>
+                                
+                                <!-- Alternative command buttons for smaller screen size -->
+                                <h:commandLink action="#{messageListBean.markAsReadOrUnread}" styleClass="inboxMarkAsReadSmall"
+                                               rendered="#{messageListBean.folderId==1}">
+                                    <f:param name="messageId" value="#{row.id}"/>
+                                    <f:param name="ownerId" value="#{row.ownerId}"/>
+                                    <f:param name="isRead" value="TRUE"/>
+                                    <f:ajax render="@form"/>
+                                </h:commandLink>
+                                <h:commandLink action="#{messageListBean.markAsReadOrUnread}" styleClass="inboxMarkAsUnreadSmall"
+                                               rendered="#{messageListBean.folderId==1}">
+                                    <f:param name="messageId" value="#{row.id}"/>
+                                    <f:param name="ownerId" value="#{row.ownerId}"/>
+                                    <f:param name="isRead" value="FALSE"/>
+                                    <f:ajax render="@form"/>
+                                </h:commandLink>
+                                <h:link outcome="editMessage" styleClass="inboxReplySmall"
+                                        rendered="#{messageListBean.folderId==1}">
+                                    <f:param name="messageId" value="#{row.id}"/>
+                                </h:link>
+                                <h:link outcome="editMessage" styleClass="inboxEditSmall"
+                                        rendered="#{messageListBean.folderId==2}">
+                                    <f:param name="messageId" value="#{row.id}"/>
+                                </h:link>
+                                <h:commandLink action="#{messageListBean.discard}" styleClass="inboxDiscardSmall"
+                                               rendered="#{messageListBean.folderId==2}">
+                                    <f:param name="messageId" value="#{row.id}"/>
+                                    <f:ajax render="@form"/>
+                                </h:commandLink>
+                                <h:commandLink action="#{messageListBean.deleteMessage}" styleClass="inboxDeleteSmall"
+                                               rendered="#{messageListBean.folderId!=4}">
+                                    <f:param name="messageId" value="#{row.id}"/>
+                                    <f:ajax render="@form"/>
+                                </h:commandLink>
+                                <h:commandLink action="#{messageListBean.permanentlyDeleteMessage}" styleClass="inboxPermanentlyDeleteSmall"
                                                rendered="#{messageListBean.folderId==4}">
                                     <f:param name="messageId" value="#{row.id}"/>
                                     <f:ajax render="@form"/>

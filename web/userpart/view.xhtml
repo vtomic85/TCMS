@@ -42,7 +42,7 @@
                         <h:outputLabel value="#{userPartViewBean.item.subtitle}" rendered="#{userPartViewBean.item.myConfig.hasSubtitle}"/>
                     </div>  
                     <div class="itemPicture">
-                        <h:graphicImage value="#{userPartViewBean.item.imgPath}" rendered="#{userPartViewBean.item.imgPath!=null}" height="300"/>
+                        <h:graphicImage value="#{userPartViewBean.item.imgPath}" rendered="#{userPartViewBean.item.imgPath!=null}" height="100%"/>
                     </div>
                     <div class="itemBody">
                         <h:outputText value="#{userPartViewBean.item.body}" rendered="#{userPartViewBean.item.myConfig.hasBody}" escape="false"/>
@@ -59,8 +59,8 @@
                     </div>                    
                     <hr/>
                     <div class="itemGallery">
-                        <h:outputLabel value="#{msgs.gallery}" styleClass="galleryLabel" rendered="#{userPartViewBean.item.myConfig.hasGallery}"/>
-                        <p:lightBox styleClass="imagebox" id="galleryLightBox" rendered="#{userPartViewBean.item.myConfig.hasGallery}">
+                        <h:outputLabel value="#{msgs.gallery}" styleClass="galleryLabel" rendered="#{userPartViewBean.item.myConfig.hasGallery and userPartViewBean.item.galleryId>0}"/>
+                        <p:lightBox styleClass="imagebox" id="galleryLightBox" rendered="#{userPartViewBean.item.myConfig.hasGallery and userPartViewBean.item.galleryId>0}">
                             <ui:repeat value="#{userPartViewBean.galleryImages}" var="row" varStatus="status">
                                 <h:outputLink value="..#{row.imgPath}" title="#{row.title}">  
                                     <h:graphicImage url="..#{row.imgPath}" style="height: 77px; width: 100px; padding:1px;" />                                    
@@ -68,7 +68,8 @@
                             </ui:repeat>
                         </p:lightBox>
                     </div>
-                    <hr/>  
+                    <hr/>
+                    <div class="commentsHolder">  
                     <h:form>
                         <h:link styleClass="commandLink" value="#{msgs.leave_comment}" outcome="leaveComment" rendered="#{loginBean.isLoginOk}">
                             <f:param name="componentTypeId" value="#{userPartViewBean.typeId}"/>
@@ -76,7 +77,6 @@
                             <f:param name="holderId" value="#{userPartViewBean.item.itemId}"/>
                         </h:link>
                     </h:form>
-                    <div class="commentsHolder">
                         <h:outputText value="#{msgs.comments}: #{userPartViewBean.publishedCommentsCount}"/>
                         <hr/>
                         <h:outputText value="#{msgs.no_comments}" rendered="#{userPartViewBean.commentListEmpty}"/>

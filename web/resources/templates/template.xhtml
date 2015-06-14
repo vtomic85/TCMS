@@ -16,62 +16,65 @@
         </h:head>
         <h:body>
             <f:facet name="last">
-                <h:outputStylesheet library="css" name="style.css" />
+                <h:outputStylesheet library="css" name="style.css"/>
                 <h:outputScript library="js" name="jquery-2.1.3.min.js"/>
             </f:facet>
             <div class="container">
-                <div class="topHolder">
-                    <h:form id="topHolderForm" onkeypress="if (event.keyCode == 13) {
+                <div id="headerHolder">
+                    <div class="topHolder">
+                        <h:form id="topHolderForm" onkeypress="if (event.keyCode == 13) {
                                 document.getElementById('topHolderForm:loginButton').click();
                                 return false;
                             }">
-                        <div class="adminHolder">                            
-                            <h:commandLink value="#{msgs.home}" action="home" styleClass="commandLink"/>
-                            <h:commandLink value="#{msgs.adminLink}" action="adminHome" styleClass="commandLink" rendered="#{loginBean.isAdmin}"/>
-                            <h:commandLink value="#{msgs.inbox}" action="inbox" styleClass="commandLink" rendered="#{loginBean.isLoginOk and unreadMessagesBean.unreadCount==0}"/>
-                            <h:commandLink value="#{msgs.inbox}(#{unreadMessagesBean.unreadCount})" action="inbox" styleClass="commandLink commandLinkUnreadMsgs" rendered="#{loginBean.isLoginOk and unreadMessagesBean.unreadCount>0}"/>
-                            <h:selectOneMenu value="#{localeBean.language}" onchange="submit()">
-                                <f:selectItem itemValue="en" itemLabel="English"/>
-                                <f:selectItem itemValue="sr" itemLabel="Srpski"/>
-                            </h:selectOneMenu>
-                            <div class="loginDiv">
-                                <h:outputLabel value="#{msgs.username}:&nbsp;" styleClass="formOutputLabel" rendered="#{!loginBean.isLoginOk}"/>
-                                <p:inputText value="#{loginBean.username}" styleClass="formInputText" rendered="#{!loginBean.isLoginOk}"/>
-                                <h:outputLabel value="&nbsp;"/>
-                                <h:outputLabel value="#{msgs.password}:&nbsp;" styleClass="formOutputLabel" rendered="#{!loginBean.isLoginOk}"/>
-                                <p:password value="#{loginBean.password}" styleClass="formInputText" rendered="#{!loginBean.isLoginOk}"/>
-                                <p:commandLink id="loginButton" value="#{msgs.login}" action="#{loginBean.login}" styleClass="commandLink" update="@form" rendered="#{!loginBean.isLoginOk}"/>                                                            
-                                <h:commandLink styleClass="commandLink" value="#{msgs.signup}" action="userRegistration" rendered="#{!loginBean.isLoginOk}"/>
-                                <h:outputLabel value="#{msgs.welcome}&nbsp;" rendered="#{loginBean.isLoginOk}" styleClass="welcomeMessageWelcome"/>
-                                <h:link outcome="userProfilePage" styleClass="welcomeMessageUsername">
-                                    <h:outputLabel value="#{loginBean.user.username}" rendered="#{loginBean.isLoginOk}"/>
-                                </h:link>
-                                <h:graphicImage url="#{loginBean.user.imgPath}" rendered="#{loginBean.isLoginOk}" styleClass="loginImg floatLeft"/>
-                                <h:commandLink styleClass="commandLink floatLeft" value="#{msgs.my_profile}" action="userProfilePage" rendered="#{loginBean.isLoginOk}"/>
-                                <p:commandLink value="#{msgs.logout}" action="#{loginBean.logout}" styleClass="commandLink floatLeft" update="@form" rendered="#{loginBean.isLoginOk}"/>
+                            <div class="adminHolder">                            
+                                <h:commandLink value="#{msgs.home}" action="home" styleClass="commandLink homeCommandLink100"/>
+                                <h:commandLink value="#{msgs.adminLink}" action="adminHome" styleClass="commandLink" rendered="#{loginBean.isAdmin}"/>
+                                <h:commandLink value="#{msgs.inbox}" action="inbox" styleClass="commandLink" rendered="#{loginBean.isLoginOk and unreadMessagesBean.unreadCount==0}"/>
+                                <h:commandLink value="#{msgs.inbox}(#{unreadMessagesBean.unreadCount})" action="inbox" styleClass="commandLink commandLinkUnreadMsgs" rendered="#{loginBean.isLoginOk and unreadMessagesBean.unreadCount>0}"/>
+                                <h:selectOneMenu value="#{localeBean.language}" onchange="submit()" class="languageSelector">
+                                    <f:selectItem itemValue="en" itemLabel="English"/>
+                                    <f:selectItem itemValue="sr" itemLabel="Srpski"/>
+                                </h:selectOneMenu>
+                                <div class="loginDiv">
+                                    <h:outputLabel value="#{msgs.username}:&nbsp;" styleClass="formOutputLabel topLoginLabel" rendered="#{!loginBean.isLoginOk}"/>
+                                    <p:inputText value="#{loginBean.username}" styleClass="formInputText topInputLabel" rendered="#{!loginBean.isLoginOk}"/>
+                                    <h:outputLabel value="&nbsp;"/>
+                                    <h:outputLabel value="#{msgs.password}:&nbsp;" styleClass="formOutputLabel topLoginLabel" rendered="#{!loginBean.isLoginOk}"/>
+                                    <p:password value="#{loginBean.password}" styleClass="formInputText topInputLabel" rendered="#{!loginBean.isLoginOk}"/>
+                                    <p:commandLink id="loginButton" value="#{msgs.login}" action="#{loginBean.login}" styleClass="commandLink homeCommandLink50" update="@form" rendered="#{!loginBean.isLoginOk}"/>                                                            
+                                    <h:commandLink styleClass="commandLink homeCommandLink50" value="#{msgs.signup}" action="userRegistration" rendered="#{!loginBean.isLoginOk}"/>
+                                    <h:outputLabel value="#{msgs.welcome}&nbsp;" rendered="#{loginBean.isLoginOk}" styleClass="welcomeMessageWelcome"/>
+                                    <h:link outcome="userProfilePage" styleClass="welcomeMessageUsername">
+                                        <h:outputLabel value="#{loginBean.user.username}" rendered="#{loginBean.isLoginOk}"/>
+                                    </h:link>
+                                    <h:graphicImage url="#{loginBean.user.imgPath}" rendered="#{loginBean.isLoginOk}" styleClass="loginImg floatLeft"/>
+                                    <h:commandLink styleClass="commandLink floatLeft" value="#{msgs.my_profile}" action="userProfilePage" rendered="#{loginBean.isLoginOk}"/>
+                                    <p:commandLink value="#{msgs.logout}" action="#{loginBean.logout}" styleClass="commandLink floatLeft" update="@form" rendered="#{loginBean.isLoginOk}"/>
+                                </div>
                             </div>
-                        </div>
-                    </h:form>
+                        </h:form>
+                    </div>
+                    <div class="header">
+                        <ui:insert name="header">
+                            <h:link outcome="home">
+                                <h:graphicImage value="/resources/img/cms/headerFront.png" styleClass="headerImage" />
+                            </h:link>
+                        </ui:insert>
+                    </div>
                 </div>
-                <div class="header">
-                    <ui:insert name="header">
-                        <h:link outcome="home">
-                            <h:graphicImage value="/resources/img/cms/headerFront.png" styleClass="headerImage" />
-                        </h:link>
-                    </ui:insert>
+                <div id="contentHolder">
+                    <div class="leftStripe">
+                        <ui:insert name="leftStripe">&nbsp;</ui:insert>
+                    </div>
+                    <div class="mainStripe">
+                        <ui:insert name="mainStripe">&nbsp;</ui:insert>                
+                    </div>
+                    <div class="rightStripe">
+                        <ui:insert name="rightStripe">&nbsp;</ui:insert>
+                    </div>
                 </div>
-                <div class="leftStripe">
-                    <ui:insert name="leftStripe">&nbsp;</ui:insert>
-                </div>
-                <div class="mainStripe">
-                    <ui:insert name="mainStripe">&nbsp;</ui:insert>                
-                </div>
-                <div class="rightStripe">
-                    <ui:insert name="rightStripe">&nbsp;</ui:insert>
-                </div>
-
             </div>
-            <div class="footer">
+            <div id="footerHolder">
                 <ui:insert name="footer">
                     <tcms:bottomMenu/>
                 </ui:insert>

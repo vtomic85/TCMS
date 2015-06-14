@@ -22,13 +22,11 @@
                         <h:outputLabel value="#{msgs.title}"/>
                         <h:inputText value="#{pageFormBean.page.title}"/>
                         <h:outputLabel value="#{msgs.subtitle}"/>
-                        <h:inputText value="#{pageFormBean.page.subtitle}"/>
+                        <h:inputTextarea value="#{pageFormBean.page.subtitle}" cols="100" rows="3"/>
                         <h:outputLabel value="#{msgs.body}"/>
                         <p:editor value="#{pageFormBean.page.body}"/>
                         <h:outputLabel value="#{msgs.author}"/>
                         <h:inputText value="#{pageFormBean.page.author}"/>
-                        <h:outputLabel value="#{msgs.date_created}"/>
-                        <p:calendar value="#{pageFormBean.page.dateCreated}"/>
                         <h:outputLabel value="#{msgs.holder}"/>
                         <h:selectOneMenu id="holderId" value="#{pageFormBean.page.itemId}">
                             <f:selectItem itemValue="0" itemLabel="---"/>

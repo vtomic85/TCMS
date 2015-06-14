@@ -47,7 +47,7 @@
                         <h:outputLabel value="${eventViewBean.item.lead}"/>
                     </div>
                     <div class="itemPicture">
-                        <h:graphicImage value="#{eventViewBean.item.imgPath}" rendered="#{eventViewBean.item.imgPath!=null}" height="300"/>
+                        <h:graphicImage value="#{eventViewBean.item.imgPath}" rendered="#{eventViewBean.item.imgPath!=null}" height="100%"/>
                     </div>
                     <div class="itemBody">
                         <h:outputText value="${eventViewBean.item.body}" escape="false"/>
@@ -64,14 +64,15 @@
                         </p:lightBox>
                     </div>
                     <hr/>                    
-                    <h:form>
-                        <h:link styleClass="commandLink" value="#{msgs.leave_comment}" outcome="leaveComment" rendered="#{loginBean.isLoginOk}">
-                            <f:param name="componentTypeId" value="#{eventViewBean.typeId}"/>
-                            <f:param name="componentId" value="#{eventViewBean.item.id}"/>
-                            <f:param name="holderId" value="#{eventViewBean.item.itemId}"/>
-                        </h:link>
-                    </h:form>
+
                     <div class="commentsHolder">
+                        <h:form class="itemCommentLeaveForm">
+                            <h:link styleClass="commandLink" value="#{msgs.leave_comment}" outcome="leaveComment" rendered="#{loginBean.isLoginOk}">
+                                <f:param name="componentTypeId" value="#{eventViewBean.typeId}"/>
+                                <f:param name="componentId" value="#{eventViewBean.item.id}"/>
+                                <f:param name="holderId" value="#{eventViewBean.item.itemId}"/>
+                            </h:link>
+                        </h:form>
                         <h:outputText value="#{msgs.comments}: #{eventViewBean.publishedCommentsCount}"/>
                         <hr/>
                         <h:outputText value="#{msgs.no_comments}" rendered="#{eventViewBean.commentListEmpty}"/>

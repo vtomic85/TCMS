@@ -44,11 +44,12 @@
                         <h:outputLabel value="#{pageViewBean.item.subtitle}"/>
                     </div>
                     <div class="itemPicture">
-                        <h:graphicImage value="#{pageViewBean.item.imgPath}" rendered="#{pageViewBean.item.imgPath!=null}" height="300"/>
+                        <h:graphicImage value="#{pageViewBean.item.imgPath}" rendered="#{pageViewBean.item.imgPath!=null}" height="100%"/>
                     </div>
                     <div class="itemBody">
                         <h:outputText value="#{pageViewBean.item.body}" escape="false"/>
                     </div>
+                    <div class="commentsHolder">
                     <h:form>
                         <h:link styleClass="commandLink" value="#{msgs.leave_comment}" outcome="leaveComment" rendered="#{loginBean.isLoginOk}">
                             <f:param name="componentTypeId" value="#{pageViewBean.typeId}"/>
@@ -56,7 +57,6 @@
                             <f:param name="holderId" value="#{pageViewBean.item.itemId}"/>
                         </h:link>
                     </h:form>
-                    <div class="commentsHolder">
                         <h:outputText value="#{msgs.comments}: #{pageViewBean.publishedCommentsCount}"/>
                         <hr/>
                         <h:outputText value="#{msgs.no_comments}" rendered="#{pageViewBean.commentListEmpty}"/>

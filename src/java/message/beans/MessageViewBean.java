@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import message.dao.MessageDAO;
 import message.model.Message;
+import platform.model.Commons;
+import utils.Utils;
 
 /**
  *
@@ -32,7 +34,9 @@ public class MessageViewBean {
     }
 
     public String delete() {
-        MessageDAO.delete(message);
+        message.setFolderId(Commons.MESSAGEFOLDER_DELETED);
+        message.calcUtilToSqlDates();
+        MessageDAO.update(message);
         return "inbox";
     }
 

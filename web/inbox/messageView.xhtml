@@ -17,12 +17,12 @@
             <ui:define name="mainStripe">
                 <h:form id="messageViewForm" class="formFullWidth">
                     <h:panelGrid columns="2">
-                        <h:outputLabel value="#{msgs.from}"/>
+                        <h:outputLabel value="#{msgs.from}: " styleClass="msgInboxOutputLabel"/>
                         <h:outputLabel value="#{messageViewBean.message.fromUsername}"/>
-                        <h:outputLabel value="#{msgs.subject}"/>
+                        <h:outputLabel value="#{msgs.subject}: " styleClass="msgInboxOutputLabel"/>
                         <h:outputLabel value="#{messageViewBean.message.subject}"/>
-                        <h:outputLabel value="#{msgs.body}"/>
-                        <h:outputText value="#{messageViewBean.message.body}" escape="false"/>
+                        <h:outputLabel value="#{msgs.body}: " styleClass="msgInboxOutputLabel"/>
+                        <h:outputText value="#{messageViewBean.message.body}" escape="false" styleClass="msgBody"/>
                     </h:panelGrid>
                     <h:link value="#{msgs.reply}" outcome="editMessage" styleClass="commandLink">
                         <f:param name="messageId" value="#{messageViewBean.message.id}"/>

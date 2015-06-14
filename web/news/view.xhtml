@@ -52,15 +52,15 @@
                         <h:outputLabel value="${newsViewBean.item.lead}"/>
                     </div>    
                     <div class="itemPicture">
-                        <h:graphicImage value="#{newsViewBean.item.imgPath}" rendered="#{newsViewBean.item.imgPath!=null}" height="300"/>
+                        <h:graphicImage value="#{newsViewBean.item.imgPath}" rendered="#{newsViewBean.item.imgPath!=null}" height="100%"/>
                     </div>
                     <div class="itemBody">
                         <h:outputText value="${newsViewBean.item.body}" escape="false"/>
                     </div>
                     <hr/>
                     <div class="itemGallery">
-                        <h:outputLabel value="#{msgs.gallery}" styleClass="galleryLabel"/>
-                        <p:lightBox styleClass="imagebox" id="galleryLightBox">
+                        <h:outputLabel value="#{msgs.gallery}" styleClass="galleryLabel" rendered="#{newsViewBean.item.galleryId>0}"/>
+                        <p:lightBox styleClass="imagebox" id="galleryLightBox" rendered="#{newsViewBean.item.galleryId>0}">
                             <ui:repeat value="#{newsViewBean.galleryImages}" var="row" varStatus="status">
                                 <h:outputLink value="..#{row.imgPath}" title="#{row.title}">  
                                     <h:graphicImage url="..#{row.imgPath}" style="height: 77px; width: 100px; padding:1px;" />                                    
@@ -68,7 +68,8 @@
                             </ui:repeat>
                         </p:lightBox>
                     </div>
-                    <hr/>  
+                    <hr/>
+                    <div class="commentsHolder">  
                     <h:form>
                         <h:link styleClass="commandLink" value="#{msgs.leave_comment}" outcome="leaveComment" rendered="#{loginBean.isLoginOk}">
                             <f:param name="componentTypeId" value="#{newsViewBean.typeId}"/>
@@ -76,7 +77,6 @@
                             <f:param name="holderId" value="#{newsViewBean.item.itemId}"/>
                         </h:link>
                     </h:form>
-                    <div class="commentsHolder">
                         <h:outputText value="#{msgs.comments}: #{newsViewBean.publishedCommentsCount}"/>
                         <hr/>
                         <h:outputText value="#{msgs.no_comments}" rendered="#{newsViewBean.commentListEmpty}"/>

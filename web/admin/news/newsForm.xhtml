@@ -22,7 +22,7 @@
                         <h:outputLabel value="#{msgs.title}"/>
                         <h:inputText value="#{newsFormBean.news.title}"/>
                         <h:outputLabel value="#{msgs.lead}"/>
-                        <h:inputText value="#{newsFormBean.news.lead}"/>
+                        <h:inputTextarea value="#{newsFormBean.news.lead}" cols="100" rows="3"/>
                         <h:outputLabel value="#{msgs.body}"/>
                         <p:editor value="#{newsFormBean.news.body}"/>
                         <h:outputLabel value="#{msgs.author}"/>
