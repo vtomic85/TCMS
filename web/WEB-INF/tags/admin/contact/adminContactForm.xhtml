@@ -38,8 +38,6 @@
                     <h:outputLabel value="#{msgs.foursquare}" styleClass="contactFormOutputLabel"/><br/>
                     <h:inputText value="#{contactBean.contact.foursquare}"  styleClass="formInputText" size="100"/><br/>
 
-                    <h:outputLabel value="#{msgs.gmap}" styleClass="contactFormOutputLabel"/><br/>
-                    <h:inputText value="#{contactBean.contact.gmap}" styleClass="formInputText" size="100"/><br/>
                     <h:commandButton id="adminContactSaveButton" value="#{msgs.save}" action="#{contactBean.update}" styleClass="commandLink"/>
                     <div class="rowDiv">
                         <h:message id="contactUpdate" for="contactUpdate"/>

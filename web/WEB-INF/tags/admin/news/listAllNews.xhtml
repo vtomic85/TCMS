@@ -23,10 +23,14 @@
                         <h:outputText value="#{row.author}"/>
                     </p:column>
                     <p:column headerText="#{msgs.date_created}" sortBy="#{row.dateCreated}" filterBy="#{row.dateCreated}">
-                        <h:outputText value="#{row.dateCreated}"/>
+                        <h:outputText value="#{row.dateCreated}">
+                            <f:convertDateTime pattern="dd.MM.yyyy."/>
+                        </h:outputText>
                     </p:column>
                     <p:column headerText="#{msgs.date_modified}" sortBy="#{row.dateModified}" filterBy="#{row.dateModified}">
-                        <h:outputText value="#{row.dateModified}"/>
+                        <h:outputText value="#{row.dateModified}">
+                            <f:convertDateTime pattern="dd.MM.yyyy."/>
+                        </h:outputText>
                     </p:column>                    
                     <p:column headerText="#{msgs.category_name}" sortBy="#{row.categoryName}" filterBy="#{row.categoryName}">
                         <h:outputText value="#{row.categoryName}"/>

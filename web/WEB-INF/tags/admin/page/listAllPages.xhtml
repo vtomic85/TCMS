@@ -20,7 +20,9 @@
                         <h:outputText value="#{row.author}"/>
                     </p:column>
                     <p:column headerText="#{msgs.date_created}" sortBy="#{row.dateCreated}" filterBy="#{row.dateCreated}">
-                        <h:outputText value="#{row.dateCreated}"/>
+                        <h:outputText value="#{row.dateCreated}">
+                            <f:convertDateTime pattern="dd.MM.yyyy."/>
+                        </h:outputText>
                     </p:column>
                     <p:column headerText="#{msgs.published}" sortBy="#{row.published}" filterBy="#{row.published}">
                         <h:outputText value="#{row.published}"/>

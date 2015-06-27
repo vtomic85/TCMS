@@ -10,20 +10,20 @@
         <ui:composition>
             <h:form style="border:1px solid black; float:left; width:100%;">
                 <ul class="indexFullPartTitleList">
-                    <ui:repeat value="#{latestPages.list}" var="row" varStatus="status" rendered="#{!latestPages.listEmpty}" size="3">
-                        <li class="indexFullPartTitleListItem indexFullPartTitleListItem#{status.index}">
-                            <h:outputLink value="page/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=7" title="#{row.title}" styleClass="indexFullPartTitleHolder">
-                                <h:outputText value="#{row.title}" styleClass="indexFullPartTitleText"/>
+                    <ui:repeat value="#{latestPages.list}" var="row1" varStatus="status1" rendered="#{!latestPages.listEmpty}" size="3">
+                        <li class="indexFullPartTitleListItem indexFullPartTitleListItem#{status1.index}">
+                            <h:outputLink value="page/view.xhtml?itemId=#{row1.id}&amp;holderId=#{row1.itemId}&amp;itemTypeId=7" title="#{row1.title}" styleClass="indexFullPartTitleHolder">
+                                <h:outputText value="#{row1.title}" styleClass="indexFullPartTitleText"/>
                             </h:outputLink>
                         </li>
                     </ui:repeat>
                 </ul>
                 <ul class="indexFullPartItemList">
-                    <ui:repeat value="#{latestPages.list}" var="row" varStatus="status" rendered="#{!latestPages.listEmpty}" size="3">
-                        <li class="indexFullPartItemListItem indexFullPartItemListItem#{status.index}">                            
-                            <h:graphicImage value="#{row.imgPath}" styleClass="indexFullPartImage"/>
+                    <ui:repeat value="#{latestPages.list}" var="row2" varStatus="status2" rendered="#{!latestPages.listEmpty}" size="3">
+                        <li class="indexFullPartItemListItem indexFullPartItemListItem#{status2.index}">                            
+                            <h:graphicImage value="#{row2.imgPath}" styleClass="indexFullPartImage"/>
                             <div class="fullPartLeadTextHolder">
-                                <h:outputText value="#{row.subtitle.length() gt 160 ? row.subtitle.substring(0,160).concat('...') : row.subtitle}" styleClass="indexFullPartLead"/>
+                                <h:outputText value="#{row2.subtitle.length() gt 160 ? row2.subtitle.substring(0,160).concat('...') : row2.subtitle}" styleClass="indexFullPartLead"/>
                             </div>
                         </li>
                     </ui:repeat>

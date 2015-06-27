@@ -10,21 +10,21 @@
         <ui:composition>
             <h:form style="border:1px solid black; float:left; width:100%;">
                 <ul class="indexFullPartTitleList">
-                    <ui:repeat value="#{latestUserParts.list}" var="row" varStatus="status" rendered="#{!latestUserParts.listEmpty}" size="3">
-                        <li class="indexFullPartTitleListItem indexFullPartTitleListItem#{status.index}">
-                            <h:outputLink value="userpart/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=20" title="#{row.title}" styleClass="indexFullPartTitleHolder">
-                                <h:outputText value="#{row.title}" styleClass="indexFullPartTitleText"/>
+                    <ui:repeat value="#{latestUserParts.list}" var="row1" varStatus="status1" rendered="#{!latestUserParts.listEmpty}" size="3">
+                        <li class="indexFullPartTitleListItem indexFullPartTitleListItem#{status1.index}">
+                            <h:outputLink value="userpart/view.xhtml?itemId=#{row1.id}&amp;holderId=#{row1.itemId}&amp;itemTypeId=20" title="#{row1.title}" styleClass="indexFullPartTitleHolder">
+                                <h:outputText value="#{row1.title}" styleClass="indexFullPartTitleText"/>
                             </h:outputLink>
                         </li>
                     </ui:repeat>
                 </ul>
                 <ul class="indexFullPartItemList">
-                    <ui:repeat value="#{latestUserParts.list}" var="row" varStatus="status" rendered="#{!latestUserParts.listEmpty}" size="3">
-                        <li class="indexFullPartItemListItem indexFullPartItemListItem#{status.index}">                            
-                            <h:graphicImage value="#{row.imgPath}" rendered="#{row.imgPath!=null}" styleClass="indexFullPartImage"/>
-                            <h:graphicImage value="resources/img/cms/tcms_noimg_154090.png" rendered="#{row.imgPath==null}" styleClass="indexFullPartImage"/>
+                    <ui:repeat value="#{latestUserParts.list}" var="row2" varStatus="status2" rendered="#{!latestUserParts.listEmpty}" size="3">
+                        <li class="indexFullPartItemListItem indexFullPartItemListItem#{status2.index}">                            
+                            <h:graphicImage value="#{row2.imgPath}" rendered="#{row2.imgPath!=null}" styleClass="indexFullPartImage"/>
+                            <h:graphicImage value="resources/img/cms/tcms_noimg_154090.png" rendered="#{row2.imgPath==null}" styleClass="indexFullPartImage"/>
                             <div class="fullPartLeadTextHolder">
-                                <h:outputText value="#{row.lead.length() gt 160 ? row.lead.substring(0,160).concat('...') : row.lead}" styleClass="indexFullPartLead"/>
+                                <h:outputText value="#{row2.lead.length() gt 160 ? row2.lead.substring(0,160).concat('...') : row2.lead}" styleClass="indexFullPartLead"/>
                             </div>
                         </li>
                     </ui:repeat>

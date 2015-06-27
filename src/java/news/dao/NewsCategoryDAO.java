@@ -48,6 +48,7 @@ public class NewsCategoryDAO {
     }
 
     public static NewsCategory getById(long id) {
+        System.out.println("DEBUG ::: NCDAO:getById=" + id);
         return getWhere("id=" + id);
     }
 
@@ -55,9 +56,13 @@ public class NewsCategoryDAO {
         NewsCategory news_category = new NewsCategory();
         try {
             genericQuery = "SELECT * FROM news_category WHERE " + where;
+            System.out.println("DEBUG ::: NCDAO:query=" + genericQuery);
             prepare(genericQuery);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+                System.out.println("DEBUG ::: NCDAO:adding:" + rs.getLong("id")
+                        + ", " + rs.getLong("parent_id")
+                        + ", " + rs.getString("name"));
                 news_category = new NewsCategory(
                         rs.getLong("id"),
                         rs.getLong("parent_id"),

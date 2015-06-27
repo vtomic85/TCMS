@@ -26,6 +26,7 @@ $(document).ready(function() {
 
     // Full parts
     $(".indexFullPartTitleListItem").mouseover(function() {
+        console.log("OVER!");
         var ord = $(this).index();
         $(this).css("background-color", "red");
         $(this).siblings().css("background-color", "black");

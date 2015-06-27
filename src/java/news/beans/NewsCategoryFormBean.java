@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package news.beans;
 
 import java.util.LinkedList;
@@ -19,6 +18,7 @@ import news.model.NewsCategory;
 @ManagedBean
 @ViewScoped
 public class NewsCategoryFormBean {
+
     private NewsCategory nc;
     private long ncId;
     private LinkedList<NewsCategory> parents;
@@ -30,8 +30,10 @@ public class NewsCategoryFormBean {
     public void init() {
         parents = new LinkedList<>();
         parents = NewsCategoryDAO.getAll();
+        System.out.println("DEBUG ::: NCFB:init, id=" + ncId);
         if (ncId > 0) {
             nc = NewsCategoryDAO.getById(ncId);
+            System.out.println("DEBUG ::: NCFB:init:nc=" + nc.getId() + ", " + nc.getParentName() + ", " + nc.getName());
         } else {
             nc = new NewsCategory();
         }
