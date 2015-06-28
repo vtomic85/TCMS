@@ -53,10 +53,35 @@ public class RegionPartDAO {
         return getAllWhere("1=1");
     }
 
+    public static ArrayList<RegionPart> getAllForRegion(int regionId) {
+        return getAllWhere("region_id=" + regionId);
+    }
+
     public static ArrayList<RegionPart> getAllWhere(String where) {
         ArrayList<RegionPart> regionParts = new ArrayList<>();
         try {
             genericQuery = "SELECT * FROM region_part WHERE " + where;
+            prepare(genericQuery);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                regionParts.add(new RegionPart(
+                        rs.getInt("id"),
+                        rs.getInt("region_id"),
+                        rs.getLong("part_id"),
+                        rs.getInt("ord"),
+                        rs.getString("title"),
+                        rs.getLong("toplist_id")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegionPartDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return regionParts;
+    }
+
+    public static ArrayList<RegionPart> getAllWhereOrdBy(String where, String order) {
+        ArrayList<RegionPart> regionParts = new ArrayList<>();
+        try {
+            genericQuery = "SELECT * FROM region_part WHERE " + where + " ORDER BY " + order;
             prepare(genericQuery);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

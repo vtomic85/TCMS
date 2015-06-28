@@ -78,7 +78,7 @@ public class RegionPartFormBean {
         regionPart.setRegionId(regionId);
         regionPart.setPartId(partId);
         regionPart.setTopListId(topListId);
-        regionPart.setOrd(RegionPartDAO.getAll().size() + 1);
+        regionPart.setOrd(RegionPartDAO.getAllForRegion(regionId).size() + 1);
         if (regionPartId == 0) {
             int newId = RegionPartDAO.add(regionPart);
             regionPart.setId(newId);

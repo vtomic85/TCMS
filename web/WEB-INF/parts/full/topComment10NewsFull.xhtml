@@ -14,7 +14,7 @@
                         <li>
                             <h:outputLink value="news/view.xhtml?itemId=#{row.id}&amp;holderId=#{row.itemId}&amp;itemTypeId=8" title="#{row.title}" styleClass="indexPartTitleHolder">
                                 <h:outputText value="#{row.title}" styleClass="indexPartTitleText"/>
-                                <h:outputText value="#{row.comments}" styleClass="indexPartDateText"/>
+                                <h:outputText value="#{msgs.comments}: #{row.comments}" styleClass="indexPartDateText"/>
                             </h:outputLink> 
                         </li>
                     </ui:repeat>

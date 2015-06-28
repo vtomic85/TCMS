@@ -51,7 +51,7 @@ public class RegionPartsListBean {
         } else {
             regionParts.clear();
         }
-        regionParts = RegionPartDAO.getAllWhere("region_id=" + regionId);
+        regionParts = RegionPartDAO.getAllWhereOrdBy("region_id=" + regionId, "ord");
     }
 
     public String changeRegion(int regionId) {

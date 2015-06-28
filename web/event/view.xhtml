@@ -84,11 +84,15 @@
                                         <f:convertDateTime pattern="dd.MM.yyyy."/>
                                     </h:outputText>
                                     <div class="commentRateHolder">
-                                        <h:commandLink value="#{row.positiveVotes}&nbsp;&uArr;" action="#{eventViewBean.upvote}" styleClass="commentVoteButton commentPositiveVote" rendered="#{loginBean.isLoginOk and !pageViewBean.isAlreadyRated(row.id)}">
+                                        <h:outputLabel value="+#{row.positiveVotes}" styleClass="commentPositiveVotes"/>
+                                        <h:outputLabel value="-#{row.negativeVotes}" styleClass="commentNegativeVotes"/>
+                                    </div>
+                                    <div class="commentRateHolder">
+                                        <h:commandLink value="&uArr;" action="#{eventViewBean.upvote}" styleClass="commentVoteButton commentPositiveVote" rendered="#{loginBean.isLoginOk and !pageViewBean.isAlreadyRated(row.id)}">
                                             <f:param name="commentId" value="#{row.id}"/>
                                             <f:ajax render="@form"/>
                                         </h:commandLink>
-                                        <h:commandLink value="#{row.negativeVotes}&nbsp;&dArr;" action="#{eventViewBean.downvote}" styleClass="commentVoteButton commentNegativeVote" rendered="#{loginBean.isLoginOk and !pageViewBean.isAlreadyRated(row.id)}">
+                                        <h:commandLink value="&dArr;" action="#{eventViewBean.downvote}" styleClass="commentVoteButton commentNegativeVote" rendered="#{loginBean.isLoginOk and !pageViewBean.isAlreadyRated(row.id)}">
                                             <f:param name="commentId" value="#{row.id}"/>
                                             <f:ajax render="@form"/>
                                         </h:commandLink>

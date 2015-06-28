@@ -17,7 +17,7 @@
         <ui:composition template="/resources/templates/adminTemplate.xhtml">
             <ui:define name="adminContent">
                 <h:form id="adminRegionPartFormForm" class="formFullWidth" enctype="multipart/form-data">
-                    <h:outputLabel value="#{regionPartFormBean.regionName}"/>
+                    <h:outputLabel value="#{regionPartFormBean.regionName}" styleClass="regionTitle"/>
                     <h:panelGrid columns="2">
                         <h:outputLabel value="#{msgs.part}"/>
                         <h:selectOneMenu id="regionPartList" value="#{regionPartFormBean.partId}" onchange="submit()">
